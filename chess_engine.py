@@ -16,8 +16,8 @@ class GameState:
         self.white_to_play = True
         self.game_over = False
 
-        self.can_castle_kingside = {'W':True, 'B':True}
-        self.can_castle_queenside = {'W':True, 'B':True}
+        self.ks_castle_rights = {'W':True, 'B':True}
+        self.qs_castle_rights = {'W':True, 'B':True}
 
         self.moves = []
 
@@ -91,19 +91,22 @@ class Move:
             # one square in any direction, diagonals included
             if abs(self.c_0 - self.c_1) <= 1 and abs(self.r_0 - self.r_1) <= 1:
                 legal = True
+
+        # pawns can do a lot of garbage   
         elif self.pc.endswith('P'):
             # pawns can move 2 on the 2nd and 7th ranks only
             thresh = 2 if self.r_0 in [1,6] else 1
 
             # black pawns move up, white pawns move down
             orientation = 1 if self.pc.startswith('B') else -1
+
             if self.board[self.r_1][self.c_1] == '--' and self.c_0 == self.c_1 and 0 <= (orientation) * (self.r_1 - self.r_0) <= thresh:
                 legal = True
             
             # pawns capture diagonally one square in front of them:
-            # there needs to be an opponents piece there
+            # there needs to be an opponents piece there (not yours or empty)
             if abs(c_diff) == 1 and self.r_0 + orientation == self.r_1 and self.pc[0] not in ['--', self.board[self.r_1][self.c_1][0]]:
-                return True
+                legal = True
 
         return legal
 
@@ -113,4 +116,15 @@ class Move:
             self.board[self.r_0][self.c_0] = '--'
             self.board[self.r_1][self.c_1] = pc
             self.gs.white_to_play = not self.gs.white_to_play
-        self.gs.moves.append(self)
+
+            # revoke castling rights if king or rook moved
+            if pc[-1] == 'K':
+                self.gs.ks_castle_rights[pc] = False
+                self.gs.qs_castle_rights[pc] = False
+
+            if self.c_0 == 7 and pc[-1] == 'R':
+                self.gs.ks_castle_rights[pc] = False
+            if self.c_0 == 0 and pc[-1] == 'R':
+                self.gs.qs_castle_rights[pc] = False
+            
+            self.gs.moves.append(self)
