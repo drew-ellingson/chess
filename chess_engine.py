@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Tuple, List, Dict
 
-from valid_moves import DIFFS
+from utilities.valid_moves import DIFFS
 from utilities.basic_fns import _add, _mult, _sub, sign
 
 
@@ -31,6 +31,9 @@ class GameState:
     qs_castle_rights: Dict[str, bool] = field(
         default_factory=lambda: {"W": True, "B": True}
     )
+
+    is_check: bool = field(default = False)
+    is_checkmate: bool = field(default=False)
 
     moves: List[Move] = field(default_factory=lambda: [])
 
@@ -147,7 +150,7 @@ class Move:
             self.sq_0[1] != self.sq_1[1]
             and self.gs.get_piece(*self.sq_1) == "--"
             and not self.is_en_pesant()
-        ):  # can only capture diagonally into a piece
+        ):  # can only capture diagonally into a piece unless en pesant
             return False
 
         return True
@@ -158,7 +161,7 @@ class Move:
         try:
             prior_move = self.gs.moves[-1]
         except:
-            return False  # en pesant on turn 1
+            return False  # en pesant on turn 1 impossible
 
         match_prev_col = prior_move.sq_1[1] == self.sq_1[1]
         same_row = prior_move.sq_1[0] == self.sq_0[0]
@@ -168,10 +171,10 @@ class Move:
         return match_prev_col and same_row and was_home_row and empty_target
 
     def is_legal(self):
-        if self.out_of_bounds(self.sq_1):
-            return False
-
         if self.is_other_persons_turn():
+            return False
+        
+        if self.out_of_bounds(self.sq_1):
             return False
 
         if self.diff not in DIFFS[self.pc[-1]]:
@@ -201,6 +204,6 @@ class Move:
 
 # Castle: always looks exactly the same. just hardcode it.
 
-# En Passant: keep last move
-
 # Checkmate: in_check + no legal moves
+            
+# Promotion
