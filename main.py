@@ -53,6 +53,11 @@ def main():
                 
                 if len(player_clicks) == 2:
                     move = ce.Move(gs, player_clicks[0], player_clicks[1])
+                    valid_moves = ce.GameState.gen_valid_pc_moves(gs, player_clicks[0])
+
+                    print(move)
+                    print(valid_moves)
+
                     move.execute()
                     player_clicks.clear()
                     curr_sq = ()          
