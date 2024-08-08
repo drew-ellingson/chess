@@ -1,7 +1,7 @@
 from typing import List
 
 import pygame as p
-from engine import GameState
+from engine import GameState, Move
 
 WIDTH = HEIGHT = 512
 DIMENSION = 8
@@ -21,7 +21,7 @@ def load_images() -> None:
 
 
 def main() -> None:
-    """Main game loop"""
+    """Initialize necessary pygame components and then enter main game loop"""
 
     p.init()
     screen = p.display.set_mode((WIDTH, HEIGHT))
@@ -34,10 +34,31 @@ def main() -> None:
     running = True
 
     # game loop
+
+    sq_selected = ()  # (row, col) for last user-clicked sq
+    player_clicks = []  # keep track of last two clicks for moves
     while running:
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
+
+            if e.type == p.MOUSEBUTTONDOWN:
+                x, y = p.mouse.get_pos()
+                col, row = x // SQ_SIZE, y // SQ_SIZE
+
+                if sq_selected != (row, col):
+                    sq_selected = (row, col)
+                    player_clicks.append(sq_selected)
+                else:
+                    sq_selected = ()
+                    player_clicks = []
+
+                if len(player_clicks) == 2:
+                    move = Move(player_clicks[0], player_clicks[1], gs.board)
+                    gs.make_move(move)
+                    print(move.notation)
+                    sq_selected = ()
+                    player_clicks = []
 
         draw_game_state(screen, gs)
 

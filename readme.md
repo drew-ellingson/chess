@@ -7,10 +7,12 @@ This is a learning project to create a chess engine in python.
 #### Manually playing both sides:
 
 - [x] ~~Basic board setup~~ 
+- [x] ~~Moving pieces w/ no validation~~
 - [ ] Basic legal move validation 
 - [ ] Advanced legal move validation (castling, en passant, moving while in check, pawn promotion)
 - [ ] Piece highlighting / legal move highlighting
-- [ ] Notation Generation
+- [x] ~~Notation Generation~~
+    - [ ] still need: castling, Nbd2 case
 - [ ] Move History Sidebar
 - [ ] Clock + Losing by Time
 
