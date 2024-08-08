@@ -9,9 +9,10 @@ This is a learning project to create a chess engine in python.
 - [ ] Basic board setup 
 - [ ] Basic legal move validation 
 - [ ] Advanced legal move validation (castling, en passant, moving while in check, pawn promotion)
-- [ ] Basic Notation Generation
-- [ ] Advanced Notation Generation (eg. Nbd2 or R2d4)
+- [ ] Piece highlighting / legal move highlighting
+- [ ] Notation Generation
 - [ ] Move History Sidebar
+- [ ] Clock + Losing by Time
 
 #### AI opponent 
 
