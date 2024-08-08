@@ -6,7 +6,7 @@ This is a learning project to create a chess engine in python.
 
 #### Manually playing both sides:
 
-- [ ] Basic board setup 
+- [x] Basic board setup 
 - [ ] Basic legal move validation 
 - [ ] Advanced legal move validation (castling, en passant, moving while in check, pawn promotion)
 - [ ] Piece highlighting / legal move highlighting
