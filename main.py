@@ -42,7 +42,7 @@ def main() -> None:
             if e.type == p.QUIT:
                 running = False
 
-            if e.type == p.MOUSEBUTTONDOWN:
+            elif e.type == p.MOUSEBUTTONDOWN:
                 x, y = p.mouse.get_pos()
                 col, row = x // SQ_SIZE, y // SQ_SIZE
 
@@ -57,8 +57,13 @@ def main() -> None:
                     move = Move(player_clicks[0], player_clicks[1], gs.board)
                     gs.make_move(move)
                     print(move.notation)
+                    print(move.intermediate_squares)
                     sq_selected = ()
                     player_clicks = []
+
+            elif e.type == p.KEYDOWN:
+                if e.key == p.K_BACKSPACE:
+                    gs.undo_move()
 
         draw_game_state(screen, gs)
 
