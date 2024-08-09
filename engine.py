@@ -61,7 +61,11 @@ class GameState:
         return valid_moves
 
     def gen_rook_moves(self, r, c):
-        pass
+        """Generate possible rook moves, ignoring colisions and check rules"""
+
+        same_row = [(r, i) for i in range(8) if i != c]
+        same_col = [(i, c) for i in range(8) if i != r]
+        return [Move((r, c), tgt, self.board) for tgt in same_row + same_col]
 
     def gen_knight_moves(self, r, c):
         pass
@@ -76,8 +80,16 @@ class GameState:
         pass
 
     def gen_pawn_moves(self, r, c):
-        if self.white_to_move and r == 6:
-            pass
+        """Generate possible pawn moves, ignoring colisions and check rules
+        Currently does not consider pawn captures or en passant"""
+
+        home_row = (r == 6 and self.white_to_move) or (
+            r == 1 and not self.white_to_move
+        )
+        direction = 1 if not self.white_to_move else -1
+        steps = [1, 2] if home_row else [1]
+
+        return [Move((r, c), (r, c + direction * i), self.board) for i in steps]
 
 
 class Move:
@@ -91,6 +103,8 @@ class Move:
 
         self.piece_moved = board[self.x_0][self.y_0]
         self.piece_captured = board[self.x_1][self.y_1]
+        self.player_color = self.piece_moved[0]
+        self.other_player_color = "b" if self.player_color == "w" else "w"
 
         self.notation = self.gen_notation()
         self.intermediate_squares = self.get_intermediate_squares()
@@ -117,13 +131,11 @@ class Move:
         return pc + capture + cols_to_files[self.y_1] + rows_to_ranks[self.x_1]
 
     def get_intermediate_squares(self):
-        """ For pieces other than knights, return the intermediate squares between the
-            start and end locations - start location excluded, end location included.
-            To help with determining collisions, captures, and eventual castling
-            through check rules.
+        """For pieces other than knights, return the intermediate squares between the
+        start and end locations - start location excluded, end location included.
+        To help with determining collisions, captures, and eventual castling
+        through check rules.
         """
-
-        int_squares: List[Tuple[str, str]] = []
 
         if self.piece_moved[-1] in ["R", "B", "Q", "K", "p"]:
             x_dist, y_dist = self.x_1 - self.x_0, self.y_1 - self.y_0
@@ -134,9 +146,26 @@ class Move:
                 (self.x_0 + i * x_step, self.y_0 + i * y_step)
                 for i in range(1, max(abs(x_dist), abs(y_dist)) + 1)
             ]
+        elif self.piece_moved[-1] == "N":
+            int_squares = [(self.x_1, self.y_1)]
+        else:
+            raise ValueError("this piece is an alien and i dont know how it moves")
 
         return int_squares
 
     def is_valid(self):
-        """verifies that the move does not put the king in check"""
+        # colisions with pieces of same color
+        if any(
+            self.board[sq[0]][sq[1]][0] == self.player_color
+            for sq in self.intermediate_squares
+        ):
+            return False
+        # pawn colisions with pieces of other color. this will be a little broken til
+        # pawn captures are implemented
+        if any(
+            self.piece_moved[-1] == "p"
+            and self.board[sq[0]][sq[1]][0] == self.other_player_color
+            for sq in self.intermediate_squares
+        ):
+            return False
         return True

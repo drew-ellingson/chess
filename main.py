@@ -57,7 +57,6 @@ def main() -> None:
                     move = Move(player_clicks[0], player_clicks[1], gs.board)
                     gs.make_move(move)
                     print(move.notation)
-                    print(move.intermediate_squares)
                     sq_selected = ()
                     player_clicks = []
 
