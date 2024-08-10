@@ -1,5 +1,6 @@
 from __future__ import annotations
 from typing import Tuple, List
+import utilities as utils
 
 
 class GameState:
@@ -29,6 +30,7 @@ class GameState:
         self.move_log.append(move)
 
     def undo_move(self) -> None:
+        """Undoes last move and makes necessary reversions to game state"""
         if len(self.move_log) != 0:
             last_move = self.move_log.pop()  # removes last move from log as well.
             self.board[last_move.x_0][last_move.y_0] = last_move.piece_moved
@@ -40,6 +42,12 @@ class GameState:
         # need to handle castling rights, etc.
 
     def gen_valid_moves(self):
+        """
+        Generate a list of all valid moves for the current player
+        Currently omits: pawn captures, en passant, castling, promotion, moving in
+        check restrictions
+        """
+
         valid_moves: List[Move] = []
         helper_lookup = {
             "R": self.gen_rook_moves,
@@ -49,12 +57,11 @@ class GameState:
             "K": self.gen_king_moves,
             "p": self.gen_pawn_moves,
         }
-        whose_turn = "w" if self.white_to_move else "b"
 
         for r in range(len(self.board)):
             for c in range(len(self.board[0])):
                 pc = self.board[r][c]
-                if pc[0] == whose_turn:
+                if pc[0] == ("w" if self.white_to_move else "b"):
                     candidate_moves = helper_lookup[pc[-1]](r, c)
                     valid_moves.extend(x for x in candidate_moves if x.is_valid())
 
@@ -65,19 +72,46 @@ class GameState:
 
         same_row = [(r, i) for i in range(8) if i != c]
         same_col = [(i, c) for i in range(8) if i != r]
+
         return [Move((r, c), tgt, self.board) for tgt in same_row + same_col]
 
     def gen_knight_moves(self, r, c):
-        pass
+        """Generate possible knight moves, ignoring colisions and check rules"""
+
+        dirs = [(1, 2), (2, 1), (-1, 2), (-2, 1), (1, -2), (2, -1), (-1, -2), (-2, -1)]
+        cand_tgts = [utils._add((r, c), delta) for delta in dirs]
+
+        return [
+            Move((r, c), tgt, self.board) for tgt in cand_tgts if utils.is_valid_sq(tgt)
+        ]
 
     def gen_bishop_moves(self, r, c):
-        pass
+        """Generate possible bishop moves, ignoring colisions and check rules"""
+        dirs = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
+        cand_tgts = [
+            utils._add((r, c), utils._mult(delta, i))
+            for delta in dirs
+            for i in range(1, 8)
+        ]
+
+        return [
+            Move((r, c), tgt, self.board) for tgt in cand_tgts if utils.is_valid_sq(tgt)
+        ]
 
     def gen_queen_moves(self, r, c):
-        pass
+        """Generate possible queen moves, ignoring colisions and check rules"""
+
+        return self.gen_bishop_moves(r, c) + self.gen_rook_moves(r, c)
 
     def gen_king_moves(self, r, c):
-        pass
+        """Generate possible king moves, ignoring colisions and check rules and out of
+        bounds errors"""
+        dirs = [(1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1)]
+        cand_tgts = [utils._add((r, c), delta) for delta in dirs]
+
+        return [
+            Move((r, c), tgt, self.board) for tgt in cand_tgts if utils.is_valid_sq(tgt)
+        ]
 
     def gen_pawn_moves(self, r, c):
         """Generate possible pawn moves, ignoring colisions and check rules
@@ -89,7 +123,11 @@ class GameState:
         direction = 1 if not self.white_to_move else -1
         steps = [1, 2] if home_row else [1]
 
-        return [Move((r, c), (r, c + direction * i), self.board) for i in steps]
+        return [
+            Move((r, c), (r + direction * i, c), self.board)
+            for i in steps
+            if utils.is_valid_sq((r + direction * i, c))
+        ]
 
 
 class Move:
@@ -100,6 +138,7 @@ class Move:
         self.y_0 = start_sq[1]
         self.x_1 = end_sq[0]
         self.y_1 = end_sq[1]
+        self.board = board
 
         self.piece_moved = board[self.x_0][self.y_0]
         self.piece_captured = board[self.x_1][self.y_1]
@@ -107,13 +146,25 @@ class Move:
         self.other_player_color = "b" if self.player_color == "w" else "w"
 
         self.notation = self.gen_notation()
-        self.intermediate_squares = self.get_intermediate_squares()
+
+    def __eq__(self, other: Move) -> bool:
+        """equality override for use in move validation"""
+
+        return all(
+            [
+                self.x_0 == other.x_0,
+                self.x_1 == other.x_1,
+                self.y_0 == other.y_0,
+                self.y_1 == other.y_1,
+            ]
+        )
 
     def __repr__(self):
         return self.notation
 
     def gen_notation(self) -> str:
-        """generate algebraic chess notation for the move, eg Nc3, Kxe2, d4, O-O"""
+        """generate algebraic chess notation for the move, eg Nc3, Kxe2, d4, O-O
+        still needs: Castling, pawn promotion"""
 
         rows_to_ranks = {k: str(8 - k) for k in range(8)}
         cols_to_files = {k: chr(k + 97) for k in range(8)}
@@ -131,8 +182,10 @@ class Move:
         return pc + capture + cols_to_files[self.y_1] + rows_to_ranks[self.x_1]
 
     def get_intermediate_squares(self):
-        """For pieces other than knights, return the intermediate squares between the
-        start and end locations - start location excluded, end location included.
+        """
+        Return the intermediate squares between the start and end locations -
+        start location excluded, end location included.
+
         To help with determining collisions, captures, and eventual castling
         through check rules.
         """
@@ -154,18 +207,31 @@ class Move:
         return int_squares
 
     def is_valid(self):
+        # compute once for use in all colision rules
+        intermediate_squares = self.get_intermediate_squares()
+
         # colisions with pieces of same color
         if any(
             self.board[sq[0]][sq[1]][0] == self.player_color
-            for sq in self.intermediate_squares
+            for sq in intermediate_squares
         ):
             return False
+
+        # colisions with pieces of opposite color before tgt square
+        if any(
+            self.board[sq[0]][sq[1]][0] == self.other_player_color
+            for sq in intermediate_squares[:-1]
+        ):
+            return False
+
         # pawn colisions with pieces of other color. this will be a little broken til
         # pawn captures are implemented
         if any(
             self.piece_moved[-1] == "p"
             and self.board[sq[0]][sq[1]][0] == self.other_player_color
-            for sq in self.intermediate_squares
+            for sq in intermediate_squares
         ):
             return False
+
+        # todo does this move place me in check
         return True

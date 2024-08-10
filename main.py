@@ -55,14 +55,19 @@ def main() -> None:
 
                 if len(player_clicks) == 2:
                     move = Move(player_clicks[0], player_clicks[1], gs.board)
-                    gs.make_move(move)
-                    print(move.notation)
+
+                    if move in gs.gen_valid_moves():
+                        gs.make_move(move)
+                        print(move.notation)
                     sq_selected = ()
                     player_clicks = []
 
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_BACKSPACE:
                     gs.undo_move()
+                if e.key == p.K_q:
+                    for m in gs.gen_valid_moves():
+                        print(m)
 
         draw_game_state(screen, gs)
 

@@ -6,21 +6,26 @@ This is a learning project to create a chess engine in python.
 
 #### Manually playing both sides:
 
-- [x] ~~Basic board setup~~ 
+- [x] ~~Basic board setup~~
 - [x] ~~Moving pieces w/ no validation~~
 - [x] ~~Undo moves~~
-- [ ] Basic legal move validation 
-- [ ] Advanced legal move validation (castling, en passant, moving while in check, pawn promotion)
+- [x] ~~Basic legal move validation~~
+- [ ] Advanced legal move validation
+    - [ ] pawn captures
+    - [ ] castling
+    - [ ] pawn promotion
+    - [ ] en passant
+    - [ ] moving while in check
 - [ ] Piece highlighting / legal move highlighting
 - [x] ~~Notation Generation~~
     - [ ] still need: castling, Nbd2 case, pawn promotion
 - [ ] Move History Sidebar
 - [ ] Clock + Losing by Time
 
-#### AI opponent 
+#### AI opponent
 
-- [ ] Random move 
-- [ ] Greedy 
+- [ ] Random move
+- [ ] Greedy
 - [ ] MinMax
 - [ ] Nega Max
 - [ ] Alpha Beta Pruning
@@ -28,5 +33,5 @@ This is a learning project to create a chess engine in python.
 #### Future Directions
 
 - [ ] Web App
-- [ ] Chess Variants 
+- [ ] Chess Variants
 - [ ] Customizable board aesthetics
