@@ -18,8 +18,7 @@ class GameState:
 
         self.move_log: List[Move] = []
         self.white_to_move = True
-        self.white_can_castle = True
-        self.black_can_castle = True
+        self.castling_rights = {'w': True, 'b': True}
 
     def make_move(self, move: Move) -> None:
         """execute a move and make necessary changes to game state"""
@@ -109,9 +108,11 @@ class GameState:
         dirs = [(1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1)]
         cand_tgts = [utils._add((r, c), delta) for delta in dirs]
 
-        return [
+        king_moves = [
             Move((r, c), tgt, self.board) for tgt in cand_tgts if utils.is_valid_sq(tgt)
         ]
+
+        return king_moves
 
     def gen_pawn_moves(self, r, c):
         """Generate possible pawn moves, ignoring colisions and check rules
@@ -123,11 +124,22 @@ class GameState:
         direction = 1 if not self.white_to_move else -1
         steps = [1, 2] if home_row else [1]
 
-        return [
+        forwards = [
             Move((r, c), (r + direction * i, c), self.board)
             for i in steps
             if utils.is_valid_sq((r + direction * i, c))
         ]
+
+        other_player_color = "b" if self.white_to_move else "w"
+
+        captures = [
+            Move((r, c), (r + direction, c + k), self.board)
+            for k in [1, -1]
+            if utils.is_valid_sq((r + direction, c + k))
+            and self.board[r + direction][c + k][0] == other_player_color
+        ]
+
+        return forwards + captures
 
 
 class Move:
@@ -224,11 +236,11 @@ class Move:
         ):
             return False
 
-        # pawn colisions with pieces of other color. this will be a little broken til
-        # pawn captures are implemented
+        # pawn colisions with pieces of other color.
         if any(
             self.piece_moved[-1] == "p"
             and self.board[sq[0]][sq[1]][0] == self.other_player_color
+            and self.y_0 == sq[1]  # pawn captures are allowed colisionss
             for sq in intermediate_squares
         ):
             return False
