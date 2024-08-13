@@ -22,13 +22,18 @@ class GameState:
 
         self.king_positions = {"w": (7, 4), "b": (0, 4)}
 
+    def __repr__(self) -> str:
+        """Override repr for debuggin"""
+
+        return "\n\t".join([str(a) for a in vars(self).items()])
+
     def current_player_color(self) -> str:
         """helper to return 'w' or 'b' based on current player color"""
         return "w" if self.white_to_move else "b"
 
     def other_player_color(self) -> str:
         """helper to return 'b' or 'w' based on other player color"""
-        return "b" if self.white_to_move else "b"
+        return "b" if self.white_to_move else "w"
 
     def make_move(self, move: Move) -> None:
         """execute a move and make necessary changes to game state"""
@@ -39,7 +44,7 @@ class GameState:
         self.move_log.append(move)
 
         if move.piece_moved[-1] == "K":
-            self.king_positions[move.piece_moved[0]] == (move.x_1, move.y_1)
+            self.king_positions[move.piece_moved[0]] = (move.x_1, move.y_1)
 
     def undo_move(self) -> None:
         """Undoes last move and makes necessary reversions to game state"""
@@ -59,20 +64,16 @@ class GameState:
 
         # need to handle castling rights, etc.
 
-    def gen_valid_moves(self, player="current"):
+    def gen_possible_moves(self):
         """
-        Generate a list of all valid moves for the current player
-        Currently omits: pawn captures, en passant, castling, promotion, moving in
-        check restrictions
+        Generate a list of all possible moves for the current player
+        Currently omits: en passant, castling, promotion
+
+        Handling for moving while in check / not moving into check happens in
+        gen_valid_moves()
         """
 
-        player = (
-            self.current_player_color()
-            if player == "current"
-            else self.other_player_color()
-        )
-
-        valid_moves: List[Move] = []
+        possible_moves: List[Move] = []
         helper_lookup = {
             "R": self.gen_rook_moves,
             "N": self.gen_knight_moves,
@@ -85,9 +86,24 @@ class GameState:
         for r in range(len(self.board)):
             for c in range(len(self.board[0])):
                 pc = self.board[r][c]
-                if pc[0] == player:
+                if pc[0] == self.current_player_color():
                     candidate_moves = helper_lookup[pc[-1]](r, c)
-                    valid_moves.extend(x for x in candidate_moves if x.is_valid())
+                    possible_moves.extend(x for x in candidate_moves if x.is_valid())
+
+        return possible_moves
+
+    def gen_valid_moves(self) -> List[Move]:
+        """Filters possible moves to remove any move that would place you in check"""
+
+        possible_moves = self.gen_possible_moves()
+
+        valid_moves: List[Move] = []
+
+        for m in possible_moves:
+            self.make_move(m)
+            if not self.is_checking():
+                valid_moves.append(m)
+            self.undo_move()
 
         return valid_moves
 
@@ -166,15 +182,13 @@ class GameState:
 
         return forwards + captures
 
-    def in_check(self):
-        """filter for valid moves to remove any move in which you are in check at the end"""
+    def is_checking(self):
+        """checks to see if current player can capture the oponents king immediately"""
 
-        """ want to generate all moves for other player"""
-        king_pos = self.king_positions[self.current_player_color]
-        valid_moves = self.gen_valid_moves()
-        in_check = False
-        for m in valid_moves:
-            pass
+        king_pos = self.king_positions[self.other_player_color()]
+        possible_moves = self.gen_possible_moves()
+
+        return any((m.x_1, m.y_1) == king_pos for m in possible_moves)
 
 
 class Move:

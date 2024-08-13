@@ -15,12 +15,14 @@ This is a learning project to create a chess engine in python.
     - [ ] castling
     - [ ] pawn promotion
     - [ ] en passant
-    - [ ] moving while in check
+    - [x] moving while in check / cant move into check
+- [ ] End Conditions (checkmate / stalemate)
 - [x] Piece highlighting / legal move highlighting
 - [x] ~~Notation Generation~~
     - [ ] still need: castling, Nbd2 case, pawn promotion
 - [ ] Move History Sidebar
 - [ ] Clock + Losing by Time
+- [ ] Offering Draws and Resigning
 
 #### AI opponent
 

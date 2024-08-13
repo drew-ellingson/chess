@@ -37,12 +37,16 @@ def main() -> None:
 
     sq_selected: Tuple[int, int] = ()  # (row, col) for last user-clicked sq
     player_clicks: List[Tuple[int, int]] = []  # keep track of last two clicks for moves
+
+    new_game = True
     while running:
+        new_clicks = False
         for e in p.event.get():
             if e.type == p.QUIT:
                 running = False
 
             elif e.type == p.MOUSEBUTTONDOWN:
+                new_clicks = True
                 x, y = p.mouse.get_pos()
                 col, row = x // SQ_SIZE, y // SQ_SIZE
 
@@ -74,9 +78,13 @@ def main() -> None:
                     gs.undo_move()
                 if e.key == p.K_q:
                     print(f"Current player valid moves: {gs.gen_valid_moves()}")
-                    print(f"Other player valid moves: {gs.gen_valid_moves('other')}")
+                if e.key == p.K_d:
+                    print(f"Debug Details:\n\t{gs}")
 
-        draw_game_state(screen, gs, player_clicks)
+        if new_clicks or new_game:
+            draw_game_state(screen, gs, player_clicks)
+            new_clicks = False
+            new_game = False
 
         clock.tick(MAX_FPS)
         p.display.flip()
