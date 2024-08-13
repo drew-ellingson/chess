@@ -73,8 +73,8 @@ def main() -> None:
                 if e.key == p.K_BACKSPACE:
                     gs.undo_move()
                 if e.key == p.K_q:
-                    for m in gs.gen_valid_moves():
-                        print(m)
+                    print(f"Current player valid moves: {gs.gen_valid_moves()}")
+                    print(f"Other player valid moves: {gs.gen_valid_moves('other')}")
 
         draw_game_state(screen, gs, player_clicks)
 

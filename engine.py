@@ -20,6 +20,8 @@ class GameState:
         self.white_to_move = True
         self.castling_rights = {"w": True, "b": True}
 
+        self.king_positions = {"w": (7, 4), "b": (0, 4)}
+
     def current_player_color(self) -> str:
         """helper to return 'w' or 'b' based on current player color"""
         return "w" if self.white_to_move else "b"
@@ -36,6 +38,9 @@ class GameState:
         self.white_to_move = not self.white_to_move
         self.move_log.append(move)
 
+        if move.piece_moved[-1] == "K":
+            self.king_positions[move.piece_moved[0]] == (move.x_1, move.y_1)
+
     def undo_move(self) -> None:
         """Undoes last move and makes necessary reversions to game state"""
         if len(self.move_log) != 0:
@@ -46,14 +51,26 @@ class GameState:
             ] = last_move.piece_captured  # handles '--' incidentally
             self.white_to_move = not self.white_to_move
 
+            if last_move.piece_moved[-1] == "K":
+                self.king_positions[last_move.piece_moved[0]] = (
+                    last_move.x_0,
+                    last_move.y_0,
+                )
+
         # need to handle castling rights, etc.
 
-    def gen_valid_moves(self):
+    def gen_valid_moves(self, player="current"):
         """
         Generate a list of all valid moves for the current player
         Currently omits: pawn captures, en passant, castling, promotion, moving in
         check restrictions
         """
+
+        player = (
+            self.current_player_color()
+            if player == "current"
+            else self.other_player_color()
+        )
 
         valid_moves: List[Move] = []
         helper_lookup = {
@@ -68,7 +85,7 @@ class GameState:
         for r in range(len(self.board)):
             for c in range(len(self.board[0])):
                 pc = self.board[r][c]
-                if pc[0] == self.current_player_color():
+                if pc[0] == player:
                     candidate_moves = helper_lookup[pc[-1]](r, c)
                     valid_moves.extend(x for x in candidate_moves if x.is_valid())
 
@@ -126,10 +143,11 @@ class GameState:
         """Generate possible pawn moves, ignoring colisions and check rules
         Currently does not consider pawn captures or en passant"""
 
-        home_row = (r == 6 and self.white_to_move) or (
-            r == 1 and not self.white_to_move
+        pawn_color = self.board[r][c][0]
+        home_row: bool = (r == 6 and pawn_color == "w") or (
+            r == 1 and pawn_color == "b"
         )
-        direction = 1 if not self.white_to_move else -1
+        direction = 1 if pawn_color == "b" else -1
         steps = [1, 2] if home_row else [1]
 
         forwards = [
@@ -142,10 +160,21 @@ class GameState:
             Move((r, c), (r + direction, c + k), self.board)
             for k in [1, -1]
             if utils.is_valid_sq((r + direction, c + k))
-            and self.board[r + direction][c + k][0] == self.other_player_color()
+            and self.board[r + direction][c + k][0]
+            == ("b" if pawn_color == "w" else "w")
         ]
 
         return forwards + captures
+
+    def in_check(self):
+        """filter for valid moves to remove any move in which you are in check at the end"""
+
+        """ want to generate all moves for other player"""
+        king_pos = self.king_positions[self.current_player_color]
+        valid_moves = self.gen_valid_moves()
+        in_check = False
+        for m in valid_moves:
+            pass
 
 
 class Move:
