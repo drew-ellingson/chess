@@ -18,7 +18,10 @@ class GameState:
 
         self.move_log: List[Move] = []
         self.white_to_move = True
-        self.castling_rights = {'w': True, 'b': True}
+        self.castling_rights = {"w": True, "b": True}
+
+    def current_player_color(self) -> str:
+        return "w" if self.white_to_move else "b"
 
     def make_move(self, move: Move) -> None:
         """execute a move and make necessary changes to game state"""

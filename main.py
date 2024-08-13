@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 import pygame as p
 from engine import GameState, Move
@@ -48,7 +48,12 @@ def main() -> None:
 
                 if sq_selected != (row, col):
                     sq_selected = (row, col)
-                    player_clicks.append(sq_selected)
+                    # only want to allow selecting piece of current player color as the first click
+                    if (
+                        len(player_clicks) == 1
+                        or gs.board[row][col][0] == gs.current_player_color()
+                    ):
+                        player_clicks.append(sq_selected)
                 else:
                     sq_selected = ()
                     player_clicks = []
@@ -69,17 +74,20 @@ def main() -> None:
                     for m in gs.gen_valid_moves():
                         print(m)
 
-        draw_game_state(screen, gs)
+        draw_game_state(screen, gs, player_clicks)
 
         clock.tick(MAX_FPS)
         p.display.flip()
 
 
-def draw_game_state(screen: p.Surface, gs: GameState) -> None:
+def draw_game_state(
+    screen: p.Surface, gs: GameState, player_clicks: List[Tuple[int, int]]
+) -> None:
     """single function to draw all game elements, including board, pieces,
     highlighting, etc"""
 
     draw_board(screen)
+    draw_highlight(screen, gs, player_clicks)
     draw_pieces(screen, gs.board)
 
 
@@ -92,6 +100,23 @@ def draw_board(screen: p.Surface) -> None:
             sq_color = colors[(r + c) % 2]
             p.draw.rect(
                 screen, sq_color, p.Rect(c * SQ_SIZE, r * SQ_SIZE, SQ_SIZE, SQ_SIZE)
+            )
+
+
+def draw_highlight(screen, gs, player_clicks):
+    if len(player_clicks) == 1:
+        highlight_sq = player_clicks[0]
+        if gs.board[highlight_sq[0]][highlight_sq[1]][0] == gs.current_player_color():
+            highlight_color = p.Color("yellow")
+            p.draw.rect(
+                screen,
+                highlight_color,
+                p.Rect(
+                    highlight_sq[1] * SQ_SIZE,
+                    highlight_sq[0] * SQ_SIZE,
+                    SQ_SIZE,
+                    SQ_SIZE,
+                ),
             )
 
 
