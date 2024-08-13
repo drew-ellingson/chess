@@ -11,13 +11,13 @@ This is a learning project to create a chess engine in python.
 - [x] ~~Undo moves~~
 - [x] ~~Basic legal move validation~~
 - [ ] Advanced legal move validation
-    - [x] (non en passant) pawn captures
+    - [x] ~~(non en passant) pawn captures~~
     - [ ] castling
     - [ ] pawn promotion
     - [ ] en passant
-    - [x] moving while in check / cant move into check
+    - [x] ~~moving while in check / cant move into check~~
 - [ ] End Conditions (checkmate / stalemate)
-- [x] Piece highlighting / legal move highlighting
+- [x] ~~Piece highlighting / legal move highlighting~~
 - [x] ~~Notation Generation~~
     - [ ] still need: castling, Nbd2 case, pawn promotion
 - [ ] Move History Sidebar
