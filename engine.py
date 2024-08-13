@@ -21,7 +21,12 @@ class GameState:
         self.castling_rights = {"w": True, "b": True}
 
     def current_player_color(self) -> str:
+        """helper to return 'w' or 'b' based on current player color"""
         return "w" if self.white_to_move else "b"
+
+    def other_player_color(self) -> str:
+        """helper to return 'b' or 'w' based on other player color"""
+        return "b" if self.white_to_move else "b"
 
     def make_move(self, move: Move) -> None:
         """execute a move and make necessary changes to game state"""
@@ -63,7 +68,7 @@ class GameState:
         for r in range(len(self.board)):
             for c in range(len(self.board[0])):
                 pc = self.board[r][c]
-                if pc[0] == ("w" if self.white_to_move else "b"):
+                if pc[0] == self.current_player_color():
                     candidate_moves = helper_lookup[pc[-1]](r, c)
                     valid_moves.extend(x for x in candidate_moves if x.is_valid())
 
@@ -133,13 +138,11 @@ class GameState:
             if utils.is_valid_sq((r + direction * i, c))
         ]
 
-        other_player_color = "b" if self.white_to_move else "w"
-
         captures = [
             Move((r, c), (r + direction, c + k), self.board)
             for k in [1, -1]
             if utils.is_valid_sq((r + direction, c + k))
-            and self.board[r + direction][c + k][0] == other_player_color
+            and self.board[r + direction][c + k][0] == self.other_player_color()
         ]
 
         return forwards + captures

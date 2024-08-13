@@ -35,8 +35,8 @@ def main() -> None:
 
     # game loop
 
-    sq_selected = ()  # (row, col) for last user-clicked sq
-    player_clicks = []  # keep track of last two clicks for moves
+    sq_selected: Tuple[int, int] = ()  # (row, col) for last user-clicked sq
+    player_clicks: List[Tuple[int, int]] = []  # keep track of last two clicks for moves
     while running:
         for e in p.event.get():
             if e.type == p.QUIT:
@@ -48,7 +48,9 @@ def main() -> None:
 
                 if sq_selected != (row, col):
                     sq_selected = (row, col)
-                    # only want to allow selecting piece of current player color as the first click
+
+                    # only want to allow selecting piece of current player color as the
+                    # first click
                     if (
                         len(player_clicks) == 1
                         or gs.board[row][col][0] == gs.current_player_color()
@@ -103,17 +105,40 @@ def draw_board(screen: p.Surface) -> None:
             )
 
 
-def draw_highlight(screen, gs, player_clicks):
+def draw_highlight(
+    screen: p.Surface, gs: GameState, player_clicks: List[Tuple[int, int]]
+) -> None:
+    """
+    Highlight currently selected square + all legal moves starting from that
+    square
+    """
     if len(player_clicks) == 1:
-        highlight_sq = player_clicks[0]
-        if gs.board[highlight_sq[0]][highlight_sq[1]][0] == gs.current_player_color():
-            highlight_color = p.Color("yellow")
+        sq = player_clicks[0]
+        if gs.board[sq[0]][sq[1]][0] == gs.current_player_color():
+            color = p.Color("yellow")
             p.draw.rect(
                 screen,
-                highlight_color,
+                color,
                 p.Rect(
-                    highlight_sq[1] * SQ_SIZE,
-                    highlight_sq[0] * SQ_SIZE,
+                    sq[1] * SQ_SIZE,
+                    sq[0] * SQ_SIZE,
+                    SQ_SIZE,
+                    SQ_SIZE,
+                ),
+            )
+
+        legal_moves = [
+            m for m in gs.gen_valid_moves() if m.x_0 == sq[0] and m.y_0 == sq[1]
+        ]
+
+        for m in legal_moves:
+            color = p.Color("green")
+            p.draw.rect(
+                screen,
+                color,
+                p.Rect(
+                    m.y_1 * SQ_SIZE,
+                    m.x_1 * SQ_SIZE,
                     SQ_SIZE,
                     SQ_SIZE,
                 ),
