@@ -22,6 +22,9 @@ class GameState:
 
         self.king_positions = {"w": (7, 4), "b": (0, 4)}
 
+        self.stalemate = False
+        self.checkmate = False
+
     def __repr__(self) -> str:
         """Override repr for debuggin"""
 
@@ -64,14 +67,15 @@ class GameState:
 
         # need to handle castling rights, etc.
 
-    def gen_possible_moves(self):
+    # this is my current workaround
+    def gen_possible_moves(self, color=None):
         """
-        Generate a list of all possible moves for the current player
-        Currently omits: en passant, castling, promotion
+        Generate possible moves for the given color. If no color is provided,
+        use the current_player_color.
 
-        Handling for moving while in check / not moving into check happens in
-        gen_valid_moves()
+        In check validation happens subsequently in gen_valid_moves()
         """
+        color = self.current_player_color() if color is None else color
 
         possible_moves: List[Move] = []
         helper_lookup = {
@@ -86,26 +90,57 @@ class GameState:
         for r in range(len(self.board)):
             for c in range(len(self.board[0])):
                 pc = self.board[r][c]
-                if pc[0] == self.current_player_color():
+                if pc[0] == color:
                     candidate_moves = helper_lookup[pc[-1]](r, c)
                     possible_moves.extend(x for x in candidate_moves if x.is_valid())
 
         return possible_moves
 
-    def gen_valid_moves(self) -> List[Move]:
+    def gen_valid_moves(self, color=None) -> List[Move]:
         """Filters possible moves to remove any move that would place you in check"""
 
-        possible_moves = self.gen_possible_moves()
+        color = self.current_player_color() if color is None else color
+
+        possible_moves = self.gen_possible_moves(color=color)
 
         valid_moves: List[Move] = []
 
+        current_color = self.current_player_color()
+
+        if color != current_color:
+            self.white_to_move = not self.white_to_move
+
         for m in possible_moves:
+
             self.make_move(m)
-            if not self.is_checking():
+
+            # colors have swapped
+            if not self.in_check(color=color):
                 valid_moves.append(m)
             self.undo_move()
 
+        if color != current_color:
+            self.white_to_move = not self.white_to_move
+
+        if len(valid_moves) == 0 and self.in_check():
+            self.checkmate = True
+        elif len(valid_moves) == 0:
+            self.stalemate = True
+
+
         return valid_moves
+
+    def in_check(self, color):
+
+        """checks to see if current player can capture the oponents king immediately"""
+
+        color = self.current_player_color() if color is None else color
+
+        king_pos = self.king_positions[color]
+
+        opp_moves = self.gen_possible_moves()
+
+        return any((m.x_1, m.y_1) == king_pos for m in opp_moves)
 
     def gen_rook_moves(self, r, c):
         """Generate possible rook moves, ignoring colisions and check rules"""
@@ -182,13 +217,7 @@ class GameState:
 
         return forwards + captures
 
-    def is_checking(self):
-        """checks to see if current player can capture the oponents king immediately"""
 
-        king_pos = self.king_positions[self.other_player_color()]
-        possible_moves = self.gen_possible_moves()
-
-        return any((m.x_1, m.y_1) == king_pos for m in possible_moves)
 
 
 class Move:
@@ -294,5 +323,6 @@ class Move:
         ):
             return False
 
-        # todo does this move place me in check
+        # check validation happens in the GameState class since we need context outside
+        # the move itself
         return True

@@ -78,6 +78,7 @@ def main() -> None:
                     gs.undo_move()
                 if e.key == p.K_q:
                     print(f"Current player valid moves: {gs.gen_valid_moves()}")
+                    print(f"Other player valid moves: {gs.gen_valid_moves(color=gs.other_player_color())}")
                 if e.key == p.K_d:
                     print(f"Debug Details:\n\t{gs}")
 

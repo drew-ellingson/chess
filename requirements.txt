@@ -8,5 +8,6 @@ pathspec==0.12.1
 platformdirs==4.2.2
 pycodestyle==2.12.1
 pyflakes==3.2.0
+pygame==2.6.0
 tomli==2.0.1
 typing_extensions==4.12.2
