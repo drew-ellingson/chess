@@ -127,11 +127,9 @@ class GameState:
         elif len(valid_moves) == 0:
             self.stalemate = True
 
-
         return valid_moves
 
     def in_check(self, color):
-
         """checks to see if current player can capture the oponents king immediately"""
 
         color = self.current_player_color() if color is None else color
@@ -216,8 +214,6 @@ class GameState:
         ]
 
         return forwards + captures
-
-
 
 
 class Move:
