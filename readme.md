@@ -14,7 +14,7 @@ This is a learning project to create a chess engine in python.
     - [x] ~~(non en passant) pawn captures~~
     - [ ] castling
     - [x] ~~pawn promotion~~
-            - [ ] Currently autoqueening. Add some piece selection popup
+        - [ ] Currently autoqueening. Add some piece selection popup
     - [x] ~~en passant~~
     - [x] ~~moving while in check / cant move into check~~
 - [x] ~~End Conditions (checkmate / stalemate)~~
