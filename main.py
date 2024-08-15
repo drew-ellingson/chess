@@ -70,23 +70,23 @@ def main() -> None:
                     # need the engine generated version, not the player one
                     for m in gs.gen_valid_moves(gs.current_player_color()):
                         if m == move:
+                            print(move)
                             gs.make_move(m)
-                            print(move.notation)
+
                         sq_selected = ()
                         player_clicks = []
 
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_BACKSPACE:
                     gs.undo_move()
+                    new_clicks = True  # to redraw game state
+
                 if e.key == p.K_q:
-                    print(
-                        f"Current player valid moves: \
-                            {gs.gen_valid_moves(gs.current_player_color())}"
-                    )
-                    print(
-                        f"Other player valid moves: \
-                        {gs.gen_valid_moves(gs.other_player_color())}"
-                    )
+                    curr_moves = gs.gen_valid_moves(gs.current_player_color())
+                    oth_moves = gs.gen_valid_moves(gs.other_player_color())
+                    print(f"Current player valid moves: {curr_moves}")
+                    print(f"Other player valid moves: {oth_moves}")
+
                 if e.key == p.K_d:
                     print(f"Debug Details:\n\t{gs}")
 
@@ -162,6 +162,19 @@ def draw_highlight(
                     SQ_SIZE,
                 ),
             )
+
+        # if gs.en_passant_sq:
+        #     color = p.Color("purple")
+        #     p.draw.rect(
+        #         screen,
+        #         color,
+        #         p.Rect(
+        #             gs.en_passant_sq[1] * SQ_SIZE,
+        #             gs.en_passant_sq[0] * SQ_SIZE,
+        #             SQ_SIZE,
+        #             SQ_SIZE,
+        #         ),
+        #     )
 
 
 def draw_pieces(screen: p.Surface, board: List[List[str]]) -> None:

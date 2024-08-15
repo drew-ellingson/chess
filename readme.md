@@ -14,9 +14,11 @@ This is a learning project to create a chess engine in python.
     - [x] ~~(non en passant) pawn captures~~
     - [ ] castling
     - [x] ~~pawn promotion~~
-    - [ ] en passant
+            - [ ] Currently autoqueening. Add some piece selection popup
+    - [x] ~~en passant~~
     - [x] ~~moving while in check / cant move into check~~
-- [ ] End Conditions (checkmate / stalemate)
+- [x] ~~End Conditions (checkmate / stalemate)~~
+        -[ ] Add some sort of end screen and reset button
 - [x] ~~Piece highlighting / legal move highlighting~~
 - [x] ~~Notation Generation~~
     - [ ] still need: castling, Nbd2 case, pawn promotion
@@ -33,7 +35,7 @@ This is a learning project to create a chess engine in python.
 - [ ] Alpha Beta Pruning
 
 #### Future Directions
-
+- [ ] Draft Chess
 - [ ] Web App
 - [ ] Chess Variants
 - [ ] Customizable board aesthetics

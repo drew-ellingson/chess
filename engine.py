@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Tuple, List
+from typing import Tuple, List, Optional
 import utilities as utils
 
 
@@ -18,15 +18,19 @@ class GameState:
 
         self.move_log: List[Move] = []
         self.white_to_move = True
-        self.castling_rights = {"w": True, "b": True}
-
+        self.castling_rights = {
+            "w": {"ks": True, "qs": True},
+            "b": {"ks": True, "qs": True},
+        }
         self.king_positions = {"w": (7, 4), "b": (0, 4)}
+
+        self.en_passant_sq: Optional[Tuple[int, int]] = None
 
         self.stalemate = False
         self.checkmate = False
 
     def __repr__(self) -> str:
-        """Override repr for debuggin"""
+        """Override repr for debugging"""
 
         return "\n\t".join([str(a) for a in vars(self).items()])
 
@@ -49,8 +53,21 @@ class GameState:
         if move.piece_moved[-1] == "K":
             self.king_positions[move.piece_moved[0]] = (move.x_1, move.y_1)
 
+        # promotion handling. current case is autoqueen
         if move.is_pawn_promotion:
             self.board[move.x_1][move.y_1] = move.player_color + "Q"
+
+        # en passant handling
+        direction = 1 if self.current_player_color() == "b" else -1
+
+        if move.is_en_passant:
+            move.piece_captured = self.board[move.x_1 + direction][move.y_1]
+            self.board[move.x_1 + direction][move.y_1] = "--"
+
+        if move.piece_moved[-1] == "p" and abs(move.x_1 - move.x_0) == 2:
+            self.en_passant_sq = ((move.x_0 + move.x_1) // 2, move.y_0)
+        else:
+            self.en_passant_sq = None
 
     def undo_move(self) -> None:
         """Undoes last move and makes necessary reversions to game state"""
@@ -69,6 +86,21 @@ class GameState:
                     last_move.x_0,
                     last_move.y_0,
                 )
+
+        direction = 1 if self.current_player_color() == "b" else -1
+
+        # pawn promotion is handled incidentally in the above
+
+        # en passant handling
+        if last_move.is_en_passant:
+            self.en_passant_sq = (last_move.x_1, last_move.y_1)
+
+            # doesn't feel like i should explicitly need this
+            self.board[last_move.x_1][last_move.y_1] = "--"
+            # not sure why its -direction here and + in make_move
+            self.board[last_move.x_1 - direction][
+                last_move.y_1
+            ] = last_move.piece_captured
 
         # need to handle castling rights, etc.
 
@@ -102,6 +134,9 @@ class GameState:
     def gen_valid_moves(self, color: str) -> List[Move]:
         """Filters possible moves to remove any move that would place you in check"""
 
+        # store en passant sq to reset after hypotheticals. this feels dumb but it works
+        saved_en_passant_sq = self.en_passant_sq
+
         possible_moves = self.gen_possible_moves(color=color)
 
         valid_moves: List[Move] = []
@@ -119,6 +154,8 @@ class GameState:
                 valid_moves.append(m)
             self.undo_move()
 
+        valid_moves = possible_moves
+
         if color != current_color:
             self.white_to_move = not self.white_to_move
 
@@ -126,6 +163,8 @@ class GameState:
             self.checkmate = True
         elif len(valid_moves) == 0:
             self.stalemate = True
+
+        self.en_passant_sq = saved_en_passant_sq
 
         return valid_moves
 
@@ -205,13 +244,20 @@ class GameState:
             if utils.is_valid_sq((r + direction * i, c))
         ]
 
-        captures = [
+        capture_cands = [
             Move((r, c), (r + direction, c + k), self.board)
             for k in [1, -1]
             if utils.is_valid_sq((r + direction, c + k))
-            and self.board[r + direction][c + k][0]
-            == ("b" if pawn_color == "w" else "w")
         ]
+
+        captures: List[Move] = []
+
+        for m in capture_cands:
+            if (m.x_1, m.y_1) == self.en_passant_sq:
+                m.is_en_passant = True
+                captures.append(m)
+            if self.board[m.x_1][m.y_1][0] == ("b" if pawn_color == "w" else "w"):
+                captures.append(m)
 
         return forwards + captures
 
@@ -227,16 +273,17 @@ class Move:
         self.board = board
 
         self.piece_moved = board[self.x_0][self.y_0]
-        self.piece_captured = board[self.x_1][self.y_1]
+
         self.player_color = self.piece_moved[0]
         self.other_player_color = "b" if self.player_color == "w" else "w"
 
         far_row = 0 if self.player_color == "w" else 7
 
         self.is_pawn_promotion = self.piece_moved[-1] == "p" and self.x_1 == far_row
-
-        self.is_en_passant = False
         self.is_castling = False
+        self.is_en_passant = False
+
+        self.piece_captured = board[self.x_1][self.y_1]
 
         self.notation = self.gen_notation()
 
@@ -253,7 +300,7 @@ class Move:
         )
 
     def __repr__(self) -> str:
-        return self.notation
+        return f"{self.player_color}: {self.notation}"
 
     def gen_notation(self) -> str:
         """generate algebraic chess notation for the move, eg Nc3, Kxe2, d4, O-O
