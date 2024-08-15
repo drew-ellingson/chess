@@ -67,7 +67,7 @@ def main() -> None:
                 if len(player_clicks) == 2:
                     move = Move(player_clicks[0], player_clicks[1], gs.board)
 
-                    if move in gs.gen_valid_moves():
+                    if move in gs.gen_valid_moves(gs.current_player_color()):
                         gs.make_move(move)
                         print(move.notation)
                     sq_selected = ()
@@ -77,9 +77,13 @@ def main() -> None:
                 if e.key == p.K_BACKSPACE:
                     gs.undo_move()
                 if e.key == p.K_q:
-                    print(f"Current player valid moves: {gs.gen_valid_moves()}")
                     print(
-                        f"Other player valid moves: {gs.gen_valid_moves(color=gs.other_player_color())}"
+                        f"Current player valid moves: \
+                            {gs.gen_valid_moves(gs.current_player_color())}"
+                    )
+                    print(
+                        f"Other player valid moves: \
+                        {gs.gen_valid_moves(gs.other_player_color())}"
                     )
                 if e.key == p.K_d:
                     print(f"Debug Details:\n\t{gs}")
@@ -139,7 +143,9 @@ def draw_highlight(
             )
 
         legal_moves = [
-            m for m in gs.gen_valid_moves() if m.x_0 == sq[0] and m.y_0 == sq[1]
+            m
+            for m in gs.gen_valid_moves(gs.current_player_color())
+            if m.x_0 == sq[0] and m.y_0 == sq[1]
         ]
 
         for m in legal_moves:
