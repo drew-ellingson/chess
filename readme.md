@@ -18,7 +18,7 @@ This is a learning project to create a chess engine in python.
     - [x] ~~en passant~~
     - [x] ~~moving while in check / cant move into check~~
 - [x] ~~End Conditions (checkmate / stalemate)~~
-        -[ ] Add some sort of end screen and reset button
+    - [ ] Add some sort of end screen and reset button
 - [x] ~~Piece highlighting / legal move highlighting~~
 - [x] ~~Notation Generation~~
     - [ ] still need: castling, Nbd2 case, pawn promotion
