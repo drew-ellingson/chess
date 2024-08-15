@@ -67,11 +67,13 @@ def main() -> None:
                 if len(player_clicks) == 2:
                     move = Move(player_clicks[0], player_clicks[1], gs.board)
 
-                    if move in gs.gen_valid_moves(gs.current_player_color()):
-                        gs.make_move(move)
-                        print(move.notation)
-                    sq_selected = ()
-                    player_clicks = []
+                    # need the engine generated version, not the player one
+                    for m in gs.gen_valid_moves(gs.current_player_color()):
+                        if m == move:
+                            gs.make_move(m)
+                            print(move.notation)
+                        sq_selected = ()
+                        player_clicks = []
 
             elif e.type == p.KEYDOWN:
                 if e.key == p.K_BACKSPACE:

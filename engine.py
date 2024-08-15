@@ -49,8 +49,13 @@ class GameState:
         if move.piece_moved[-1] == "K":
             self.king_positions[move.piece_moved[0]] = (move.x_1, move.y_1)
 
+        if move.is_pawn_promotion:
+            self.board[move.x_1][move.y_1] = move.player_color + "Q"
+
     def undo_move(self) -> None:
         """Undoes last move and makes necessary reversions to game state"""
+
+        # this logic handles pawn promotion incidentally
         if len(self.move_log) != 0:
             last_move = self.move_log.pop()  # removes last move from log as well.
             self.board[last_move.x_0][last_move.y_0] = last_move.piece_moved
@@ -67,7 +72,7 @@ class GameState:
 
         # need to handle castling rights, etc.
 
-    def gen_possible_moves(self, color: str):
+    def gen_possible_moves(self, color: str) -> List[Move]:
         """
         Generate possible moves for the given color. If no color is provided,
         use the current_player_color.
@@ -225,6 +230,13 @@ class Move:
         self.piece_captured = board[self.x_1][self.y_1]
         self.player_color = self.piece_moved[0]
         self.other_player_color = "b" if self.player_color == "w" else "w"
+
+        far_row = 0 if self.player_color == "w" else 7
+
+        self.is_pawn_promotion = self.piece_moved[-1] == "p" and self.x_1 == far_row
+
+        self.is_en_passant = False
+        self.is_castling = False
 
         self.notation = self.gen_notation()
 

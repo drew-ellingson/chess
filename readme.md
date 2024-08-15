@@ -13,7 +13,7 @@ This is a learning project to create a chess engine in python.
 - [ ] Advanced legal move validation
     - [x] ~~(non en passant) pawn captures~~
     - [ ] castling
-    - [ ] pawn promotion
+    - [x] ~~pawn promotion~~
     - [ ] en passant
     - [x] ~~moving while in check / cant move into check~~
 - [ ] End Conditions (checkmate / stalemate)
