@@ -1,4 +1,4 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 import pygame as p
 from engine import GameState, Move
@@ -35,7 +35,7 @@ def main() -> None:
 
     # game loop
 
-    sq_selected: Tuple[int, int] = ()  # (row, col) for last user-clicked sq
+    sq_selected: Optional[Tuple[int, int]] = None  # (row, col) for last user-clicked sq
     player_clicks: List[Tuple[int, int]] = []  # keep track of last two clicks for moves
 
     new_game = True
@@ -61,7 +61,7 @@ def main() -> None:
                     ):
                         player_clicks.append(sq_selected)
                 else:
-                    sq_selected = ()
+                    sq_selected = None
                     player_clicks = []
 
                 if len(player_clicks) == 2:
@@ -73,7 +73,7 @@ def main() -> None:
                             print(move)
                             gs.make_move(m)
 
-                        sq_selected = ()
+                        sq_selected = None
                         player_clicks = []
 
             elif e.type == p.KEYDOWN:

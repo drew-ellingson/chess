@@ -147,6 +147,10 @@ class GameState:
 
         for m in possible_moves:
 
+            # corner case to disallow self-en-passant in hypotheticals. shouldn't matter
+            if m.is_en_passant and color != self.current_player_color():
+                continue
+
             self.make_move(m)
 
             # colors have swapped
@@ -287,8 +291,11 @@ class Move:
 
         self.notation = self.gen_notation()
 
-    def __eq__(self, other: Move) -> bool:
+    def __eq__(self, other: object) -> bool:
         """equality override for use in move validation"""
+
+        if not isinstance(other, Move):
+            return NotImplemented
 
         return all(
             [
