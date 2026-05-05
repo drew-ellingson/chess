@@ -15,7 +15,7 @@ Six space-separated fields:
 """
 import itertools 
 from drewbert.core.position import Position
-from drewbert.core.types import Piece, PieceType, Color
+from drewbert.core.types import Piece, PieceType, Color, CastlingRights
 
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
@@ -47,14 +47,30 @@ def parse_fen(fen: str) -> Position:
           if input[0].isdigit():
             output.append(int(input[0]) * [None])
           else: 
-            output.append([FEN_TO_POS[input[0]]])
+            try:
+              output.append([FEN_TO_POS[input[0]]])
+            except KeyError:
+               raise ValueError('invalid piece identifier in FEN input')
           input.pop(0)
-
-    rows = [parse_row(r) for r in reversed(comps[0].split('/'))]
-    pieces = list(itertools.chain.from_iterable(rows))
+        return output
     
-    raise NotImplementedError
+    rows = [parse_row(r) for r in reversed(comps[0].split('/'))]
+    squares = list(itertools.chain.from_iterable(rows))
+    
+    try:                                                                                                                                                                                         
+      side_to_move = {'w': Color.WHITE, 'b': Color.BLACK}[comps[1]]
+    except KeyError:                                                                                                                                                                             
+        raise ValueError(f'invalid color in FEN: {comps[1]!r}')  
+    
+    castling = CastlingRights(
+      'K' in comps[2],
+      'Q' in comps[2],
+      'k' in comps[2],
+      'q' in comps[2]
+    )
 
+    ep_target_sq:
+    raise NotImplementedError
 
 def to_fen(position: Position) -> str:
     """Serialize a Position to FEN."""
