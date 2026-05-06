@@ -14,7 +14,7 @@ import random
 import chess
 import pytest
 
-from drewbert.adapters.fen import parse_fen, to_fen
+from drewbert.adapters.fen import alg_sq_to_int, int_to_alg_sq, parse_fen, to_fen
 from drewbert.core.position import Position
 from drewbert.core.types import Color, PieceType
 
@@ -189,3 +189,74 @@ def test_parse_fen_rejects_malformed(fen: str) -> None:
     """
     with pytest.raises(ValueError):
         parse_fen(fen)
+
+
+# Direct tests for the algebraic↔index helpers. Corner squares plus a couple
+# of middle-board cases; the all-squares round-trip below catches off-by-one.
+@pytest.mark.parametrize(
+    "alg,idx",
+    [
+        ("a1", 0),
+        ("h1", 7),
+        ("a8", 56),
+        ("h8", 63),
+        ("e4", 28),
+        ("d6", 43),
+    ],
+)
+def test_alg_sq_to_int_known_values(alg: str, idx: int) -> None:
+    assert alg_sq_to_int(alg) == idx
+
+
+@pytest.mark.parametrize(
+    "idx,alg",
+    [
+        (0, "a1"),
+        (7, "h1"),
+        (56, "a8"),
+        (63, "h8"),
+        (28, "e4"),
+        (43, "d6"),
+    ],
+)
+def test_int_to_alg_sq_known_values(idx: int, alg: str) -> None:
+    assert int_to_alg_sq(idx) == alg
+
+
+def test_helpers_round_trip_all_squares() -> None:
+    """alg_sq_to_int and int_to_alg_sq are inverses on every valid square."""
+    for idx in range(64):
+        assert alg_sq_to_int(int_to_alg_sq(idx)) == idx
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        pytest.param("", id="empty"),
+        pytest.param("a", id="too_short"),
+        pytest.param("a1a", id="too_long"),
+        pytest.param("z1", id="invalid_file"),
+        pytest.param("A1", id="uppercase_file"),
+        pytest.param("a0", id="rank_below_range"),
+        pytest.param("a9", id="rank_above_range"),
+        pytest.param("ab", id="non_digit_rank"),
+        pytest.param("11", id="non_letter_file"),
+    ],
+)
+def test_alg_sq_to_int_rejects_malformed(bad: str) -> None:
+    with pytest.raises(ValueError):
+        alg_sq_to_int(bad)
+
+
+@pytest.mark.parametrize(
+    "bad",
+    [
+        pytest.param(-1, id="negative_one"),
+        pytest.param(64, id="just_above_range"),
+        pytest.param(-100, id="far_negative"),
+        pytest.param(1000, id="far_above_range"),
+    ],
+)
+def test_int_to_alg_sq_rejects_out_of_range(bad: int) -> None:
+    with pytest.raises(ValueError):
+        int_to_alg_sq(bad)

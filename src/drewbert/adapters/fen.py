@@ -41,7 +41,7 @@ COLORS = {"w": Color.WHITE, "b": Color.BLACK}
 
 def alg_sq_to_int(sq: str) -> int:
     """From an algebraic notation square, return the [0..63] rank-major index"""
-    if sq[0] not in "abcdefgh" or int(sq[1]) < 1 or int(sq[1]) > 8:
+    if len(sq) != 2 or sq[0] not in "abcdefgh" or int(sq[1]) < 1 or int(sq[1]) > 8:
         raise ValueError(f"Invalid square: {sq}")
 
     return 8 * (int(sq[1]) - 1) + (ord(sq[0]) - ord("a"))
@@ -63,9 +63,8 @@ def parse_fen(fen: str) -> Position:
 
     def parse_row(row: str) -> list[Piece | None]:
         """Helper to parse a single row of FEN input to a list of Pieces"""
-        remaining = list(row)
         output = []
-        for c in remaining:
+        for c in row:
             if c.isdigit():
                 output.extend(int(c) * [None])
             else:
@@ -75,7 +74,7 @@ def parse_fen(fen: str) -> Position:
                     raise ValueError("invalid piece identifier in FEN input") from None
 
         if not len(output) == 8:
-            raise ValueError(f"malformed FEN row: {remaining}")
+            raise ValueError(f"malformed FEN row: {row}")
 
         return output
 
@@ -116,24 +115,23 @@ def parse_fen(fen: str) -> Position:
 def to_fen(position: Position) -> str:
     """Serialize a Position to FEN."""
 
-    def parse_row(row: list[Piece | None]) -> str:
+    def format_row(row: list[Piece | None]) -> str:
         output = ""
-        while row:
-            if row[0] is None:
+        for c in row:
+            if c is None:
                 if output == "" or not output[-1].isdigit():
                     output = output + "1"
                 else:
                     output = output[:-1] + str(int(output[-1]) + 1)
             else:
-                output = output + POS_TO_FEN[row[0]]
-            row.pop(0)
+                output = output + POS_TO_FEN[c]
         return output
 
     comps = []
     rows = [[position.squares[8 * i + j] for j in range(8)] for i in range(7, -1, -1)]
 
     # write the board
-    comps.append("/".join(parse_row(r) for r in rows))
+    comps.append("/".join(format_row(r) for r in rows))
 
     # write active_color
     comps.append("w" if position.side_to_move == Color.WHITE else "b")
@@ -148,9 +146,9 @@ def to_fen(position: Position) -> str:
 
     comps.append(castling_rights if castling_rights else "-")
 
-    # write en_passant_target_sq
+    # write en_passant_target
     comps.append(
-        "-" if not position.en_passant_target else int_to_alg_sq(position.en_passant_target)
+        "-" if position.en_passant_target is None else int_to_alg_sq(position.en_passant_target)
     )
 
     # write halfmove_clock
