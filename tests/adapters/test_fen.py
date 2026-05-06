@@ -113,3 +113,79 @@ def test_fuzz_oracle() -> None:
             move = rng.choice(list(board.legal_moves))
             board.push(move)
             ply += 1
+
+
+# Malformed inputs that parse_fen must reject with ValueError per its docstring.
+# Each case targets one specific failure mode. Some currently pass, some
+# currently fail — they collectively define the contract.
+MALFORMED_FENS = [
+    # Field count
+    pytest.param("", id="empty"),
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0",
+        id="five_fields",
+    ),
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 extra",
+        id="seven_fields",
+    ),
+    # Board placement — wrong rank count
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/RNBQKBNR w KQkq - 0 1",
+        id="seven_ranks",
+    ),
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        id="nine_ranks",
+    ),
+    # Board placement — wrong squares-per-rank
+    pytest.param(
+        "rnbqkbn/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        id="rank_seven_squares",
+    ),
+    pytest.param(
+        "rnbqkbnrr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        id="rank_nine_squares",
+    ),
+    # Board placement — invalid characters
+    pytest.param(
+        "rnbqkbXr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        id="invalid_piece_char",
+    ),
+    pytest.param("9/8/8/8/8/8/8/8 w - - 0 1", id="digit_out_of_range"),
+    # Side to move
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR x KQkq - 0 1",
+        id="invalid_color",
+    ),
+    # Castling field
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w abcd - 0 1",
+        id="garbage_castling_field",
+    ),
+    # En passant
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq z3 0 1",
+        id="ep_invalid_file",
+    ),
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq a9 0 1",
+        id="ep_invalid_rank",
+    ),
+    # Clocks
+    pytest.param(
+        "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - x 1",
+        id="non_numeric_halfmove",
+    ),
+]
+
+
+@pytest.mark.parametrize("fen", MALFORMED_FENS)
+def test_parse_fen_rejects_malformed(fen: str) -> None:
+    """parse_fen must raise ValueError on any malformed input.
+
+    These cases define the contract; some will fail until the corresponding
+    validation is added.
+    """
+    with pytest.raises(ValueError):
+        parse_fen(fen)

@@ -39,11 +39,17 @@ POS_TO_FEN = {v: k for k, v in FEN_TO_POS.items()}
 
 def alg_sq_to_int(sq: str) -> int:
     """From an algebraic notation square, return the [0..63] rank-major index"""
+    if sq[0] not in 'abcdefgh' or int(sq[1]) < 1 or int(sq[1]) > 8:
+        raise ValueError(f'Invalid square: {sq}')
+
     return 8 * (int(sq[1]) - 1)  + (ord(sq[0]) - 97)
 
 
 def int_to_alg_sq(idx: int) -> str:
     """From a [0..63] rank major index, return the algebra notation square"""
+    if idx < 0 or idx > 63:
+        raise ValueError(f'Invalid square index {idx}')
+
     return chr(idx % 8 + 97) + str(idx // 8 + 1)
 
 
@@ -65,12 +71,16 @@ def parse_fen(fen: str) -> Position:
                 except KeyError:
                     raise ValueError("invalid piece identifier in FEN input")
             input.pop(0)
-        if not len(output):
+        if not len(output) == 8:
             raise ValueError(f'malformed FEN row: {input}')
 
         return output
 
     rows = [parse_row(r) for r in reversed(comps[0].split("/"))]
+
+    if not len(rows) == 8:
+        raise ValueError(f'malformed FEN board - invalid number of rows {comps[0]}')
+    
     squares = list(itertools.chain.from_iterable(rows))
 
     try:
