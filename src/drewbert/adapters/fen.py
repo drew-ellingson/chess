@@ -15,10 +15,9 @@ Six space-separated fields:
 """
 
 import itertools
-from drewbert.core.position import Position
-from drewbert.core.types import Piece, PieceType, Color, CastlingRights
 
-STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+from drewbert.core.position import Position
+from drewbert.core.types import CastlingRights, Color, Piece, PieceType
 
 FEN_TO_POS = {
     "r": Piece(PieceType.ROOK, Color.BLACK),
@@ -37,20 +36,23 @@ FEN_TO_POS = {
 
 POS_TO_FEN = {v: k for k, v in FEN_TO_POS.items()}
 
+COLORS = {"w": Color.WHITE, "b": Color.BLACK}
+
+
 def alg_sq_to_int(sq: str) -> int:
     """From an algebraic notation square, return the [0..63] rank-major index"""
-    if sq[0] not in 'abcdefgh' or int(sq[1]) < 1 or int(sq[1]) > 8:
-        raise ValueError(f'Invalid square: {sq}')
+    if sq[0] not in "abcdefgh" or int(sq[1]) < 1 or int(sq[1]) > 8:
+        raise ValueError(f"Invalid square: {sq}")
 
-    return 8 * (int(sq[1]) - 1)  + (ord(sq[0]) - 97)
+    return 8 * (int(sq[1]) - 1) + (ord(sq[0]) - ord("a"))
 
 
 def int_to_alg_sq(idx: int) -> str:
     """From a [0..63] rank major index, return the algebra notation square"""
     if idx < 0 or idx > 63:
-        raise ValueError(f'Invalid square index {idx}')
+        raise ValueError(f"Invalid square index {idx}")
 
-    return chr(idx % 8 + 97) + str(idx // 8 + 1)
+    return chr(idx % 8 + ord("a")) + str(idx // 8 + 1)
 
 
 def parse_fen(fen: str) -> Position:
@@ -60,37 +62,38 @@ def parse_fen(fen: str) -> Position:
         raise ValueError("malformed FEN input")
 
     def parse_row(row: str) -> list[Piece | None]:
-        input = list(row)
+        """Helper to parse a single row of FEN input to a list of Pieces"""
+        remaining = list(row)
         output = []
-        while input:
-            if input[0].isdigit():
-                output.extend(int(input[0]) * [None])
+        for c in remaining:
+            if c.isdigit():
+                output.extend(int(c) * [None])
             else:
                 try:
-                    output.append(FEN_TO_POS[input[0]])
+                    output.append(FEN_TO_POS[c])
                 except KeyError:
-                    raise ValueError("invalid piece identifier in FEN input")
-            input.pop(0)
+                    raise ValueError("invalid piece identifier in FEN input") from None
+
         if not len(output) == 8:
-            raise ValueError(f'malformed FEN row: {input}')
+            raise ValueError(f"malformed FEN row: {remaining}")
 
         return output
 
     rows = [parse_row(r) for r in reversed(comps[0].split("/"))]
 
     if not len(rows) == 8:
-        raise ValueError(f'malformed FEN board - invalid number of rows {comps[0]}')
-    
+        raise ValueError(f"malformed FEN board - invalid number of rows {comps[0]}")
+
     squares = list(itertools.chain.from_iterable(rows))
 
     try:
-        side_to_move = {"w": Color.WHITE, "b": Color.BLACK}[comps[1]]
+        side_to_move = COLORS[comps[1]]
     except KeyError:
-        raise ValueError(f"invalid color in FEN: {comps[1]!r}")
+        raise ValueError(f"invalid color in FEN: {comps[1]!r}") from None
 
-    if not set(comps[2]) <= {"K","Q","k","q","-"}:
-        raise ValueError(f'Invalid FEN Castling Rights: {comps[2]}')
-    
+    if not set(comps[2]) <= {"K", "Q", "k", "q", "-"}:
+        raise ValueError(f"Invalid FEN Castling Rights: {comps[2]}")
+
     castling_rights = CastlingRights(
         "K" in comps[2], "Q" in comps[2], "k" in comps[2], "q" in comps[2]
     )
@@ -101,7 +104,12 @@ def parse_fen(fen: str) -> Position:
     fullmove_number = int(comps[5])
 
     return Position(
-        squares, side_to_move, castling_rights, en_passant_target, halfmove_clock, fullmove_number
+        squares=squares,
+        side_to_move=side_to_move,
+        castling_rights=castling_rights,
+        en_passant_target=en_passant_target,
+        halfmove_clock=halfmove_clock,
+        fullmove_number=fullmove_number,
     )
 
 
@@ -136,10 +144,9 @@ def to_fen(position: Position) -> str:
     bk = "k" if position.castling_rights.black_kingside else ""
     bq = "q" if position.castling_rights.black_queenside else ""
 
-
     castling_rights = wk + wq + bk + bq
 
-    comps.append("-" if not castling_rights else castling_rights)
+    comps.append(castling_rights if castling_rights else "-")
 
     # write en_passant_target_sq
     comps.append(
