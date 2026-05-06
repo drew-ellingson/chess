@@ -17,8 +17,6 @@ Six space-separated fields:
 import itertools
 from drewbert.core.position import Position
 from drewbert.core.types import Piece, PieceType, Color, CastlingRights
-from drewbert.adapters.helpers.square_reps import alg_sq_to_int, int_to_alg_sq
-
 
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
@@ -39,6 +37,15 @@ FEN_TO_POS = {
 
 POS_TO_FEN = {v: k for k, v in FEN_TO_POS.items()}
 
+def alg_sq_to_int(sq: str) -> int:
+    """From an algebraic notation square, return the [0..63] rank-major index"""
+    return 8 * (int(sq[1]) - 1)  + (ord(sq[0]) - 97)
+
+
+def int_to_alg_sq(idx: int) -> str:
+    """From a [0..63] rank major index, return the algebra notation square"""
+    return chr(idx % 8 + 97) + str(idx // 8 + 1)
+
 
 def parse_fen(fen: str) -> Position:
     """Parse a FEN string into a Position. Raises ValueError on malformed input."""
@@ -58,6 +65,9 @@ def parse_fen(fen: str) -> Position:
                 except KeyError:
                     raise ValueError("invalid piece identifier in FEN input")
             input.pop(0)
+        if not len(output):
+            raise ValueError(f'malformed FEN row: {input}')
+
         return output
 
     rows = [parse_row(r) for r in reversed(comps[0].split("/"))]
@@ -68,6 +78,9 @@ def parse_fen(fen: str) -> Position:
     except KeyError:
         raise ValueError(f"invalid color in FEN: {comps[1]!r}")
 
+    if not set(comps[2]) <= {"K","Q","k","q","-"}:
+        raise ValueError(f'Invalid FEN Castling Rights: {comps[2]}')
+    
     castling_rights = CastlingRights(
         "K" in comps[2], "Q" in comps[2], "k" in comps[2], "q" in comps[2]
     )
