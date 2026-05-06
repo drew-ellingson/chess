@@ -116,8 +116,7 @@ def test_fuzz_oracle() -> None:
 
 
 # Malformed inputs that parse_fen must reject with ValueError per its docstring.
-# Each case targets one specific failure mode. Some currently pass, some
-# currently fail — they collectively define the contract.
+# Each case targets one specific failure mode.
 MALFORMED_FENS = [
     # Field count
     pytest.param("", id="empty"),
@@ -182,11 +181,7 @@ MALFORMED_FENS = [
 
 @pytest.mark.parametrize("fen", MALFORMED_FENS)
 def test_parse_fen_rejects_malformed(fen: str) -> None:
-    """parse_fen must raise ValueError on any malformed input.
-
-    These cases define the contract; some will fail until the corresponding
-    validation is added.
-    """
+    """parse_fen must raise ValueError on any malformed input."""
     with pytest.raises(ValueError):
         parse_fen(fen)
 

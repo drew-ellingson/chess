@@ -48,7 +48,7 @@ def alg_sq_to_int(sq: str) -> int:
 
 
 def int_to_alg_sq(idx: int) -> str:
-    """From a [0..63] rank major index, return the algebra notation square"""
+    """From a [0..63] rank major index, return the algebraic notation square"""
     if idx < 0 or idx > 63:
         raise ValueError(f"Invalid square index {idx}")
 
@@ -73,14 +73,14 @@ def parse_fen(fen: str) -> Position:
                 except KeyError:
                     raise ValueError("invalid piece identifier in FEN input") from None
 
-        if not len(output) == 8:
+        if len(output) != 8:
             raise ValueError(f"malformed FEN row: {row}")
 
         return output
 
     rows = [parse_row(r) for r in reversed(comps[0].split("/"))]
 
-    if not len(rows) == 8:
+    if len(rows) != 8:
         raise ValueError(f"malformed FEN board - invalid number of rows {comps[0]}")
 
     squares = list(itertools.chain.from_iterable(rows))
@@ -94,7 +94,10 @@ def parse_fen(fen: str) -> Position:
         raise ValueError(f"Invalid FEN Castling Rights: {comps[2]}")
 
     castling_rights = CastlingRights(
-        "K" in comps[2], "Q" in comps[2], "k" in comps[2], "q" in comps[2]
+        white_kingside = "K" in comps[2], 
+        white_queenside = "Q" in comps[2], 
+        black_kingside = "k" in comps[2], 
+        black_queenside = "q" in comps[2]
     )
 
     en_passant_target = None if comps[3] == "-" else alg_sq_to_int(comps[3])
@@ -115,28 +118,29 @@ def parse_fen(fen: str) -> Position:
 def to_fen(position: Position) -> str:
     """Serialize a Position to FEN."""
 
-    def format_row(row: list[Piece | None]) -> str:
-        output = ""
-        for c in row:
-            if c is None:
-                if output == "" or not output[-1].isdigit():
-                    output = output + "1"
-                else:
-                    output = output[:-1] + str(int(output[-1]) + 1)
-            else:
-                output = output + POS_TO_FEN[c]
-        return output
+    def format_row(row: list[Piece | None]) -> str:                                                                    
+        """Serialize one rank as the FEN piece-placement substring (e.g. "rnbq1k1r")."""                               
+        empty_count = 0                                                                                                
+        parts: list[str] = []                                                                                          
+        for piece in row:                                                                                              
+            if piece is None:                                                                                          
+                empty_count += 1                                                                                     
+                continue                                                                                             
+            if empty_count > 0:
+                parts.append(str(empty_count))
+                empty_count = 0                                                                                        
+            parts.append(POS_TO_FEN[piece])
+        if empty_count > 0:                                                                                            
+            parts.append(str(empty_count))                        
+        return "".join(parts)   
 
     comps = []
     rows = [[position.squares[8 * i + j] for j in range(8)] for i in range(7, -1, -1)]
 
-    # write the board
     comps.append("/".join(format_row(r) for r in rows))
 
-    # write active_color
     comps.append("w" if position.side_to_move == Color.WHITE else "b")
 
-    # write castling_rights
     wk = "K" if position.castling_rights.white_kingside else ""
     wq = "Q" if position.castling_rights.white_queenside else ""
     bk = "k" if position.castling_rights.black_kingside else ""
@@ -146,16 +150,12 @@ def to_fen(position: Position) -> str:
 
     comps.append(castling_rights if castling_rights else "-")
 
-    # write en_passant_target
     comps.append(
         "-" if position.en_passant_target is None else int_to_alg_sq(position.en_passant_target)
     )
 
-    # write halfmove_clock
-
     comps.append(str(position.halfmove_clock))
 
-    # write fullmove_number
     comps.append(str(position.fullmove_number))
 
     return " ".join(comps)
