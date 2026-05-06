@@ -55,7 +55,7 @@ def _to_our_color(c: chess.Color) -> Color:
     return Color.WHITE if c == chess.WHITE else Color.BLACK
 
 
-def _assert_matches_oracle(ours: Position, theirs: chess.Board) -> None:
+def _assert_matches_oracle(ours: Position, theirs: chess.Board, fen: str) -> None:
     """Compare every observable field of our Position against python-chess."""
     for square in range(64):
         their_piece = theirs.piece_at(square)
@@ -72,7 +72,13 @@ def _assert_matches_oracle(ours: Position, theirs: chess.Board) -> None:
     assert ours.castling_rights.white_queenside == bool(theirs.castling_rights & chess.BB_A1)
     assert ours.castling_rights.black_kingside == bool(theirs.castling_rights & chess.BB_H8)
     assert ours.castling_rights.black_queenside == bool(theirs.castling_rights & chess.BB_A8)
-    assert ours.en_passant_target == theirs.ep_square
+
+    # Compare ep against the FEN literal: python-chess's ep_square diverges from
+    # board.fen()'s legal-mode emission, so neither side alone is a faithful oracle.
+    ep_field = fen.split()[3]
+    expected_ep = None if ep_field == "-" else chess.parse_square(ep_field)
+    assert ours.en_passant_target == expected_ep
+
     assert ours.halfmove_clock == theirs.halfmove_clock
     assert ours.fullmove_number == theirs.fullmove_number
 
@@ -92,7 +98,7 @@ def test_serialization_is_canonical(fen: str) -> None:
 
 @pytest.mark.parametrize("fen", CANONICAL_FENS)
 def test_oracle_match(fen: str) -> None:
-    _assert_matches_oracle(parse_fen(fen), chess.Board(fen))
+    _assert_matches_oracle(parse_fen(fen), chess.Board(fen), fen)
 
 
 def test_fuzz_oracle() -> None:
@@ -102,7 +108,8 @@ def test_fuzz_oracle() -> None:
         board = chess.Board()
         ply = 0
         while not board.is_game_over() and ply < 80:
-            _assert_matches_oracle(parse_fen(board.fen()), board)
+            fen = board.fen()
+            _assert_matches_oracle(parse_fen(fen), board, fen)
             move = rng.choice(list(board.legal_moves))
             board.push(move)
             ply += 1

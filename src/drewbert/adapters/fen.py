@@ -13,65 +13,121 @@ Six space-separated fields:
   5. Halfmove clock (since last pawn move or capture)
   6. Fullmove number (starts at 1, increments after Black's move)
 """
-import itertools 
+
+import itertools
 from drewbert.core.position import Position
 from drewbert.core.types import Piece, PieceType, Color, CastlingRights
+from drewbert.adapters.helpers.square_reps import alg_sq_to_int, int_to_alg_sq
+
 
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
-FEN_TO_POS = { 
-  'r': Piece(PieceType.ROOK, Color.BLACK),
-  'n': Piece(PieceType.KNIGHT, Color.BLACK),
-  'b': Piece(PieceType.BISHOP, Color.BLACK),
-  'q': Piece(PieceType.QUEEN, Color.BLACK),
-  'k': Piece(PieceType.KING, Color.BLACK),
-  'p': Piece(PieceType.PAWN, Color.BLACK),
-  'R': Piece(PieceType.ROOK, Color.WHITE),
-  'N': Piece(PieceType.KNIGHT, Color.WHITE),
-  'B': Piece(PieceType.BISHOP, Color.WHITE),
-  'Q': Piece(PieceType.QUEEN, Color.WHITE),
-  'K': Piece(PieceType.KING, Color.WHITE),
-  'P': Piece(PieceType.PAWN, Color.WHITE),
+FEN_TO_POS = {
+    "r": Piece(PieceType.ROOK, Color.BLACK),
+    "n": Piece(PieceType.KNIGHT, Color.BLACK),
+    "b": Piece(PieceType.BISHOP, Color.BLACK),
+    "q": Piece(PieceType.QUEEN, Color.BLACK),
+    "k": Piece(PieceType.KING, Color.BLACK),
+    "p": Piece(PieceType.PAWN, Color.BLACK),
+    "R": Piece(PieceType.ROOK, Color.WHITE),
+    "N": Piece(PieceType.KNIGHT, Color.WHITE),
+    "B": Piece(PieceType.BISHOP, Color.WHITE),
+    "Q": Piece(PieceType.QUEEN, Color.WHITE),
+    "K": Piece(PieceType.KING, Color.WHITE),
+    "P": Piece(PieceType.PAWN, Color.WHITE),
 }
+
+POS_TO_FEN = {v: k for k, v in FEN_TO_POS.items()}
+
 
 def parse_fen(fen: str) -> Position:
     """Parse a FEN string into a Position. Raises ValueError on malformed input."""
-    comps = fen.split(' ')
-    if len(comps) != 8:
-        raise ValueError('malformed FEN input')
+    comps = fen.split(" ")
+    if len(comps) != 6:
+        raise ValueError("malformed FEN input")
 
     def parse_row(row: str) -> list[Piece | None]:
         input = list(row)
         output = []
         while input:
-          if input[0].isdigit():
-            output.append(int(input[0]) * [None])
-          else: 
-            try:
-              output.append([FEN_TO_POS[input[0]]])
-            except KeyError:
-               raise ValueError('invalid piece identifier in FEN input')
-          input.pop(0)
+            if input[0].isdigit():
+                output.extend(int(input[0]) * [None])
+            else:
+                try:
+                    output.append(FEN_TO_POS[input[0]])
+                except KeyError:
+                    raise ValueError("invalid piece identifier in FEN input")
+            input.pop(0)
         return output
-    
-    rows = [parse_row(r) for r in reversed(comps[0].split('/'))]
+
+    rows = [parse_row(r) for r in reversed(comps[0].split("/"))]
     squares = list(itertools.chain.from_iterable(rows))
-    
-    try:                                                                                                                                                                                         
-      side_to_move = {'w': Color.WHITE, 'b': Color.BLACK}[comps[1]]
-    except KeyError:                                                                                                                                                                             
-        raise ValueError(f'invalid color in FEN: {comps[1]!r}')  
-    
-    castling = CastlingRights(
-      'K' in comps[2],
-      'Q' in comps[2],
-      'k' in comps[2],
-      'q' in comps[2]
+
+    try:
+        side_to_move = {"w": Color.WHITE, "b": Color.BLACK}[comps[1]]
+    except KeyError:
+        raise ValueError(f"invalid color in FEN: {comps[1]!r}")
+
+    castling_rights = CastlingRights(
+        "K" in comps[2], "Q" in comps[2], "k" in comps[2], "q" in comps[2]
     )
 
-    ep_target_sq:
-    raise NotImplementedError
+    en_passant_target = None if comps[3] == "-" else alg_sq_to_int(comps[3])
+
+    halfmove_clock = int(comps[4])
+    fullmove_number = int(comps[5])
+
+    return Position(
+        squares, side_to_move, castling_rights, en_passant_target, halfmove_clock, fullmove_number
+    )
+
 
 def to_fen(position: Position) -> str:
     """Serialize a Position to FEN."""
-    raise NotImplementedError("phase 1")
+
+    def parse_row(row: list[Piece | None]) -> str:
+        output = ""
+        while row:
+            if row[0] is None:
+                if output == "" or not output[-1].isdigit():
+                    output = output + "1"
+                else:
+                    output = output[:-1] + str(int(output[-1]) + 1)
+            else:
+                output = output + POS_TO_FEN[row[0]]
+            row.pop(0)
+        return output
+
+    comps = []
+    rows = [[position.squares[8 * i + j] for j in range(8)] for i in range(7, -1, -1)]
+
+    # write the board
+    comps.append("/".join(parse_row(r) for r in rows))
+
+    # write active_color
+    comps.append("w" if position.side_to_move == Color.WHITE else "b")
+
+    # write castling_rights
+    wk = "K" if position.castling_rights.white_kingside else ""
+    wq = "Q" if position.castling_rights.white_queenside else ""
+    bk = "k" if position.castling_rights.black_kingside else ""
+    bq = "q" if position.castling_rights.black_queenside else ""
+
+
+    castling_rights = wk + wq + bk + bq
+
+    comps.append("-" if not castling_rights else castling_rights)
+
+    # write en_passant_target_sq
+    comps.append(
+        "-" if not position.en_passant_target else int_to_alg_sq(position.en_passant_target)
+    )
+
+    # write halfmove_clock
+
+    comps.append(str(position.halfmove_clock))
+
+    # write fullmove_number
+    comps.append(str(position.fullmove_number))
+
+    return " ".join(comps)
