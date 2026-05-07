@@ -19,6 +19,8 @@ import itertools
 from drewbert.core.position import Position
 from drewbert.core.types import CastlingRights, Color, Piece, PieceType
 
+STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
 FEN_TO_POS = {
     "r": Piece(PieceType.ROOK, Color.BLACK),
     "n": Piece(PieceType.KNIGHT, Color.BLACK),
@@ -40,7 +42,10 @@ COLORS = {"w": Color.WHITE, "b": Color.BLACK}
 
 
 def alg_sq_to_int(sq: str) -> int:
-    """From an algebraic notation square, return the [0..63] rank-major index"""
+    """Return the [0..63] rank-major index for an algebraic square (e.g. "a1", "h8").
+
+    Raises ValueError if `sq` is not a valid two-character algebraic square.
+    """
     if len(sq) != 2 or sq[0] not in "abcdefgh" or int(sq[1]) < 1 or int(sq[1]) > 8:
         raise ValueError(f"Invalid square: {sq}")
 
@@ -48,7 +53,10 @@ def alg_sq_to_int(sq: str) -> int:
 
 
 def int_to_alg_sq(idx: int) -> str:
-    """From a [0..63] rank major index, return the algebraic notation square"""
+    """Return the algebraic notation square (e.g. "a1", "h8") for a [0..63] rank-major index.
+
+    Raises ValueError if `idx` is outside [0, 63].
+    """
     if idx < 0 or idx > 63:
         raise ValueError(f"Invalid square index {idx}")
 
@@ -94,10 +102,10 @@ def parse_fen(fen: str) -> Position:
         raise ValueError(f"Invalid FEN Castling Rights: {comps[2]}")
 
     castling_rights = CastlingRights(
-        white_kingside = "K" in comps[2], 
-        white_queenside = "Q" in comps[2], 
-        black_kingside = "k" in comps[2], 
-        black_queenside = "q" in comps[2]
+        white_kingside="K" in comps[2],
+        white_queenside="Q" in comps[2],
+        black_kingside="k" in comps[2],
+        black_queenside="q" in comps[2],
     )
 
     en_passant_target = None if comps[3] == "-" else alg_sq_to_int(comps[3])
@@ -118,21 +126,21 @@ def parse_fen(fen: str) -> Position:
 def to_fen(position: Position) -> str:
     """Serialize a Position to FEN."""
 
-    def format_row(row: list[Piece | None]) -> str:                                                                    
-        """Serialize one rank as the FEN piece-placement substring (e.g. "rnbq1k1r")."""                               
-        empty_count = 0                                                                                                
-        parts: list[str] = []                                                                                          
-        for piece in row:                                                                                              
-            if piece is None:                                                                                          
-                empty_count += 1                                                                                     
-                continue                                                                                             
+    def format_row(row: list[Piece | None]) -> str:
+        """Serialize one rank as the FEN piece-placement substring (e.g. "rnbq1k1r")."""
+        empty_count = 0
+        parts: list[str] = []
+        for piece in row:
+            if piece is None:
+                empty_count += 1
+                continue
             if empty_count > 0:
                 parts.append(str(empty_count))
-                empty_count = 0                                                                                        
+                empty_count = 0
             parts.append(POS_TO_FEN[piece])
-        if empty_count > 0:                                                                                            
-            parts.append(str(empty_count))                        
-        return "".join(parts)   
+        if empty_count > 0:
+            parts.append(str(empty_count))
+        return "".join(parts)
 
     comps = []
     rows = [[position.squares[8 * i + j] for j in range(8)] for i in range(7, -1, -1)]
