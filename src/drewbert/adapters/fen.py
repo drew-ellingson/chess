@@ -110,7 +110,12 @@ def parse_fen(fen: str) -> Position:
 
     en_passant_target = None if comps[3] == "-" else alg_sq_to_int(comps[3])
 
+    if int(comps[4]) < 0:
+        raise ValueError(f"Halfmove must be greater than or equal to 0. Got {comps[4]}")
     halfmove_clock = int(comps[4])
+
+    if int(comps[5]) < 1:
+        raise ValueError(f"Fullmove number must be greater than or equal to 1. Got {comps[5]}")
     fullmove_number = int(comps[5])
 
     return Position(
