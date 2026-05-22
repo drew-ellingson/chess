@@ -124,13 +124,14 @@ class Position:
         
         # handling en passant captures
         dir = 1 if self.side_to_move == Color.WHITE else -1
-        if self.en_passant_target and move.to_square == self.en_passant_target + (dir * 8) and from_piece is not None and from_piece.type == PieceType.PAWN:
-            captured = self.piece_at(self.en_passant_target)
+        if self.en_passant_target and move.to_square == self.en_passant_target and from_piece is not None and from_piece.type == PieceType.PAWN:
+            captured = self.piece_at(self.en_passant_target + (8 * dir)) 
             self.squares[self.en_passant_target] = None 
 
         # set en_passant_target
+        dir = + 1 if self.side_to_move == Color.WHITE else - 1
         if abs(move.from_square - move.to_square) == 16 and from_piece is not None and from_piece.type == PieceType.PAWN:
-            self.en_passant_target = move.to_square
+            self.en_passant_target = move.to_square + (8 * dir)
         else:
             self.en_passant_target = None
 
@@ -152,13 +153,17 @@ class Position:
     def unmake_move(self, undo: Undo) -> None:
         """Reverse the move described by `undo`, restoring all prior state."""
         move = undo.move
-        self.squares[move.from_square] = self.squares[move.from_square]
+        
+        if move.promotion is not None:
+            self.squares[move.from_square] = Piece(PieceType.PAWN, self.side_to_move.opposite)
+        else:
+            self.squares[move.from_square] = self.squares[move.to_square]
         
         dir = 1 if self.side_to_move == Color.WHITE else -1
 
         # case when an en passant occurred.
-        if undo.prev_en_passant_target is not None and move.to_square == undo.prev_en_passant_target + (dir * 8) and undo.captured is not None and undo.captured.type == PieceType.PAWN:
-            self.squares[undo.prev_en_passant_target] = undo.captured 
+        if undo.prev_en_passant_target is not None and move.to_square == undo.prev_en_passant_target and undo.captured is not None and undo.captured.type == PieceType.PAWN:
+            self.squares[undo.prev_en_passant_target + (dir * 8)] = undo.captured 
         else:
             self.squares[move.to_square] = undo.captured # None is possible
 
