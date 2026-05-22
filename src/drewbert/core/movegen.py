@@ -39,13 +39,17 @@ def rank_file_to_sq(coord:Coord) -> Square:
         raise ValueError(f'Coord: {coord} is out of bounds. All coordinate values must be 0-7')
     return 8 * coord.rank + coord.file
 
+def target_piece_is_same_color(position: Position, coord: Coord) -> bool:
+    piece = position.piece_at(rank_file_to_sq(coord))
+    return piece is not None and piece.color == position.side_to_move 
+
 def slide_along_vector(position: Position, coord:Coord, delta: Coord) -> List[Coord]:
     """Given a start coordinate and a delta, slide along that delta until you encounter the edge of the board or a piece.
         If a piece is encountered: 
             Include the encountered square if its a piece of the opposite color
             Exclude the square if its a piece of the same color.
     """
-    piece = position.squares[rank_file_to_sq(coord)]
+    piece = position.piece_at(rank_file_to_sq(coord))
     if not piece:
         raise ValueError(f'Coord: {coord} must represent a piece, not an empty squrae')
     
@@ -54,9 +58,7 @@ def slide_along_vector(position: Position, coord:Coord, delta: Coord) -> List[Co
 
     while in_bounds:
         target = _add(target_squares[-1], delta)
-        target_sq = position.squares[rank_file_to_sq(target)]
-        not_same_color_piece = target_sq is None or target_sq.color == piece.color.opposite
-        if coord_in_bounds(target) and not_same_color_piece:
+        if coord_in_bounds(target) and target_piece_is_same_color(position, target):
             target_squares.append(target)
     
     # remove piece coord itself
@@ -69,7 +71,13 @@ def generate_pseudo_legal_knight_moves(position: Position, start_coord: Coord) -
         From a start coord, generate a list of move candidates for all valid knight moves from the coord
         Respects out of bounds and own-piece collision
     """
-    targets = [_add(start_coord, Coord(*delta)) for delta in KNIGHT_VECTORS]
+    targets = []
+    for delta in KNIGHT_VECTORS:
+        target = _add(start_coord, Coord(*delta))
+        # prevent same piece collisions
+        if not target_piece_is_same_color(position, target):
+            targets.append(target)
+
     return [Move(rank_file_to_sq(start_coord), rank_file_to_sq(target)) for target in targets]
 
 def generate_pseudo_legal_bishop_moves(position: Position, start_coord: Coord) -> List[Move]:
@@ -126,16 +134,24 @@ def generate_pseudo_legal_pawn_moves(position: Position, start_coord: Coord) -> 
         Handles pawn captures, en_passant, and promotion
     """
     dir = 1 if position.side_to_move == Color.WHITE else -1 
+    start_rank = 1 if position.side_to_move == Color.WHITE else 6
     promote_rank = 7 if position.side_to_move == Color.WHITE else 0
 
-    targets = [_add(start_coord, Coord(0,dir))]
-    if start_coord.rank == 1:
-        targets = [_add(start_coord, Coord(0,dir * 2))]
+    targets = []
+    one_sq_forward = _add(start_coord, Coord(0,dir))
+    if position.piece_at(rank_file_to_sq(one_sq_forward)) is None:
+        targets.append(one_sq_forward)
+
+    if start_coord.rank == start_rank:
+        two_sq_forward = _add(start_coord, Coord(0,dir * 2))
+        if position.piece_at(rank_file_to_sq(two_sq_forward)) is None and position.piece_at(rank_file_to_sq(one_sq_forward)) is None:
+            targets.append(two_sq_forward)
+
     capture_targets = [                                                                                                                                          
         target                                                                                                                                                 
         for x in [Coord(1, dir), Coord(-1, dir)]                                                                                                                     
         if coord_in_bounds(target := _add(x, start_coord))                                                                                                       
-        and (target_piece := position.squares[rank_file_to_sq(target)]) is not None
+        and (target_piece := position.piece_at(rank_file_to_sq(target))) is not None
         and target_piece.color == position.side_to_move.opposite 
     ]            
     targets.extend(capture_targets)
@@ -184,14 +200,12 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
     """True iff `square` is attacked by any piece of color `by`."""
     psuedo_legal_moves = generate_pseudo_legal_moves(position)
     cands = [move for move in psuedo_legal_moves if move.to_square == target_square]
-    cand_pieces = (position.squares[move.from_square] for move in cands)                                                                                              
+    cand_pieces = (position.piece_at(move.from_square) for move in cands)                                                                                              
     return any(piece is not None and piece.color == by for piece in cand_pieces)
 
 def is_in_check(position: Position, color: Color) -> bool:
     """True iff the king of `color` is currently attacked."""
-    king_pos = min(i for i,x in enumerate(position.squares) if x and x.type == PieceType.KING and x.color == color)
-    return is_square_attacked(position, king_pos, color.opposite)
-
+    return is_square_attacked(position, position.king_square(color), color.opposite)
 
 def generate_legal_moves(position: Position) -> list[Move]:
     """All legal moves for the side to move.
@@ -200,4 +214,12 @@ def generate_legal_moves(position: Position) -> list[Move]:
     side's king in check.
     """
     candidate_moves = generate_pseudo_legal_moves(position)
-    raise NotImplementedError('Phase 1')
+    moves = []
+
+    for move in candidate_moves:
+        undo = position.make_move(move)
+        if not is_in_check(position, position.side_to_move.opposite):
+            moves.append(move)
+        position.unmake_move(undo)
+
+    return moves
