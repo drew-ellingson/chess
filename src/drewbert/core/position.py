@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from drewbert.core.move import Move
 from drewbert.core.types import CastlingRights, Color, Piece, Square, PieceType
@@ -90,38 +90,47 @@ class Position:
                 self.squares[move.to_square - 1] = self.squares[move.to_square + 1]
                 self.squares[move.to_square + 1] = None
                 if self.side_to_move == Color.WHITE:
-                    self.castling_rights.white_kingside = False
-                    self.castling_rights.white_queenside = False
+                    self.castling_rights = replace(self.castling_rights, white_kingside=False, white_queenside=False)
                 else:
-                    self.castling_rights.black_kingside = False
-                    self.castling_rights.black_queenside = False
+                    self.castling_rights = replace(self.castling_rights, black_kingside=False, black_queenside=False)
             elif move.to_square % 8 == 2: # queenside castling:
                 self.squares[move.to_square + 1] = self.squares[move.to_square - 2]
                 self.squares[move.to_square - 2] = None
                 if self.side_to_move == Color.WHITE:
-                    self.castling_rights.white_queenside = False
-                    self.castling_rights.white_kingside = False
+                    self.castling_rights = replace(self.castling_rights, white_kingside=False, white_queenside=False)
                 else:
-                    self.castling_rights.black_queenside = False
-                    self.castling_rights.black_kingside = False
+                    self.castling_rights = replace(self.castling_rights, black_kingside=False, black_queenside=False)
 
-        # handling castling rights when not castling
+        # king moves - update castling rights
         if from_piece is not None and from_piece.type == PieceType.KING:
             if self.side_to_move == Color.WHITE:
-                self.castling_rights.white_kingside = False 
-                self.castling_rights.white_queenside = False
+                self.castling_rights = replace(self.castling_rights, white_kingside=False, white_queenside=False)
             else:
-                self.castling_rights.black_kingside = False 
-                self.castling_rights.black_queenside = False
+                self.castling_rights = replace(self.castling_rights, black_kingside=False, black_queenside=False)
+        
+        # rook moves - update castling rights
+        if from_piece is not None and from_piece.type == PieceType.ROOK:
+            if self.side_to_move == Color.WHITE:
+                if move.from_square % 8 == 0:
+                    self.castling_rights = replace(self.castling_rights, white_queenside=False)
+                if move.from_square % 8 == 7:
+                    self.castling_rights = replace(self.castling_rights, white_kingside=False)
+            else:
+                if move.from_square % 8 == 0:
+                    self.castling_rights = replace(self.castling_rights, black_queenside=False)
+                if move.from_square % 8 == 7:
+                    self.castling_rights = replace(self.castling_rights, black_kingside=False)
+        
+        # rook captured on starting square - update castling rights
         if captured is not None and captured.type == PieceType.ROOK:
-            if move.to_square % 8 == 1 and self.side_to_move == Color.WHITE:
-                self.castling_rights.white_queenside = False
-            if move.to_square % 8 == 7 and self.side_to_move == Color.WHITE:
-                self.castling_rights.white_kingside = False
-            if move.to_square % 8 == 1 and self.side_to_move == Color.BLACK:
-                self.castling_rights.black_queenside = False
-            if move.to_square % 8 == 7 and self.side_to_move == Color.BLACK:
-                self.castling_rights.black_kingside = False
+            if move.to_square == 56 and self.side_to_move == Color.WHITE:
+                self.castling_rights = replace(self.castling_rights, black_queenside=False)
+            if move.to_square == 63 and self.side_to_move == Color.WHITE:
+                self.castling_rights = replace(self.castling_rights, black_kingside=False)
+            if move.to_square == 0 and self.side_to_move == Color.BLACK:
+                self.castling_rights = replace(self.castling_rights, white_queenside=False)
+            if move.to_square == 7 and self.side_to_move == Color.BLACK:
+                self.castling_rights = replace(self.castling_rights, white_kingside=False)
         
         # handling promotion
         if move.promotion is not None:
@@ -130,13 +139,13 @@ class Position:
         # handling en passant captures
         dir = 1 if self.side_to_move == Color.WHITE else -1
         if self.en_passant_target and move.to_square == self.en_passant_target and from_piece is not None and from_piece.type == PieceType.PAWN:
-            captured = self.piece_at(self.en_passant_target + (8 * dir)) 
-            self.squares[self.en_passant_target] = None 
+            captured = self.piece_at(self.en_passant_target - (8 * dir)) 
+            self.squares[self.en_passant_target - (8 * dir)] = None 
 
         # set en_passant_target
         dir = + 1 if self.side_to_move == Color.WHITE else - 1
         if abs(move.from_square - move.to_square) == 16 and from_piece is not None and from_piece.type == PieceType.PAWN:
-            self.en_passant_target = move.to_square + (8 * dir)
+            self.en_passant_target = move.to_square - (8 * dir)
         else:
             self.en_passant_target = None
 
@@ -170,14 +179,16 @@ class Position:
         if abs(move.from_square - move.to_square) in [2, 3] and to_piece and to_piece.type == PieceType.KING:
             if move.to_square % 8 == 6: # kingside castling
                 self.squares[move.to_square + 1] = Piece(PieceType.ROOK, self.side_to_move.opposite) 
+                self.squares[move.to_square - 1] = None
             elif move.to_square % 8 == 2: # queenside castling. 
                 self.squares[move.to_square - 2] = Piece(PieceType.ROOK, self.side_to_move.opposite)
+                self.squares[move.to_square + 1] = None
 
         dir = 1 if self.side_to_move == Color.WHITE else -1
 
         # case when an en passant occurred.
         if undo.prev_en_passant_target is not None and move.to_square == undo.prev_en_passant_target and undo.captured is not None and undo.captured.type == PieceType.PAWN:
-            self.squares[undo.prev_en_passant_target + (dir * 8)] = undo.captured 
+            self.squares[undo.prev_en_passant_target - (dir * 8)] = undo.captured 
         else:
             self.squares[move.to_square] = undo.captured # None is possible
 
