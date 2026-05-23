@@ -83,23 +83,27 @@ class Position:
         self.squares[move.to_square] = self.piece_at(move.from_square)
         self.squares[move.from_square] = None
 
-        # handling castling
-        if from_piece is not None and from_piece.type == PieceType.KING and abs(move.from_square - move.to_square) != 1:
+        # handling castling - can identify by king moving either 2 or 3 spaces horizontally.
+        if from_piece is not None and from_piece.type == PieceType.KING and abs(move.from_square - move.to_square) in [2,3]:
             # move the rook and handle castling rights
             if move.to_square % 8 == 6: # kingside castling:
                 self.squares[move.to_square - 1] = self.squares[move.to_square + 1]
                 self.squares[move.to_square + 1] = None
                 if self.side_to_move == Color.WHITE:
                     self.castling_rights.white_kingside = False
+                    self.castling_rights.white_queenside = False
                 else:
                     self.castling_rights.black_kingside = False
+                    self.castling_rights.black_queenside = False
             elif move.to_square % 8 == 2: # queenside castling:
                 self.squares[move.to_square + 1] = self.squares[move.to_square - 2]
                 self.squares[move.to_square - 2] = None
                 if self.side_to_move == Color.WHITE:
                     self.castling_rights.white_queenside = False
+                    self.castling_rights.white_kingside = False
                 else:
                     self.castling_rights.black_queenside = False
+                    self.castling_rights.black_kingside = False
 
         # handling castling rights when not castling
         if from_piece is not None and from_piece.type == PieceType.KING:
@@ -155,11 +159,20 @@ class Position:
         """Reverse the move described by `undo`, restoring all prior state."""
         move = undo.move
         
+        # undo promotions
         if move.promotion is not None:
             self.squares[move.from_square] = Piece(PieceType.PAWN, self.side_to_move.opposite)
         else:
             self.squares[move.from_square] = self.squares[move.to_square]
         
+        # undo castling - put the rook back
+        to_piece = self.piece_at(move.to_square)
+        if abs(move.from_square - move.to_square) in [2, 3] and to_piece and to_piece.type == PieceType.KING:
+            if move.to_square % 8 == 6: # kingside castling
+                self.squares[move.to_square + 1] = Piece(PieceType.ROOK, self.side_to_move.opposite) 
+            elif move.to_square % 8 == 2: # queenside castling. 
+                self.squares[move.to_square - 2] = Piece(PieceType.ROOK, self.side_to_move.opposite)
+
         dir = 1 if self.side_to_move == Color.WHITE else -1
 
         # case when an en passant occurred.
@@ -168,6 +181,7 @@ class Position:
         else:
             self.squares[move.to_square] = undo.captured # None is possible
 
+        # reset other params
         self.castling_rights = undo.prev_castling_rights 
         self.en_passant_target = undo.prev_en_passant_target
         self.halfmove_clock = undo.prev_halfmove_clock 
