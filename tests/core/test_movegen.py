@@ -16,13 +16,15 @@ import random
 import chess
 import pytest
 
-from drewbert.adapters.fen import parse_fen
+from drewbert.adapters.fen import alg_sq_to_int, int_to_alg_sq, parse_fen
 from drewbert.core.movegen import (
     Coord,
     file_rank_to_sq,
     generate_legal_moves,
+    is_square_attacked,
     sq_to_file_rank,
 )
+from drewbert.core.types import Color
 from tests.core._helpers import from_pychess_move
 
 
@@ -151,3 +153,66 @@ def test_legal_moves_fuzz_oracle() -> None:
             assert ours == theirs, f"{fen}: {_diff_move_sets(ours, theirs)}"
             board.push(rng.choice(list(board.legal_moves)))
             ply += 1
+
+
+# is_square_attacked is the dedicated attack primitive — independent of
+# position.side_to_move. The cases below cover the conceptually distinct
+# attack patterns; the oracle test below exhausts every (square, color)
+# combination on the canonical positions.
+#
+# Critical case to keep in mind: a pawn attacks its diagonals even when
+# those squares are empty. (This is what makes the primitive different
+# from movegen — a pseudo-legal pawn capture requires an enemy piece on
+# the diagonal; an attack does not.)
+
+
+@pytest.mark.parametrize(
+    "fen,square,by,expected",
+    [
+        # White pawn on e4: attacks empty diagonals d5 / f5; does NOT attack the push square e5.
+        ("8/8/8/8/4P3/8/8/8 w - - 0 1", "d5", Color.WHITE, True),
+        ("8/8/8/8/4P3/8/8/8 w - - 0 1", "f5", Color.WHITE, True),
+        ("8/8/8/8/4P3/8/8/8 w - - 0 1", "e5", Color.WHITE, False),
+        # Black pawn on e5: attacks empty diagonals d4 / f4.
+        ("8/8/8/4p3/8/8/8/8 b - - 0 1", "d4", Color.BLACK, True),
+        ("8/8/8/4p3/8/8/8/8 b - - 0 1", "f4", Color.BLACK, True),
+        # Asking the wrong color returns False (no black pieces on the board).
+        ("8/8/8/8/4P3/8/8/8 w - - 0 1", "d5", Color.BLACK, False),
+        # Knight on e4: attacks the eight L-jump squares.
+        ("8/8/8/8/4N3/8/8/8 w - - 0 1", "d2", Color.WHITE, True),
+        ("8/8/8/8/4N3/8/8/8 w - - 0 1", "g5", Color.WHITE, True),
+        ("8/8/8/8/4N3/8/8/8 w - - 0 1", "e3", Color.WHITE, False),
+        # Rook on d3, own pawn on d2, own king on d1: rook attacks d2 (its own piece)
+        # but the ray is blocked beyond — d1 is not attacked by the rook.
+        ("8/8/8/8/8/3R4/3P4/3K4 w - - 0 1", "d2", Color.WHITE, True),
+        ("8/8/8/8/8/3R4/3P4/3K4 w - - 0 1", "d1", Color.WHITE, False),
+        # Rook on d4, enemy pawn on d5: rook attacks d5 (capture square) but not d6 (blocked).
+        ("4k3/8/8/3p4/3R4/8/8/4K3 w - - 0 1", "d5", Color.WHITE, True),
+        ("4k3/8/8/3p4/3R4/8/8/4K3 w - - 0 1", "d6", Color.WHITE, False),
+        # White king on e4: attacks all 8 adjacent squares, nothing further.
+        ("4k3/8/8/8/4K3/8/8/8 w - - 0 1", "e5", Color.WHITE, True),
+        ("4k3/8/8/8/4K3/8/8/8 w - - 0 1", "d4", Color.WHITE, True),
+        ("4k3/8/8/8/4K3/8/8/8 w - - 0 1", "e6", Color.WHITE, False),
+    ],
+)
+def test_is_square_attacked_known_cases(
+    fen: str, square: str, by: Color, expected: bool
+) -> None:
+    position = parse_fen(fen)
+    assert is_square_attacked(position, alg_sq_to_int(square), by) == expected
+
+
+@pytest.mark.parametrize("fen", ORACLE_FENS)
+def test_is_square_attacked_oracle(fen: str) -> None:
+    """For every (square, color) combination, our primitive matches python-chess's is_attacked_by."""
+    position = parse_fen(fen)
+    board = chess.Board(fen)
+    for sq in range(64):
+        for color in (Color.WHITE, Color.BLACK):
+            their_color = chess.WHITE if color == Color.WHITE else chess.BLACK
+            ours = is_square_attacked(position, sq, color)
+            theirs = board.is_attacked_by(their_color, sq)
+            assert ours == theirs, (
+                f"{fen}: square {int_to_alg_sq(sq)}, by {color!r}: "
+                f"ours={ours}, theirs={theirs}"
+            )

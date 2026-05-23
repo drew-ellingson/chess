@@ -11,27 +11,39 @@ Review changes on this chess engine against the project's defined quality bar. T
 
 See `CLAUDE.md` for project architecture, role boundary, and tooling commands. drewbert is a learning project; the owner writes algorithm code (move generation, search, evaluation, NNUE training). Claude's role is software design, scaffolding, test infrastructure, and code review — not implementation of core algorithms.
 
-## The quality bar (five items)
+## The quality bar (six items)
 
 A finding that doesn't map to one of these is not a finding.
 
-1. **Documentation.** Clear docstrings for public API. `Raises` clauses where the contract matters to callers. Architectural decisions captured where non-obvious. Stale comments fixed or removed.
-2. **Architecture.** Separation of concerns per `CLAUDE.md`. No leaks across module boundaries — notably:
+1. **Documentation.** Clear docstrings for public API. `Raises` clauses where the contract matters to callers. Architectural decisions captured where non-obvious. Param and return documentation when the names/types don't already convey it (a simple function with self-explanatory signatures is fine with a one-line summary; a multi-param function with non-obvious semantics or a complex return shape should document them). Stale comments fixed or removed.
+2. **Module architecture.** Cross-module separation of concerns per `CLAUDE.md`. No leaks across module boundaries — notably:
    - nothing in `core/` may import from `adapters/`
    - nothing in `src/` may import `python-chess` (dev-only test oracle)
    - movegen stays as functions over `Position`, not methods on it
-3. **Performance — algorithmic only.** No obviously suboptimal algorithms: `pop(0)` in hot loops, accidental O(n²), unnecessary list materialization in tight paths, repeated work that could be cached once. NOT micro-optimization.
-4. **No hacky solutions.** No clever tricks that obscure intent. No magic constants without context. No workarounds that fight the type system or the architecture. No silent failures or unexplained fallbacks.
-5. **Lint / format / typecheck.** Verify `uv run ruff check`, `uv run ruff format --check`, `uv run pyright` all pass.
+3. **Function / class design.** Within a module, did responsibilities get carved sensibly? Specifically:
+   - **Single responsibility** — a function doing two unrelated things should be two functions
+   - **Sensible decomposition** — extracted helpers should reflect a real concept, not just "the body got long." Conversely, inlined logic that's repeated three times wants a helper.
+   - **Side effects vs return values** — mutation that's load-bearing should be obvious from the signature or call site. Hidden state changes are a bug magnet. A function that BOTH mutates AND returns should usually have one of those promoted/demoted.
+   - **Signature shape** — a parameter list that hints at over-coupling, or a return type that suggests the function is really two functions, is a finding. Same for type-hint coverage on public APIs.
+   - **Pythonic patterns** — context managers, comprehensions, generator expressions, dataclasses, etc. *when* they materially improve readability or correctness. NOT as stylistic conversions.
+4. **Performance — algorithmic only.** No obviously suboptimal algorithms: `pop(0)` in hot loops, accidental O(n²), unnecessary list materialization in tight paths, repeated work that could be cached once. NOT micro-optimization.
+5. **No hacky solutions.** No clever tricks that obscure intent. No magic constants without context. No workarounds that fight the type system or the architecture. No silent failures or unexplained fallbacks.
+6. **Lint / format / typecheck.** Verify `uv run ruff check`, `uv run ruff format --check`, `uv run pyright` all pass.
 
 ## Do flag
 
 - Missing docstrings on public functions/classes
 - Missing `Raises` clauses where the function raises meaningfully
+- Param/return docs missing where the signature alone doesn't convey intent
+- A function doing two unrelated jobs (single-responsibility violation)
+- A helper that exists only because "the body got long" — not because it represents a real concept
+- Repeated near-identical logic that should be a helper
+- Hidden / surprising side effects, especially in functions that also return values
+- Awkward signatures hinting at over-coupling or a missing intermediate abstraction
 - Hot-loop perf bugs
 - Hacky workarounds — magic numbers, type-system end-runs, architectural shortcuts
 - Lint, format, or type errors
-- Architectural leaks (core ↔ adapters, src ↔ python-chess)
+- Module-boundary leaks (core ↔ adapters, src ↔ python-chess)
 - Stale comments or docstrings that misrepresent current code
 - Real correctness bugs (with the failing case if non-obvious)
 
@@ -44,9 +56,10 @@ The owner explicitly retracted earlier "pristine" framing as overreach. These ar
 - Polish-for-polish-sake
 - Micro-optimizations
 - `__all__` declarations as a hard requirement
-- Single-line public docstrings (one line that says what's needed is fine)
-- Comprehension-vs-loop refactors that are only stylistic
-- Different-but-equivalent patterns
+- Single-line public docstrings on simple, self-explanatory functions
+- Comprehension-vs-loop refactors on *purely* stylistic grounds (a substantive readability or correctness win is in scope under design)
+- Different-but-equivalent patterns where neither is materially better
+- Decomposition preferences that are about taste, not about responsibility — if the existing shape is coherent, leave it alone
 
 ## How to run
 
@@ -55,7 +68,7 @@ The owner explicitly retracted earlier "pristine" framing as overreach. These ar
    - `/drewbert-review` (no arg) — review the current branch against main (`git diff main...HEAD`). If you're on `main` and there are unstaged changes, fall back to `git diff` / `git status`. If scope is genuinely unclear, ask before proceeding.
 2. **Run checkers in parallel.** `uv run ruff check`, `uv run ruff format --check`, `uv run pyright`. Report failures up front, before substantive review — they're often the cheapest fixes and they anchor the rest of the review.
 3. **Read changes file by file.** Cite `path:line` for every finding so the user can navigate.
-4. **Group findings under the five-item bar.** Skip headings with no findings; don't manufacture filler.
+4. **Group findings under the six-item bar.** Skip headings with no findings; don't manufacture filler.
 5. **End with a one-paragraph summary.** Blockers vs nits. Ship-ready or not. If there are zero findings, say so plainly — don't pad.
 6. **PR mode only:** at the end, ask whether to post the review as a PR comment (`gh pr comment` or `gh pr review --comment`). Do not post automatically.
 

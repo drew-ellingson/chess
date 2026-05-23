@@ -39,41 +39,37 @@ def file_rank_to_sq(coord:Coord) -> Square:
         raise ValueError(f'Coord: {coord} is out of bounds. All coordinate values must be 0-7')
     return 8 * coord.rank + coord.file
 
-def target_piece_is_same_color(position: Position, coord: Coord) -> bool:
-    piece = position.piece_at(file_rank_to_sq(coord))
-    return piece is not None and piece.color == position.side_to_move 
 
-def target_piece_is_capture(position: Position, coord:Coord) -> bool:
-    piece = position.piece_at(file_rank_to_sq(coord))
-    return piece is not None and piece.color == position.side_to_move.opposite
+def target_piece_is_color(position: Position, target: Coord, color: Color) -> bool:
+    target_piece = position.piece_at(file_rank_to_sq(target))
+    return target_piece is not None and target_piece.color == color
 
-def slide_along_vector(position: Position, coord:Coord, delta: Coord) -> List[Coord]:
-    """Given a start coordinate and a delta, slide along that delta until you encounter the edge of the board or a piece.
-        If a piece is encountered: 
-            Include the encountered square if its a piece of the opposite color
-            Exclude the square if its a piece of the same color.
-    """
-    piece = position.piece_at(file_rank_to_sq(coord))
-    if not piece:
-        raise ValueError(f'Coord: {coord} must represent a piece, not an empty squrae')
-    
-    end_of_slide = False    
+def walk_ray(position: Position, coord: Coord, delta: Coord) -> List[Coord]:
     target_squares = [coord]
 
-    while not end_of_slide:
+    while True:
         target = _add(target_squares[-1], delta)
-        if coord_in_bounds(target) and not target_piece_is_same_color(position, target):
+        if coord_in_bounds(target):
             target_squares.append(target)
-
-            if target_piece_is_capture(position, target): # prevent next iteration from occurring
-                break
         else:
-            end_of_slide = True
-    
-    # remove piece coord itself
+            break
+
+        if position.piece_at(file_rank_to_sq(target)):
+            break
+
+    # remove coord itself.
     target_squares.pop(0)
-    
+
     return target_squares
+
+def attack_along_ray(position: Position, coord: Coord, delta: Coord, attack_color: Color):
+    targets = walk_ray(position, coord, delta)
+
+    # remove the last item in the list if its a piece of the attacker color
+    if targets and target_piece_is_color(position, targets[-1], attack_color):
+        targets.pop()
+    
+    return targets
 
 def generate_pseudo_legal_knight_moves(position: Position, start_coord: Coord) -> List[Move]:
     """
@@ -84,7 +80,7 @@ def generate_pseudo_legal_knight_moves(position: Position, start_coord: Coord) -
     for delta in KNIGHT_VECTORS:
         target = _add(start_coord, Coord(*delta))
         # prevent same piece collisions
-        if coord_in_bounds(target) and not target_piece_is_same_color(position, target):
+        if coord_in_bounds(target) and not target_piece_is_color(position, target, position.side_to_move):
             targets.append(target)
 
     return [Move(file_rank_to_sq(start_coord), file_rank_to_sq(target)) for target in targets]
@@ -95,7 +91,7 @@ def generate_pseudo_legal_bishop_moves(position: Position, start_coord: Coord) -
         Repsects out of bounds and own-piece collision 
     """
     deltas = [Coord(*x) for x in BISHOP_UNIT_VECTORS]
-    targets = list(chain.from_iterable([slide_along_vector(position, start_coord, delta) for delta in deltas]))
+    targets = list(chain.from_iterable([attack_along_ray(position, start_coord, delta, position.side_to_move) for delta in deltas]))
     return [Move(file_rank_to_sq(start_coord), file_rank_to_sq(target)) for target in targets]
 
 def generate_pseudo_legal_rook_moves(position: Position, start_coord: Coord) -> List[Move]:
@@ -104,7 +100,7 @@ def generate_pseudo_legal_rook_moves(position: Position, start_coord: Coord) -> 
         Repsects out of bounds and own-piece collision 
     """
     deltas = [Coord(*x) for x in ROOK_UNIT_VECTORS]
-    targets = list(chain.from_iterable([slide_along_vector(position, start_coord, delta) for delta in deltas]))
+    targets = list(chain.from_iterable([attack_along_ray(position, start_coord, delta, position.side_to_move) for delta in deltas]))
     moves = [Move(file_rank_to_sq(start_coord), file_rank_to_sq(target)) for target in targets]
     return moves 
 
@@ -124,7 +120,7 @@ def generate_pseudo_legal_king_moves(position: Position, start_coord: Coord) -> 
     targets = []
     for delta in deltas:
         target = _add(start_coord, Coord(*delta))
-        if coord_in_bounds(target) and not target_piece_is_same_color(position, target):
+        if coord_in_bounds(target) and not target_piece_is_color(position, target, position.side_to_move):
             targets.append(target)
 
 
@@ -219,10 +215,71 @@ def generate_pseudo_legal_moves(position: Position) -> list[Move]:
 
 def is_square_attacked(position: Position, target_square: Square, by: Color) -> bool:
     """True iff `square` is attacked by any piece of color `by`."""
-    psuedo_legal_moves = generate_pseudo_legal_moves(position)
-    cands = [move for move in psuedo_legal_moves if move.to_square == target_square]
-    cand_pieces = (position.piece_at(move.from_square) for move in cands)                                                                                              
-    return any(piece is not None and piece.color == by for piece in cand_pieces)
+    
+    dir = -1 if by == Color.WHITE else 1
+    coord = sq_to_file_rank(target_square)
+    
+    PAWN_VECTORS = [Coord(1,dir), (-1,dir)]
+
+    for delta in PAWN_VECTORS:
+        target_coord = _add(coord, delta)
+        if not coord_in_bounds(target_coord):
+            continue
+
+        target_piece = position.piece_at(file_rank_to_sq(target_coord))
+        if target_piece and target_piece.type == PieceType.PAWN and target_piece.color == by:
+            print(f'Coord: {coord} attacked by: Target Piece: {target_piece}')
+            return True 
+
+    for delta in KNIGHT_VECTORS:
+        target_coord = _add(coord, Coord(*delta))
+        if not coord_in_bounds(target_coord):
+            continue
+
+        target_piece = position.piece_at(file_rank_to_sq(target_coord))
+        if target_piece and target_piece.type == PieceType.KNIGHT and target_piece.color == by:
+            print(f'Coord: {coord} attacked by: Target Piece: {target_piece}')
+            return True  
+
+    for delta in KING_VECTORS:
+        target_coord = _add(coord, Coord(*delta))
+        if not coord_in_bounds(target_coord):
+            continue
+    
+        target_piece = position.piece_at(file_rank_to_sq(target_coord))
+        if target_piece and target_piece.type == PieceType.KING and target_piece.color == by:
+            print(f'Coord: {coord} attacked by: Target Piece: {target_piece}')
+            return True  
+
+    # slide along vector until you hit a piece or the end of the board. check if the last thing hit is an enemy bishop or queen
+    for delta in BISHOP_UNIT_VECTORS:
+        target_squares = attack_along_ray(position, coord, Coord(*delta), by.opposite)
+        
+        if not target_squares:
+            continue 
+    
+        target_coord = target_squares[-1]
+
+        target_piece = position.piece_at(file_rank_to_sq(target_coord))
+        if target_piece  and target_piece.type in [PieceType.BISHOP, PieceType.QUEEN] and target_piece.color == by:
+            print(f'Coord: {coord} attacked by: Target Piece: {target_piece} of color: {by}')
+            return True
+    
+    # slide along vector until you hit a piece or the end of the board. check if the last thing hit is an enemy rook or queen        
+    for delta in ROOK_UNIT_VECTORS:
+        target_squares = attack_along_ray(position, coord, Coord(*delta), by.opposite)
+        
+        if not target_squares:
+            continue 
+    
+        target_coord = target_squares[-1]
+
+        target_piece = position.piece_at(file_rank_to_sq(target_coord))
+        if target_piece  and target_piece.type in [PieceType.ROOK, PieceType.QUEEN] and target_piece.color == by:
+            print(f'Coord: {coord} attacked by: Target Piece: {target_piece}')
+            return True
+
+    return False
 
 def is_in_check(position: Position, color: Color) -> bool:
     """True iff the king of `color` is currently attacked."""
@@ -236,7 +293,7 @@ def generate_legal_moves(position: Position) -> list[Move]:
     """
     candidate_moves = generate_pseudo_legal_moves(position)
     moves = []
-
+    
     for move in candidate_moves:
         piece = position.piece_at(move.from_square)
         undo = position.make_move(move)

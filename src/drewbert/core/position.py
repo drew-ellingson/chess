@@ -51,7 +51,7 @@ class Position:
         """
         try:
             return min(i for i,x in enumerate(self.squares) if x and x.type == PieceType.KING and x.color == color)
-        except IndexError:
+        except ValueError:
             raise ValueError(f'No {color} king found on the board!')
 
     def make_move(self, move: Move) -> Undo:
@@ -78,11 +78,12 @@ class Position:
 
         # basic updates
         captured = self.piece_at(move.to_square)
+        from_piece = self.piece_at(move.from_square)
+
         self.squares[move.to_square] = self.piece_at(move.from_square)
         self.squares[move.from_square] = None
 
         # handling castling
-        from_piece = self.piece_at(move.from_square)
         if from_piece is not None and from_piece.type == PieceType.KING and abs(move.from_square - move.to_square) != 1:
             # move the rook and handle castling rights
             if move.to_square % 8 == 6: # kingside castling:
