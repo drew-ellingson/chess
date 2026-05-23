@@ -195,9 +195,7 @@ def test_legal_moves_fuzz_oracle() -> None:
         ("4k3/8/8/8/4K3/8/8/8 w - - 0 1", "e6", Color.WHITE, False),
     ],
 )
-def test_is_square_attacked_known_cases(
-    fen: str, square: str, by: Color, expected: bool
-) -> None:
+def test_is_square_attacked_known_cases(fen: str, square: str, by: Color, expected: bool) -> None:
     position = parse_fen(fen)
     assert is_square_attacked(position, alg_sq_to_int(square), by) == expected
 
@@ -212,7 +210,4 @@ def test_is_square_attacked_oracle(fen: str) -> None:
             their_color = chess.WHITE if color == Color.WHITE else chess.BLACK
             ours = is_square_attacked(position, sq, color)
             theirs = board.is_attacked_by(their_color, sq)
-            assert ours == theirs, (
-                f"{fen}: square {int_to_alg_sq(sq)}, by {color!r}: "
-                f"ours={ours}, theirs={theirs}"
-            )
+            assert ours == theirs, f"{fen}: square {int_to_alg_sq(sq)}, by {color!r}: ours={ours}, theirs={theirs}"

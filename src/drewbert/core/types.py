@@ -51,7 +51,7 @@ class Piece:
 Square = int
 
 
-@dataclass(frozen = True, slots=True)
+@dataclass(frozen=True, slots=True)
 class CastlingRights:
     white_kingside: bool = True
     white_queenside: bool = True

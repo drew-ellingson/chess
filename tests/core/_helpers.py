@@ -25,6 +25,7 @@ def from_pychess_move(m: chess.Move) -> Move:
     promotion = _PIECE_TYPE_FROM_PYCHESS[m.promotion] if m.promotion else None
     return Move(m.from_square, m.to_square, promotion)
 
+
 _POSITION_FIELDS = (
     "side_to_move",
     "castling_rights",

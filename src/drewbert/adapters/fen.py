@@ -163,9 +163,7 @@ def to_fen(position: Position) -> str:
 
     comps.append(castling_rights if castling_rights else "-")
 
-    comps.append(
-        "-" if position.en_passant_target is None else int_to_alg_sq(position.en_passant_target)
-    )
+    comps.append("-" if position.en_passant_target is None else int_to_alg_sq(position.en_passant_target))
 
     comps.append(str(position.halfmove_clock))
 
