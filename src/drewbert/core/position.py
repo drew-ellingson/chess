@@ -84,11 +84,7 @@ class Position:
         self.squares[move.from_square] = None
 
         # handling castling - can identify by king moving either 2 or 3 spaces horizontally.
-        if (
-            from_piece is not None
-            and from_piece.type == PieceType.KING
-            and abs(move.from_square - move.to_square) in [2, 3]
-        ):
+        if from_piece is not None and from_piece.type == PieceType.KING and abs(move.from_square - move.to_square) == 2:
             # move the rook and handle castling rights
             if move.to_square % 8 == 6:  # kingside castling:
                 self.squares[move.to_square - 1] = self.squares[move.to_square + 1]
@@ -189,7 +185,7 @@ class Position:
 
         # undo castling - put the rook back
         to_piece = self.piece_at(move.to_square)
-        if abs(move.from_square - move.to_square) in [2, 3] and to_piece and to_piece.type == PieceType.KING:
+        if abs(move.from_square - move.to_square) == 2 and to_piece and to_piece.type == PieceType.KING:
             if move.to_square % 8 == 6:  # kingside castling
                 self.squares[move.to_square + 1] = Piece(PieceType.ROOK, self.side_to_move.opposite)
                 self.squares[move.to_square - 1] = None

@@ -16,7 +16,7 @@ class Coord(NamedTuple):
     rank: int
 
 
-def get_pieces(position: Position) -> dict[int, Piece]:
+def get_pieces(position: Position) -> dict[Square, Piece]:
     """Return an square:piece dictionary describing pieces of the side currently to move"""
     return {i: x for i, x in enumerate(position.squares) if x and x.color == position.side_to_move}
 
@@ -32,14 +32,14 @@ def coord_in_bounds(coord: Coord) -> bool:
 
 
 def sq_to_file_rank(square: Square) -> Coord:
-    """produce (rank, file) pair from given square. 0-indexed"""
+    """produce (file, rank) pair from given square. 0-indexed"""
     if not 0 <= square <= 63:
         raise ValueError(f"Square: {square} is not in valid range 0-63")
     return Coord(square % 8, square // 8)
 
 
 def file_rank_to_sq(coord: Coord) -> Square:
-    """produce standard 0-63 square representation from a (rank, file) pair"""
+    """produce standard 0-63 square representation from a (file, rank) pair"""
     if not coord_in_bounds(coord):
         raise ValueError(f"Coord: {coord} is out of bounds. All coordinate values must be 0-7")
     return 8 * coord.rank + coord.file
@@ -55,25 +55,22 @@ def walk_ray(position: Position, coord: Coord, delta: Coord) -> list[Coord]:
     """Return a list of squares starting from coord and walking by delta
     Stop either when you hit the edge of the board or a piece (inclusive).
     """
-    target_squares = [coord]
-
+    target_squares = []
+    current = coord
     while True:
-        target = _add(target_squares[-1], delta)
-        if coord_in_bounds(target):
-            target_squares.append(target)
+        current = _add(current, delta)
+        if coord_in_bounds(current):
+            target_squares.append(current)
         else:
             break
 
-        if position.piece_at(file_rank_to_sq(target)):
+        if position.piece_at(file_rank_to_sq(current)):
             break
-
-    # remove coord itself.
-    target_squares.pop(0)
 
     return target_squares
 
 
-def attack_along_ray(position: Position, coord: Coord, delta: Coord, attack_color: Color):
+def attack_along_ray(position: Position, coord: Coord, delta: Coord, attack_color: Color) -> list[Square]:
     """Uses above function, but makes decision about whether to keep or omit the piece
     in the case where the last element of the array is a piece.
     """
@@ -104,7 +101,7 @@ def generate_pseudo_legal_knight_moves(position: Position, start_coord: Coord) -
 def generate_pseudo_legal_bishop_moves(position: Position, start_coord: Coord) -> list[Move]:
     """
     From a start coord, generate a list of move candidates for all valid bishop moves from the coord
-    Repsects out of bounds and own-piece collision
+    Respects out of bounds and own-piece collision
     """
     deltas = [Coord(*x) for x in BISHOP_UNIT_VECTORS]
     targets = list(
@@ -116,7 +113,7 @@ def generate_pseudo_legal_bishop_moves(position: Position, start_coord: Coord) -
 def generate_pseudo_legal_rook_moves(position: Position, start_coord: Coord) -> list[Move]:
     """
     From a start coord, generate a list of move candidates for all valid rook moves from the coord
-    Repsects out of bounds and own-piece collision
+    Respects out of bounds and own-piece collision
     """
     deltas = [Coord(*x) for x in ROOK_UNIT_VECTORS]
     targets = list(
@@ -129,7 +126,7 @@ def generate_pseudo_legal_rook_moves(position: Position, start_coord: Coord) -> 
 def generate_pseudo_legal_queen_moves(position: Position, start_coord: Coord) -> list[Move]:
     """
     From a start coord, generate a list of move candidates for all valid queen moves from the coord
-    Repsects out of bounds and own-piece collision
+    Respects out of bounds and own-piece collision
     """
     return generate_pseudo_legal_bishop_moves(position, start_coord) + generate_pseudo_legal_rook_moves(
         position, start_coord
@@ -138,8 +135,8 @@ def generate_pseudo_legal_queen_moves(position: Position, start_coord: Coord) ->
 
 def generate_pseudo_legal_king_moves(position: Position, start_coord: Coord) -> list[Move]:
     """
-    From a start coord, generate a list of move candidates for all king bishop moves from the coord
-    Repsects out of bounds and own-piece collision.
+    From a start coord, generate a list of move candidates for all king moves from the coord
+    Respects out of bounds and own-piece collision.
     """
     deltas = [Coord(*x) for x in KING_VECTORS]
     targets = []
@@ -166,7 +163,7 @@ def generate_pseudo_legal_king_moves(position: Position, start_coord: Coord) -> 
 def generate_pseudo_legal_pawn_moves(position: Position, start_coord: Coord) -> list[Move]:
     """
     From a start coord, generate a list of move candidates for all valid pawn moves from the coord
-    Repsects out of bounds and own-piece collision
+    Respects out of bounds and own-piece collision
     Handles pawn captures, en_passant, and promotion
     """
     dir = 1 if position.side_to_move == Color.WHITE else -1
@@ -215,20 +212,23 @@ def generate_pseudo_legal_pawn_moves(position: Position, start_coord: Coord) -> 
     return moves
 
 
-def generate_piece_pseudo_legal_moves(position: Position, piece: Piece, start_coord: Coord):
+MOVERS = {
+    PieceType.KNIGHT: generate_pseudo_legal_knight_moves,
+    PieceType.BISHOP: generate_pseudo_legal_bishop_moves,
+    PieceType.ROOK: generate_pseudo_legal_rook_moves,
+    PieceType.QUEEN: generate_pseudo_legal_queen_moves,
+    PieceType.KING: generate_pseudo_legal_king_moves,
+    PieceType.PAWN: generate_pseudo_legal_pawn_moves,
+}
+
+
+def generate_piece_pseudo_legal_moves(position: Position, piece: Piece, start_coord: Coord) -> list[Move]:
     """
-    Given a piece and a start coord, fine all pseudo-legal moves
+    Given a piece and a start coord, find all pseudo-legal moves
     Respects out of bounds and piece collision
     """
-    movers = {
-        PieceType.KNIGHT: generate_pseudo_legal_knight_moves,
-        PieceType.BISHOP: generate_pseudo_legal_bishop_moves,
-        PieceType.ROOK: generate_pseudo_legal_rook_moves,
-        PieceType.QUEEN: generate_pseudo_legal_queen_moves,
-        PieceType.KING: generate_pseudo_legal_king_moves,
-        PieceType.PAWN: generate_pseudo_legal_pawn_moves,
-    }
-    return movers[piece.type](position, start_coord)
+
+    return MOVERS[piece.type](position, start_coord)
 
 
 def generate_pseudo_legal_moves(position: Position) -> list[Move]:
@@ -261,7 +261,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type == PieceType.PAWN and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     for delta in KNIGHT_VECTORS:
@@ -271,7 +270,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type == PieceType.KNIGHT and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     for delta in KING_VECTORS:
@@ -281,7 +279,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type == PieceType.KING and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     # slide along vector until you hit a piece or the end of the board. check if the last
@@ -296,7 +293,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type in [PieceType.BISHOP, PieceType.QUEEN] and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece} of color: {by}")
             return True
 
     # slide along vector until you hit a piece or the end of the board. check if the last
@@ -311,7 +307,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type in [PieceType.ROOK, PieceType.QUEEN] and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     return False
@@ -342,7 +337,7 @@ def generate_legal_moves(position: Position) -> list[Move]:
                     position.unmake_move(undo)
                     continue
             else:  # queenside castling
-                if any(is_square_attacked(position, move.from_square - i, position.side_to_move) for i in range(4)):
+                if any(is_square_attacked(position, move.from_square - i, position.side_to_move) for i in range(3)):
                     position.unmake_move(undo)
                     continue
 
