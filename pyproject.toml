@@ -12,6 +12,7 @@ dev = [
     "python-chess>=1.10",
     "pyright>=1.1",
     "ruff>=0.5",
+    "pytest-timeout>=2.4.0",
 ]
 
 [build-system]
@@ -22,7 +23,7 @@ build-backend = "hatchling.build"
 packages = ["src/drewbert"]
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 target-version = "py312"
 
 [tool.ruff.lint]
