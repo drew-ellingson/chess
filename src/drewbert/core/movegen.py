@@ -70,7 +70,7 @@ def walk_ray(position: Position, coord: Coord, delta: Coord) -> list[Coord]:
     return target_squares
 
 
-def attack_along_ray(position: Position, coord: Coord, delta: Coord, attack_color: Color) -> list[Square]:
+def attack_along_ray(position: Position, coord: Coord, delta: Coord, attack_color: Color) -> list[Coord]:
     """Uses above function, but makes decision about whether to keep or omit the piece
     in the case where the last element of the array is a piece.
     """
