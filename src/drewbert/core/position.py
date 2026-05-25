@@ -193,7 +193,8 @@ class Position:
                 self.squares[move.to_square - 2] = Piece(PieceType.ROOK, self.side_to_move.opposite)
                 self.squares[move.to_square + 1] = None
 
-        dir = 1 if self.side_to_move == Color.WHITE else -1
+        # opposite of make_move since we have switched colors
+        dir = -1 if self.side_to_move == Color.WHITE else +1
 
         # case when an en passant occurred.
         if (
@@ -203,6 +204,7 @@ class Position:
             and undo.captured.type == PieceType.PAWN
         ):
             self.squares[undo.prev_en_passant_target - (dir * 8)] = undo.captured
+            self.squares[move.to_square] = None
         else:
             self.squares[move.to_square] = undo.captured  # None is possible
 
