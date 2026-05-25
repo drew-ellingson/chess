@@ -7,7 +7,10 @@ class Color(IntEnum):
     BLACK = 1
 
     def __repr__(self) -> str:
-        return "w" if self == Color.WHITE else "b"
+        return "White" if self == Color.WHITE else "Black"
+
+    __str__ = __repr__ 
+
 
     @property
     def opposite(self) -> "Color":
