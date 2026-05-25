@@ -9,18 +9,17 @@ See `tests/core/test_perft.py` for the standard test suite.
 """
 
 from drewbert.core.position import Position
+from drewbert.core.movegen import generate_legal_moves
 
 
 def perft(position: Position, depth: int) -> int:
-    """Count leaf nodes of the legal move tree at the given depth.
-
-    Reference recursion:
-        if depth == 0: return 1
-        nodes = 0
-        for move in generate_legal_moves(position):
-            undo = position.make_move(move)
-            nodes += perft(position, depth - 1)
-            position.unmake_move(undo)
-        return nodes
+    """Recursively count leaf nodes of the legal move tree at the given depth.
     """
-    raise NotImplementedError("phase 1")
+    if depth == 0:
+        return 1 
+    nodes = 0
+    for move in generate_legal_moves(position):
+        undo = position.make_move(move)
+        nodes += perft(position, depth - 1)
+        position.unmake_move(undo)
+    return nodes
