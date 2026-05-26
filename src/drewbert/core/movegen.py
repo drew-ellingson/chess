@@ -43,7 +43,6 @@ PT_ROOK = PieceType.ROOK
 PT_QUEEN = PieceType.QUEEN
 PT_KING = PieceType.KING
 C_WHITE = Color.WHITE
-C_BLACK = Color.BLACK
 
 
 def get_pieces(position: Position) -> dict[Square, Piece]:
@@ -82,7 +81,9 @@ def target_piece_is_color(position: Position, target: Coord, color: Color) -> bo
 
 
 def first_piece_along_ray(position: Position, coord: Coord, delta: Coord) -> Piece | None:
-    """Primitive to be used with is_square_attacked."""
+    """Walk a ray from start coordinate along a given delta. Return first piece encountered on ray
+    or None if no piece is encountered.
+    """
     current = coord
     while True:
         current = _add(current, delta)
