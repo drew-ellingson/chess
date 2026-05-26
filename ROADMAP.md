@@ -64,3 +64,24 @@ Optional. Either classical refinements (null-move, late move reductions, futilit
 - Lichess game analysis (pull PGN via API, run through engine, surface mistake patterns)
 - Variants (new pieces, possibly drafting)
 - Cheat detection (Ken Regan-style statistical analysis over engine top-N agreement)
+
+## Deferred — movegen optimizations
+
+Captured here so they don't get lost; not gating any phase. Most are worth a
+second look before phase 3 turns movegen into a tight hot path under alpha-beta.
+
+- **Remove `Coord` NamedTuple from movegen.** Operate on integer square
+  indices throughout. Eliminates per-square allocation and the positional /
+  named-field ambiguity that bit early code.
+- **Dedicated `first_piece_along_ray` attack primitive.** `is_square_attacked`
+  currently shares the ray walker with movegen. That walker returns the full
+  list of squares — fine for movegen, more work than attack detection needs.
+  Attack detection only needs "is there an attacker of color X anywhere along
+  this ray?" with short-circuit on the first hit.
+- **King-square caching.** Cache `king_square(color)` per position instead of
+  scanning all 64 squares each call. Invalidate / update inside `make_move` /
+  `unmake_move`. Tricky: king moves *and* king captures both invalidate.
+- **`CastlingRights` immutable → mutable.** Currently frozen + `dataclasses.replace`
+  in make/unmake to dodge snapshot aliasing. A mutable variant with explicit
+  copy semantics in the Undo struct would avoid the per-move dataclass
+  allocation. Watch for the aliasing bugs the freezing was protecting against.
