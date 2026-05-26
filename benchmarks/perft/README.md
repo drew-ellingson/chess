@@ -11,7 +11,7 @@ For the record schema and the cross-benchmark reader, see
 ```sh
 uv run python benchmarks/perft/run.py                     # default: starting position, depth 4, 5 runs
 uv run python benchmarks/perft/run.py --depth 3           # faster cycle
-uv run python benchmarks/perft/run.py --profile           # also dump a cProfile .prof for snakeviz
+uv run python benchmarks/perft/run.py --no-profile        # skip cProfile (no .prof produced)
 uv run python benchmarks/perft/run.py --no-record         # ad-hoc; don't pollute results.jsonl
 uv run python benchmarks/perft/run.py --label kiwipete-d3 \
     --fen "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1" \
@@ -28,12 +28,14 @@ See the top-level README for why min, not mean.
 
 ## Profiling
 
-Pass `--profile` to also dump a `cProfile` file to
-`.local/profiles/perft_d<N>_<timestamp>.prof`. View interactively with:
+By default, every run also dumps a `cProfile` file named `<label>.prof` next
+to `results.jsonl`. The file is gitignored — it's per-machine and reflects
+only the most recent run for that label (subsequent runs overwrite it).
 
 ```sh
 uv add --dev snakeviz       # one-time
-uv run snakeviz .local/profiles/perft_d4_<timestamp>.prof
+uv run snakeviz benchmarks/perft/d4.prof
 ```
 
-`.local/` is gitignored so dumps stay per-machine.
+If you want to skip profiling (slightly faster, no `.prof` produced), pass
+`--no-profile`.

@@ -4,14 +4,23 @@ Runs `perft(position, depth)` repeatedly, records the best and median wall-clock
 times, derives nodes/sec, and appends one JSONL record per invocation to
 `results.jsonl` (committed; one line per benchmark run, grep-friendly).
 
+Also runs one extra iteration under cProfile and writes the stats to a `.prof`
+file *next to* `results.jsonl`, named `<label>.prof`. The `.prof` file is
+gitignored (per-machine, per-run) — view it with snakeviz:
+
+    uv run snakeviz benchmarks/perft/d4.prof
+
+This gives you the headline number in `results.jsonl` plus the call-tree
+breakdown for the latest run with that label.
+
 The record follows the shared benchmark schema described in
 `benchmarks/README.md` so `benchmarks/analyze.py` can read this file alongside
 any other benchmark's output.
 
 Run:
     uv run python benchmarks/perft/run.py                  # defaults: starting d=4, 5 runs
-    uv run python benchmarks/perft/run.py --depth 3        # faster for quick checks
-    uv run python benchmarks/perft/run.py --profile        # also dump a cProfile .prof file
+    uv run python benchmarks/perft/run.py --depth 3        # faster cycle
+    uv run python benchmarks/perft/run.py --no-profile     # skip cProfile (slightly faster)
     uv run python benchmarks/perft/run.py --label custom   # override label (default: "d{depth}")
 """
 
@@ -34,8 +43,8 @@ DEFAULT_DEPTH = 4
 DEFAULT_RUNS = 5
 
 BENCHMARK_NAME = "perft"
-RESULTS_FILE = Path(__file__).parent / "results.jsonl"
-PROFILE_DIR = Path(__file__).parent.parent.parent / ".local" / "profiles"
+RESULTS_DIR = Path(__file__).parent
+RESULTS_FILE = RESULTS_DIR / "results.jsonl"
 
 
 def _git_sha() -> str:
@@ -87,8 +96,7 @@ def benchmark(fen: str, depth: int, runs: int, label: str) -> dict:
             nodes_each_run = nodes
         elif nodes != nodes_each_run:
             raise RuntimeError(
-                f"non-deterministic perft: run {i + 1} returned {nodes}, "
-                f"previous runs returned {nodes_each_run}"
+                f"non-deterministic perft: run {i + 1} returned {nodes}, previous runs returned {nodes_each_run}"
             )
         times.append(elapsed)
         print(f"  run {i + 1}/{runs}: {elapsed:.3f}s")
@@ -129,14 +137,17 @@ def append_record(record: dict) -> None:
         f.write(json.dumps(record) + "\n")
 
 
-def run_profile(fen: str, depth: int) -> Path:
-    """Run perft once under cProfile, save the .prof file under .local/profiles/."""
-    PROFILE_DIR.mkdir(parents=True, exist_ok=True)
-    stamp = time.strftime("%Y%m%d-%H%M%S")
-    prof_path = PROFILE_DIR / f"perft_d{depth}_{stamp}.prof"
+def run_profile(fen: str, depth: int, label: str) -> Path:
+    """Run perft once under cProfile, save the .prof file next to results.jsonl.
+
+    The file is named after the label so multiple labels can coexist; each
+    run for the same label overwrites the previous .prof. The .prof file is
+    gitignored — it's per-machine and per-run, not history.
+    """
+    prof_path = RESULTS_DIR / f"{label}.prof"
 
     # runctx lets us pass the locals perft needs without polluting module namespace.
-    print(f"\nprofiling depth {depth} (single run, output is approximate) ...")
+    print(f"\nprofiling depth {depth} (single run; cProfile overhead is ~30%) ...")
     cProfile.runctx(
         "perft(parse_fen(fen), depth)",
         globals(),
@@ -161,9 +172,9 @@ def main() -> int:
         help="grouping label for analyze.py (default: 'd{depth}'). Use to distinguish runs on different positions.",
     )
     parser.add_argument(
-        "--profile",
+        "--no-profile",
         action="store_true",
-        help="also run one extra iteration under cProfile and dump a .prof file to .local/profiles/",
+        help="skip the extra cProfile iteration (faster, but no .prof file produced)",
     )
     parser.add_argument(
         "--no-record",
@@ -188,8 +199,8 @@ def main() -> int:
         append_record(record)
         print(f"\nappended to {RESULTS_FILE}")
 
-    if args.profile:
-        run_profile(args.fen, args.depth)
+    if not args.no_profile:
+        run_profile(args.fen, args.depth, label)
 
     return 0
 
