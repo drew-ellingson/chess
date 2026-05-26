@@ -33,7 +33,7 @@ PERFT_POSITIONS: list[tuple[str, str, list[tuple[int, int]]]] = [
     ),
     (
         "position_4",
-        "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2pP/R2Q1RK1 w kq - 0 1",
+        "r3k2r/Pppp1ppp/1b3nbN/nP6/BBP1P3/q4N2/Pp1P2PP/R2Q1RK1 w kq - 0 1",
         [(1, 6), (2, 264), (3, 9467), (4, 422333)],
     ),
     (
