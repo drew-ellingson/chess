@@ -9,8 +9,7 @@ class Color(IntEnum):
     def __repr__(self) -> str:
         return "White" if self == Color.WHITE else "Black"
 
-    __str__ = __repr__ 
-
+    __str__ = __repr__
 
     @property
     def opposite(self) -> "Color":

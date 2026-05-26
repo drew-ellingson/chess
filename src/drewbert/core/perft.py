@@ -8,15 +8,14 @@ counts that hand-written tests almost never catch.
 See `tests/core/test_perft.py` for the standard test suite.
 """
 
-from drewbert.core.position import Position
 from drewbert.core.movegen import generate_legal_moves
+from drewbert.core.position import Position
 
 
 def perft(position: Position, depth: int) -> int:
-    """Recursively count leaf nodes of the legal move tree at the given depth.
-    """
+    """Recursively count leaf nodes of the legal move tree at the given depth."""
     if depth == 0:
-        return 1 
+        return 1
     nodes = 0
     for move in generate_legal_moves(position):
         undo = position.make_move(move)
