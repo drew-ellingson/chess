@@ -83,11 +83,11 @@ def format_delta(curr: dict, prev: dict | None) -> str:
 
 
 def print_group(key: tuple[str, str], entries: list[dict], last: int | None) -> None:
-    """Print one (benchmark, label) group with timestamp / commit / metric / delta columns."""
+    """Print one (benchmark, label) group with timestamp / commit / best_seconds / metric / delta."""
     benchmark, label = key
     title = f"{benchmark} / {label}"
     print(title)
-    print("─" * max(len(title), 60))
+    print("─" * max(len(title), 72))
 
     start = 0 if last is None else max(0, len(entries) - last)
 
@@ -100,14 +100,14 @@ def print_group(key: tuple[str, str], entries: list[dict], last: int | None) -> 
         prev = entries[i - 1] if i > 0 else None
         ts = record.get("timestamp", "?")
         commit = record.get("commit", "?")
-        print(f"  {ts:<19}  {commit:<8}  {format_value(record)}   {format_delta(record, prev)}")
+        best = record.get("best_seconds")
+        best_str = f"{best:6.3f}s" if isinstance(best, (int, float)) else "      —"
+        print(f"  {ts:<19}  {commit:<8}  {best_str}  {format_value(record)}   {format_delta(record, prev)}")
     print()
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Summarize benchmark history from benchmarks/*/results.jsonl."
-    )
+    parser = argparse.ArgumentParser(description="Summarize benchmark history from benchmarks/*/results.jsonl.")
     parser.add_argument("--benchmark", help="filter to one benchmark id (e.g. 'perft')")
     parser.add_argument(
         "--last",
