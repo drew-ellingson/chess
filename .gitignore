@@ -34,3 +34,6 @@ htmlcov/
 
 # Local sandbox
 .local
+
+# cProfile dumps — per-machine, per-run, not history
+*.prof

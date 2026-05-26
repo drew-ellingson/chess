@@ -5,15 +5,44 @@ from drewbert.core.move import Move
 from drewbert.core.position import Position
 from drewbert.core.types import Color, Piece, PieceType, Square
 
-KNIGHT_VECTORS = [(2, 1), (2, -1), (1, 2), (1, -2), (-1, 2), (-1, -2), (-2, 1), (-2, -1)]
-BISHOP_UNIT_VECTORS = [(1, 1), (1, -1), (-1, 1), (-1, -1)]
-ROOK_UNIT_VECTORS = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-KING_VECTORS = [(1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1)]
-
 
 class Coord(NamedTuple):
     file: int
     rank: int
+
+
+KNIGHT_VECTORS = [
+    Coord(2, 1),
+    Coord(2, -1),
+    Coord(1, 2),
+    Coord(1, -2),
+    Coord(-1, 2),
+    Coord(-1, -2),
+    Coord(-2, 1),
+    Coord(-2, -1),
+]
+BISHOP_UNIT_VECTORS = [Coord(1, 1), Coord(1, -1), Coord(-1, 1), Coord(-1, -1)]
+ROOK_UNIT_VECTORS = [Coord(1, 0), Coord(0, 1), Coord(-1, 0), Coord(0, -1)]
+KING_VECTORS = [
+    Coord(1, 0),
+    Coord(1, -1),
+    Coord(0, -1),
+    Coord(-1, -1),
+    Coord(-1, 0),
+    Coord(-1, 1),
+    Coord(0, 1),
+    Coord(1, 1),
+]
+
+# Module-level aliases for PieceType / Color members. Bound once at import;
+# using these in hot paths avoids a per-call LOAD_GLOBAL + LOAD_ATTR pair.
+PT_PAWN = PieceType.PAWN
+PT_KNIGHT = PieceType.KNIGHT
+PT_BISHOP = PieceType.BISHOP
+PT_ROOK = PieceType.ROOK
+PT_QUEEN = PieceType.QUEEN
+PT_KING = PieceType.KING
+C_WHITE = Color.WHITE
 
 
 def get_pieces(position: Position) -> dict[Square, Piece]:
@@ -23,12 +52,12 @@ def get_pieces(position: Position) -> dict[Square, Piece]:
 
 def _add(coord: Coord, delta: Coord) -> Coord:
     """From a coord, return coord + delta as a new Coord"""
-    return Coord(*map(sum, zip(coord, delta, strict=True)))
+    return Coord(coord.file + delta.file, coord.rank + delta.rank)
 
 
 def coord_in_bounds(coord: Coord) -> bool:
     """Return whether a given coordinate can represent a valid chess square"""
-    return all(0 <= x <= 7 for x in coord)
+    return 0 <= coord.file <= 7 and 0 <= coord.rank <= 7
 
 
 def sq_to_file_rank(square: Square) -> Coord:
@@ -49,6 +78,21 @@ def target_piece_is_color(position: Position, target: Coord, color: Color) -> bo
     """Return whether the piece at target coord is given color. Return False if the square is empty."""
     target_piece = position.piece_at(file_rank_to_sq(target))
     return target_piece is not None and target_piece.color == color
+
+
+def first_piece_along_ray(position: Position, coord: Coord, delta: Coord) -> Piece | None:
+    """Walk a ray from start coordinate along a given delta. Return first piece encountered on ray
+    or None if no piece is encountered.
+    """
+    current = coord
+    while True:
+        current = _add(current, delta)
+        if not coord_in_bounds(current):
+            return None
+
+        target = position.piece_at(file_rank_to_sq(current))
+        if target is not None:
+            return target
 
 
 def walk_ray(position: Position, coord: Coord, delta: Coord) -> list[Coord]:
@@ -90,7 +134,7 @@ def generate_pseudo_legal_knight_moves(position: Position, start_coord: Coord) -
     """
     targets = []
     for delta in KNIGHT_VECTORS:
-        target = _add(start_coord, Coord(*delta))
+        target = _add(start_coord, delta)
         # prevent same piece collisions
         if coord_in_bounds(target) and not target_piece_is_color(position, target, position.side_to_move):
             targets.append(target)
@@ -103,9 +147,10 @@ def generate_pseudo_legal_bishop_moves(position: Position, start_coord: Coord) -
     From a start coord, generate a list of move candidates for all valid bishop moves from the coord
     Respects out of bounds and own-piece collision
     """
-    deltas = [Coord(*x) for x in BISHOP_UNIT_VECTORS]
     targets = list(
-        chain.from_iterable([attack_along_ray(position, start_coord, delta, position.side_to_move) for delta in deltas])
+        chain.from_iterable(
+            [attack_along_ray(position, start_coord, delta, position.side_to_move) for delta in BISHOP_UNIT_VECTORS]
+        )
     )
     return [Move(file_rank_to_sq(start_coord), file_rank_to_sq(target)) for target in targets]
 
@@ -115,9 +160,10 @@ def generate_pseudo_legal_rook_moves(position: Position, start_coord: Coord) -> 
     From a start coord, generate a list of move candidates for all valid rook moves from the coord
     Respects out of bounds and own-piece collision
     """
-    deltas = [Coord(*x) for x in ROOK_UNIT_VECTORS]
     targets = list(
-        chain.from_iterable([attack_along_ray(position, start_coord, delta, position.side_to_move) for delta in deltas])
+        chain.from_iterable(
+            [attack_along_ray(position, start_coord, delta, position.side_to_move) for delta in ROOK_UNIT_VECTORS]
+        )
     )
     moves = [Move(file_rank_to_sq(start_coord), file_rank_to_sq(target)) for target in targets]
     return moves
@@ -138,23 +184,32 @@ def generate_pseudo_legal_king_moves(position: Position, start_coord: Coord) -> 
     From a start coord, generate a list of move candidates for all king moves from the coord
     Respects out of bounds and own-piece collision.
     """
-    deltas = [Coord(*x) for x in KING_VECTORS]
     targets = []
-    for delta in deltas:
-        target = _add(start_coord, Coord(*delta))
+    for delta in KING_VECTORS:
+        target = _add(start_coord, delta)
         if coord_in_bounds(target) and not target_piece_is_color(position, target, position.side_to_move):
             targets.append(target)
 
     # Castling: squares slices represent the squares that need to be empty for castling to be legal
-    if position.side_to_move == Color.WHITE:
-        if position.castling_rights.white_kingside and all(x is None for x in position.squares[5:7]):
+    if position.side_to_move == C_WHITE:
+        if position.castling_rights.white_kingside and position.squares[5] is None and position.squares[6] is None:
             targets.append(Coord(6, 0))  # G1
-        if position.castling_rights.white_queenside and all(x is None for x in position.squares[1:4]):
+        if (
+            position.castling_rights.white_queenside
+            and position.squares[1] is None
+            and position.squares[2] is None
+            and position.squares[3] is None
+        ):
             targets.append(Coord(2, 0))  # C1
     else:
-        if position.castling_rights.black_kingside and all(x is None for x in position.squares[61:63]):
+        if position.castling_rights.black_kingside and position.squares[61] is None and position.squares[62] is None:
             targets.append(Coord(6, 7))  # G8
-        if position.castling_rights.black_queenside and all(x is None for x in position.squares[57:60]):
+        if (
+            position.castling_rights.black_queenside
+            and position.squares[57] is None
+            and position.squares[58] is None
+            and position.squares[59] is None
+        ):
             targets.append(Coord(2, 7))  # C8
 
     return [Move(file_rank_to_sq(start_coord), file_rank_to_sq(target)) for target in targets]
@@ -166,9 +221,9 @@ def generate_pseudo_legal_pawn_moves(position: Position, start_coord: Coord) -> 
     Respects out of bounds and own-piece collision
     Handles pawn captures, en_passant, and promotion
     """
-    dir = 1 if position.side_to_move == Color.WHITE else -1
-    start_rank = 1 if position.side_to_move == Color.WHITE else 6
-    promote_rank = 7 if position.side_to_move == Color.WHITE else 0
+    dir = 1 if position.side_to_move == C_WHITE else -1
+    start_rank = 1 if position.side_to_move == C_WHITE else 6
+    promote_rank = 7 if position.side_to_move == C_WHITE else 0
 
     targets = []
     one_sq_forward = _add(start_coord, Coord(0, dir))
@@ -206,19 +261,19 @@ def generate_pseudo_legal_pawn_moves(position: Position, start_coord: Coord) -> 
         if target.rank != promote_rank:
             moves.append(Move(from_sq, to_sq))
         else:
-            piece_options = [PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.QUEEN]
+            piece_options = [PT_ROOK, PT_KNIGHT, PT_BISHOP, PT_QUEEN]
             moves.extend([Move(from_sq, to_sq, piece) for piece in piece_options])
 
     return moves
 
 
 MOVERS = {
-    PieceType.KNIGHT: generate_pseudo_legal_knight_moves,
-    PieceType.BISHOP: generate_pseudo_legal_bishop_moves,
-    PieceType.ROOK: generate_pseudo_legal_rook_moves,
-    PieceType.QUEEN: generate_pseudo_legal_queen_moves,
-    PieceType.KING: generate_pseudo_legal_king_moves,
-    PieceType.PAWN: generate_pseudo_legal_pawn_moves,
+    PT_KNIGHT: generate_pseudo_legal_knight_moves,
+    PT_BISHOP: generate_pseudo_legal_bishop_moves,
+    PT_ROOK: generate_pseudo_legal_rook_moves,
+    PT_QUEEN: generate_pseudo_legal_queen_moves,
+    PT_KING: generate_pseudo_legal_king_moves,
+    PT_PAWN: generate_pseudo_legal_pawn_moves,
 }
 
 
@@ -249,64 +304,60 @@ def generate_pseudo_legal_moves(position: Position) -> list[Move]:
 def is_square_attacked(position: Position, target_square: Square, by: Color) -> bool:
     """True iff `square` is attacked by any piece of color `by`."""
 
-    dir = -1 if by == Color.WHITE else 1
+    dir = -1 if by == C_WHITE else 1
     coord = sq_to_file_rank(target_square)
 
-    PAWN_VECTORS = [Coord(1, dir), (-1, dir)]
+    piece_at = position.piece_at
+
+    PAWN_VECTORS = [Coord(1, dir), Coord(-1, dir)]
 
     for delta in PAWN_VECTORS:
         target_coord = _add(coord, delta)
         if not coord_in_bounds(target_coord):
             continue
 
-        target_piece = position.piece_at(file_rank_to_sq(target_coord))
-        if target_piece and target_piece.type == PieceType.PAWN and target_piece.color == by:
+        target_piece = piece_at(file_rank_to_sq(target_coord))
+        if target_piece and target_piece.type == PT_PAWN and target_piece.color == by:
             return True
 
     for delta in KNIGHT_VECTORS:
-        target_coord = _add(coord, Coord(*delta))
+        target_coord = _add(coord, delta)
         if not coord_in_bounds(target_coord):
             continue
 
-        target_piece = position.piece_at(file_rank_to_sq(target_coord))
-        if target_piece and target_piece.type == PieceType.KNIGHT and target_piece.color == by:
+        target_piece = piece_at(file_rank_to_sq(target_coord))
+        if target_piece and target_piece.type == PT_KNIGHT and target_piece.color == by:
             return True
 
     for delta in KING_VECTORS:
-        target_coord = _add(coord, Coord(*delta))
+        target_coord = _add(coord, delta)
         if not coord_in_bounds(target_coord):
             continue
 
-        target_piece = position.piece_at(file_rank_to_sq(target_coord))
-        if target_piece and target_piece.type == PieceType.KING and target_piece.color == by:
+        target_piece = piece_at(file_rank_to_sq(target_coord))
+        if target_piece and target_piece.type == PT_KING and target_piece.color == by:
             return True
 
     # slide along vector until you hit a piece or the end of the board. check if the last
     # thing hit is an enemy bishop or queen
     for delta in BISHOP_UNIT_VECTORS:
-        target_squares = attack_along_ray(position, coord, Coord(*delta), by.opposite)
+        target_piece = first_piece_along_ray(position, coord, delta)
 
-        if not target_squares:
+        if not target_piece or target_piece.color != by:
             continue
 
-        target_coord = target_squares[-1]
-
-        target_piece = position.piece_at(file_rank_to_sq(target_coord))
-        if target_piece and target_piece.type in [PieceType.BISHOP, PieceType.QUEEN] and target_piece.color == by:
+        if target_piece.type == PT_BISHOP or target_piece.type == PT_QUEEN:
             return True
 
     # slide along vector until you hit a piece or the end of the board. check if the last
     # thing hit is an enemy rook or queen
     for delta in ROOK_UNIT_VECTORS:
-        target_squares = attack_along_ray(position, coord, Coord(*delta), by.opposite)
+        target_piece = first_piece_along_ray(position, coord, delta)
 
-        if not target_squares:
+        if not target_piece or target_piece.color != by:
             continue
 
-        target_coord = target_squares[-1]
-
-        target_piece = position.piece_at(file_rank_to_sq(target_coord))
-        if target_piece and target_piece.type in [PieceType.ROOK, PieceType.QUEEN] and target_piece.color == by:
+        if target_piece.type == PT_ROOK or target_piece.type == PT_QUEEN:
             return True
 
     return False
@@ -331,7 +382,7 @@ def generate_legal_moves(position: Position) -> list[Move]:
         undo = position.make_move(move)
 
         # check if we castled through check, skip move if so.
-        if piece and piece.type == PieceType.KING and abs(move.from_square - move.to_square) == 2:
+        if piece and piece.type == PT_KING and abs(move.from_square - move.to_square) == 2:
             if move.to_square > move.from_square:  # kingside castling
                 if any(is_square_attacked(position, move.from_square + i, position.side_to_move) for i in range(3)):
                     position.unmake_move(undo)
