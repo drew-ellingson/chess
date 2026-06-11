@@ -261,7 +261,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type == PieceType.PAWN and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     for delta in KNIGHT_VECTORS:
@@ -271,7 +270,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type == PieceType.KNIGHT and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     for delta in KING_VECTORS:
@@ -281,7 +279,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type == PieceType.KING and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     # slide along vector until you hit a piece or the end of the board. check if the last
@@ -296,7 +293,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type in [PieceType.BISHOP, PieceType.QUEEN] and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece} of color: {by}")
             return True
 
     # slide along vector until you hit a piece or the end of the board. check if the last
@@ -311,7 +307,6 @@ def is_square_attacked(position: Position, target_square: Square, by: Color) -> 
 
         target_piece = position.piece_at(file_rank_to_sq(target_coord))
         if target_piece and target_piece.type in [PieceType.ROOK, PieceType.QUEEN] and target_piece.color == by:
-            print(f"Coord: {coord} attacked by: Target Piece: {target_piece}")
             return True
 
     return False

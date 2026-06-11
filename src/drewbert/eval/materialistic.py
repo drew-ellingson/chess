@@ -1,5 +1,4 @@
 from drewbert.core.move import Move
-from drewbert.core.movegen import is_checkmate, is_stalemate
 from drewbert.core.position import Color, Piece, Position
 from drewbert.core.types import PieceType
 
@@ -15,10 +14,6 @@ PIECE_VALUES = {
 
 def materialistic_position_eval(position: Position) -> int:
     """Return the sum of all material values of the given position. Positive for white, negative for black"""
-    if is_stalemate(position):
-        return 0
-    if is_checkmate(position):
-        return -10000000 if position.side_to_move == Color.WHITE else 10000000
 
     def val(piece: Piece | None) -> int:
         if piece is None:
