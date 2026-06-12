@@ -19,10 +19,12 @@ from drewbert.search.minimax import best_move
 MATE_IN_1_PUZZLES = [
     # Back-rank: rook lift to a8, king smothered by own pawns.
     pytest.param("6k1/5ppp/8/8/8/8/8/R6K w - - 0 1", "a1a8", id="back-rank-Ra8"),
-    # K+Q vs K corner mate.
-    pytest.param("7k/8/6K1/Q7/8/8/8/8 w - - 0 1", "a5a8", id="KQ-vs-K-Qa8"),
+    # Smothered mate: rook+pawns block all king escapes, knight delivers.
+    pytest.param("6rk/6pp/8/6N1/8/8/8/7K w - - 0 1", "g5f7", id="smothered-Nf7"),
     # K+R vs K corner mate.
     pytest.param("7k/8/7K/8/8/8/8/2R5 w - - 0 1", "c1c8", id="KR-vs-K-Rc8"),
+    # Mirror of back-rank with black to move — covers the negative-sign branch.
+    pytest.param("r6k/8/8/8/8/8/5PPP/6K1 b - - 0 1", "a8a1", id="back-rank-Ra1-black"),
 ]
 
 MATE_IN_2_PUZZLES = [
