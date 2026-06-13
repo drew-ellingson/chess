@@ -91,14 +91,19 @@ def announce_terminal(position: Position) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Play a game against drewbert in the terminal.")
-    parser.add_argument("--eval", choices=sorted(EVALS), default="material",
-                        help="evaluation function (default: material)")
-    parser.add_argument("--search", choices=sorted(SEARCHES), default="minimax",
-                        help="search algorithm (default: minimax)")
-    parser.add_argument("--depth", type=int, default=3,
-                        help="search depth in ply (default: 3)")
-    parser.add_argument("--side", choices=["white", "black", "none"], default="white",
-                        help="which side the human plays; 'none' is engine-vs-engine (default: white)")
+    parser.add_argument(
+        "--eval", choices=sorted(EVALS), default="material", help="evaluation function (default: material)"
+    )
+    parser.add_argument(
+        "--search", choices=sorted(SEARCHES), default="minimax", help="search algorithm (default: minimax)"
+    )
+    parser.add_argument("--depth", type=int, default=3, help="search depth in ply (default: 3)")
+    parser.add_argument(
+        "--side",
+        choices=["white", "black", "none"],
+        default="white",
+        help="which side the human plays; 'none' is engine-vs-engine (default: white)",
+    )
     parser.add_argument("--fen", default=STARTING_FEN, help="starting FEN (default: standard)")
     return parser.parse_args()
 

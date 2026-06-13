@@ -47,9 +47,13 @@ Make it speak the protocol.
 
 **Test gate:** Cute Chess (or any UCI GUI) can drive the engine. Engine-vs-engine tournaments can be run from the command line. From here on, every change is measured by tournament Elo, not vibe.
 
-## Phase 5 — Strength climbing or NNUE
+## Phase 5 — Strength climbing
 
-Optional. Either classical refinements (null-move, late move reductions, futility pruning, aspiration windows) or pivot to NNUE-style learned evaluation trained from self-play.
+Optional. Pick any combination — these levers compose, each pushes rating from a different direction.
+
+- **Classical refinements:** null-move, late move reductions, futility pruning, aspiration windows.
+- **NNUE:** pivot to learned evaluation trained from self-play, replacing the handcrafted eval.
+- **Port hot paths to Rust (or another compiled language).** Movegen, `Position`, and parts of search dominate wall-clock in Python. A compiled port lets the same search reach deeper at the same time budget — meaningful Elo just from depth. Typically the *last* lever applied: porting before the algorithms stabilize (≥ end of phase 3) means rewriting twice, and you want a Python baseline to benchmark against. Also natural to defer past phase 6 so a functional engine + app exist before the rewrite churn.
 
 ## Phase 6 — Web app
 

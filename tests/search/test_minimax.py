@@ -4,10 +4,7 @@ Puzzles are FEN + the expected first move in UCI-ish form ("e2e4"). Mate-in-1
 needs depth 2; mate-in-2 needs depth 4. (Roadmap test gate for phase 2.)
 
 Adding new puzzles: verify the FEN is legal, the expected move is the unique
-mating move at the stated depth, and the forcing line is clean. The
-verification helper in `tests/search/_verify_puzzle.py`-style scratch is
-optional — `python-chess` makes this a one-liner if you want a sanity check
-when adding more.
+mating move at the stated depth, and the forcing line is clean.
 """
 
 import pytest
