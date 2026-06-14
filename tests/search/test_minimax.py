@@ -29,6 +29,19 @@ MATE_IN_2_PUZZLES = [
     pytest.param("6k1/6P1/5K2/8/8/8/8/3R4 w - - 0 1", "d1d8", id="rook-pawn-corner"),
 ]
 
+# Regression guard for the mate-distance penalty sign. Each position has BOTH
+# an immediate mate-in-1 (the expected move) AND at least one alternative that
+# only forces mate-in-2. With the correct sign (closer mate scores higher
+# magnitude), the engine prefers the mate-in-1; if the sign is inverted,
+# the deeper mate wins on score and the engine picks the wrong move.
+MATE_DISTANCE_PUZZLES = [
+    # White Qh8# is mate-in-1. Kc7 (and four queen moves) instead force mate-in-2
+    # because black's only legal moves are pawn pushes, then Qh8# next ply.
+    pytest.param("k7/p7/2K5/8/8/8/8/Q7 w - - 0 1", "a1h8", id="prefer-m1-white"),
+    # Mirror with black to move — covers the white-mated sign branch.
+    pytest.param("q7/8/8/8/8/2k5/P7/K7 b - - 0 1", "a8h1", id="prefer-m1-black"),
+]
+
 
 @pytest.mark.parametrize("fen,expected_uci", MATE_IN_1_PUZZLES)
 def test_finds_mate_in_1_at_depth_2(fen: str, expected_uci: str) -> None:
@@ -39,6 +52,13 @@ def test_finds_mate_in_1_at_depth_2(fen: str, expected_uci: str) -> None:
 
 @pytest.mark.parametrize("fen,expected_uci", MATE_IN_2_PUZZLES)
 def test_finds_mate_in_2_at_depth_4(fen: str, expected_uci: str) -> None:
+    position = parse_fen(fen)
+    move = best_move(position, materialistic_position_eval, depth=4)
+    assert repr(move) == expected_uci
+
+
+@pytest.mark.parametrize("fen,expected_uci", MATE_DISTANCE_PUZZLES)
+def test_prefers_shorter_mate(fen: str, expected_uci: str) -> None:
     position = parse_fen(fen)
     move = best_move(position, materialistic_position_eval, depth=4)
     assert repr(move) == expected_uci

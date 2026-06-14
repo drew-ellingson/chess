@@ -34,7 +34,7 @@ STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 EVALS: dict[str, PositionEvalFn] = {
     "material": materialistic_position_eval,
 }
-SearchFn = Callable[[Position, PositionEvalFn, int], Move]
+SearchFn = Callable[[Position, PositionEvalFn, int], Move | None]
 SEARCHES: dict[str, SearchFn] = {
     "minimax": best_move,
 }
@@ -138,6 +138,7 @@ def main() -> int:
         else:
             print(f"  engine thinking (depth {args.depth})...")
             move = search_fn(position, eval_fn, args.depth)
+            assert move is not None, "search returned None despite non-empty legal_moves"
             print(f"  engine plays: {move!r}")
 
         position.make_move(move)
