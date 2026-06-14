@@ -30,7 +30,8 @@ from drewbert.search.types import PositionEvalFn
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 # Registries. Add new search/eval modules here to make them selectable from the CLI.
-# Search functions must accept (position, eval_fn, depth) and return a Move.
+# Search functions must accept (position, eval_fn, depth) and return a Move (or None for
+# terminal positions).
 EVALS: dict[str, PositionEvalFn] = {
     "material": materialistic_position_eval,
 }

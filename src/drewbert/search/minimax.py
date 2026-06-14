@@ -16,8 +16,8 @@ def _optimization_fn(position: Position) -> Callable[..., Any]:
     return max if position.side_to_move == Color.WHITE else min
 
 
-def _score_cand_move(position: Position, move: Move, search_fn: Callable[[Position], int]) -> int:
-    """Return search evaluation of give at given position.
+def _score_cand_move(position: Position, move: Move, search_fn: PositionEvalFn) -> int:
+    """Return search evaluation of given move at given position.
     search_fn here is designed to be minimax with different parameters pre-populated
     depending on the recursion state.
     """
@@ -67,5 +67,5 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, depth: int
     if not legal_moves:
         return None
 
-    search_fn = partial(minimax, position_evaluator=position_evaluator, depth=depth - 1)
+    search_fn = partial(minimax, position_evaluator=position_evaluator, depth=depth - 1, plies_from_root=1)
     return _optimization_fn(position)(legal_moves, key=lambda m: _score_cand_move(position, m, search_fn))
