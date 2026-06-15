@@ -45,11 +45,13 @@ The first two items establish the measurement infrastructure that lets every sub
 
 ## Phase 4 — Strength climbing
 
+## Phase 5 — Strength climbing
+
 Optional. Pick any combination — these levers compose, each pushes rating from a different direction.
 
 - **Classical refinements:** null-move, late move reductions, futility pruning, aspiration windows.
 - **NNUE:** pivot to learned evaluation trained from self-play, replacing the handcrafted eval.
-- **Port hot paths to Rust (or another compiled language).** Movegen, `Position`, and parts of search dominate wall-clock in Python. A compiled port lets the same search reach deeper at the same time budget — meaningful Elo just from depth. Typically the *last* lever applied: porting before the algorithms stabilize (≥ end of phase 3) means rewriting twice, and you want a Python baseline to benchmark against. Also natural to defer past phase 5 so a functional engine + app exist before the rewrite churn.
+- **Port hot paths to Rust (or another compiled language).** Movegen, `Position`, and parts of search dominate wall-clock in Python. A compiled port lets the same search reach deeper at the same time budget — meaningful Elo just from depth. Typically the *last* lever applied: porting before the algorithms stabilize (≥ end of phase 3) means rewriting twice, and you want a Python baseline to benchmark against. Also natural to defer past phase 6 so a functional engine + app exist before the rewrite churn.
 
 ## Phase 5 — Web app
 

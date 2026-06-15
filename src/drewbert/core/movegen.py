@@ -1,6 +1,7 @@
 from itertools import chain
 from typing import NamedTuple
 
+from drewbert.core.helpers import move_applied
 from drewbert.core.move import Move
 from drewbert.core.position import Position
 from drewbert.core.types import Color, Piece, PieceType, Square
@@ -379,21 +380,17 @@ def generate_legal_moves(position: Position) -> list[Move]:
 
     for move in candidate_moves:
         piece = position.piece_at(move.from_square)
-        undo = position.make_move(move)
+        with move_applied(position, move):
+            # check if we castled through check, skip move if so.
+            if piece and piece.type == PT_KING and abs(move.from_square - move.to_square) == 2:
+                if move.to_square > move.from_square:  # kingside castling
+                    if any(is_square_attacked(position, move.from_square + i, position.side_to_move) for i in range(3)):
+                        continue
+                else:  # queenside castling
+                    if any(is_square_attacked(position, move.from_square - i, position.side_to_move) for i in range(3)):
+                        continue
 
-        # check if we castled through check, skip move if so.
-        if piece and piece.type == PT_KING and abs(move.from_square - move.to_square) == 2:
-            if move.to_square > move.from_square:  # kingside castling
-                if any(is_square_attacked(position, move.from_square + i, position.side_to_move) for i in range(3)):
-                    position.unmake_move(undo)
-                    continue
-            else:  # queenside castling
-                if any(is_square_attacked(position, move.from_square - i, position.side_to_move) for i in range(3)):
-                    position.unmake_move(undo)
-                    continue
-
-        if not is_in_check(position, position.side_to_move.opposite):
-            moves.append(move)
-        position.unmake_move(undo)
+            if not is_in_check(position, position.side_to_move.opposite):
+                moves.append(move)
 
     return moves
