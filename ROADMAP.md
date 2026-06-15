@@ -24,10 +24,14 @@ Make it play chess, even if poorly.
 
 **Test gate:** plays a full game with zero illegal moves. Finds mate-in-1 at depth 2. Finds mate-in-2 at depth 4. Add a small "find the best move" puzzle suite.
 
-## Phase 3 — Real engine
+## Phase 3 — Real engine + measurement
 
-Make it play chess well.
+Make it play chess well, and make every improvement measurable.
 
+The first two items establish the measurement infrastructure that lets every subsequent change be tested in self-play and (eventually) against rated opponents. UCI is built against the current constant-depth engine — no search improvements required first; the protocol doesn't care what your search does, only that it produces a `bestmove`. From there each engine improvement ships with a self-play Elo delta in its PR body.
+
+- UCI adapter (constant-depth search; time control ignored initially)
+- Tournament harness (cute-chess) with self-play A/B + Stockfish skill ladder
 - Alpha-beta pruning
 - Iterative deepening with time management
 - Zobrist hashing
@@ -37,21 +41,17 @@ Make it play chess well.
 - Piece-square tables
 - Basic positional evaluation: mobility, pawn structure, king safety
 
-**Test gate:** in self-tournament against the phase-2 engine, wins ≥80%. In tournament against Stockfish at low skill levels, settles around club-player strength.
+**Test gates:** every PR after the harness lands carries a self-play Elo delta vs. prior tip. End-of-phase: in self-tournament against the phase-2 engine, wins ≥80%. First scoring result against Stockfish skill 0 expected after alpha-beta + iterative deepening (likely with TT) — that becomes the engine's first anchored absolute Elo.
 
-## Phase 4 — UCI
+## Phase 4 — Strength climbing
 
-Make it speak the protocol.
+Optional. Pick any combination — these levers compose, each pushes rating from a different direction.
 
-- UCI adapter
+- **Classical refinements:** null-move, late move reductions, futility pruning, aspiration windows.
+- **NNUE:** pivot to learned evaluation trained from self-play, replacing the handcrafted eval.
+- **Port hot paths to Rust (or another compiled language).** Movegen, `Position`, and parts of search dominate wall-clock in Python. A compiled port lets the same search reach deeper at the same time budget — meaningful Elo just from depth. Typically the *last* lever applied: porting before the algorithms stabilize (≥ end of phase 3) means rewriting twice, and you want a Python baseline to benchmark against. Also natural to defer past phase 5 so a functional engine + app exist before the rewrite churn.
 
-**Test gate:** Cute Chess (or any UCI GUI) can drive the engine. Engine-vs-engine tournaments can be run from the command line. From here on, every change is measured by tournament Elo, not vibe.
-
-## Phase 5 — Strength climbing or NNUE
-
-Optional. Either classical refinements (null-move, late move reductions, futility pruning, aspiration windows) or pivot to NNUE-style learned evaluation trained from self-play.
-
-## Phase 6 — Web app
+## Phase 5 — Web app
 
 - FastAPI backend
 - Websocket for live play
@@ -59,7 +59,7 @@ Optional. Either classical refinements (null-move, late move reductions, futilit
 
 **Test gate:** full game playable in the browser.
 
-## Phase 7 — Offshoots
+## Phase 6 — Offshoots
 
 - Lichess game analysis (pull PGN via API, run through engine, surface mistake patterns)
 - Variants (new pieces, possibly drafting)
