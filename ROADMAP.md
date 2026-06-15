@@ -45,8 +45,6 @@ The first two items establish the measurement infrastructure that lets every sub
 
 ## Phase 4 — Strength climbing
 
-## Phase 5 — Strength climbing
-
 Optional. Pick any combination — these levers compose, each pushes rating from a different direction.
 
 - **Classical refinements:** null-move, late move reductions, futility pruning, aspiration windows.
