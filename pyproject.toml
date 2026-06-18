@@ -40,3 +40,9 @@ testpaths = ["tests"]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
 ]
+filterwarnings = [
+    # TODO: drop once python-chess > 1.11.2 ships a Python-3.14-clean release.
+    # python-chess 1.11.2 hasn't caught up to Python 3.14's asyncio deprecations.
+    # Scoped to the chess.engine module so deprecations from our own code still surface.
+    "ignore::DeprecationWarning:chess.engine",
+]
