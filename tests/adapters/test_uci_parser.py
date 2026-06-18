@@ -22,7 +22,6 @@ from drewbert.adapters.uci import (
     parse,
 )
 
-
 # --- Parameterless commands ---
 
 

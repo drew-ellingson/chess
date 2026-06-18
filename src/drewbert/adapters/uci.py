@@ -117,7 +117,7 @@ def get_flag(clause_list, prefix):
 
 def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
     matching = [c for c in clause_list if c[0] == prefix]
-    
+
     if not matching:
         return None
     else:
@@ -129,7 +129,7 @@ def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
 
 def get_list(clause_list, prefix):
     matching = [c for c in clause_list if c[0] == prefix]
-    return None if not matching else ' '.join(matching[0][1:])
+    return None if not matching else " ".join(matching[0][1:])
 
 
 def parse(line: str) -> UciCommand:
@@ -153,25 +153,27 @@ def parse(line: str) -> UciCommand:
                 moves=get_list(groups, "moves"),
             )
         case "go":
-            groups = list(split_by_starting_words(
-                tokens,
-                [
-                    "infinite",
-                    "depth",
-                    "nodes",
-                    "mate",
-                    "searchmoves",
-                    "ponder",
-                    "wtime",
-                    "btime",
-                    "winc",
-                    "binc",
-                    "movestogo",
-                    "nodes",
-                    "movetime",
-                    "perft",
-                ],
-            ))
+            groups = list(
+                split_by_starting_words(
+                    tokens,
+                    [
+                        "infinite",
+                        "depth",
+                        "nodes",
+                        "mate",
+                        "searchmoves",
+                        "ponder",
+                        "wtime",
+                        "btime",
+                        "winc",
+                        "binc",
+                        "movestogo",
+                        "nodes",
+                        "movetime",
+                        "perft",
+                    ],
+                )
+            )
             return UciGo(
                 infinite=get_flag(groups, "infinite"),
                 depth=get_value(groups, "depth", int),
@@ -209,7 +211,7 @@ def apply_uci_position_cmd(uci_position: UciPosition, position: Position) -> Pos
     elif uci_position.startpos:
         position = parse_fen(STARTING_FEN)
     if uci_position.moves:
-        for move in uci_position.moves.split(' '):
+        for move in uci_position.moves.split(" "):
             position.make_move(uci_to_move(move))
     return position
 
@@ -223,7 +225,7 @@ def main(search_fn: ConfiguredSearch) -> None:
     while True:
         line = sys.stdin.readline()
         cmd = parse(line.strip())
-        
+
         match cmd:
             case UciQuit():
                 sys.exit()

@@ -10,6 +10,7 @@ python-chess is a dev-only oracle, NOT imported anywhere in src/ — these tests
 sit alongside the FEN oracle tests that use the same pattern.
 """
 
+import contextlib
 import sys
 from collections.abc import Iterator
 
@@ -50,10 +51,8 @@ def engine() -> Iterator[chess.engine.SimpleEngine]:
     try:
         yield eng
     finally:
-        try:
+        with contextlib.suppress(chess.engine.EngineTerminatedError):
             eng.quit()
-        except chess.engine.EngineTerminatedError:
-            pass
 
 
 def test_handshake_succeeds(engine: chess.engine.SimpleEngine) -> None:

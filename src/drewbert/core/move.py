@@ -18,5 +18,3 @@ class Move:
         if self.promotion is None:
             return base
         return f"{base}{repr(self.promotion).lower()}"
-
-
