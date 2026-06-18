@@ -1,46 +1,47 @@
 import argparse
+import sys
 from collections.abc import Callable
 from dataclasses import dataclass
 from functools import partial
-import sys
+from typing import assert_never
 
-from drewbert.core.position import Position
+from drewbert.adapters.fen import FEN_TO_POS, STARTING_FEN, alg_sq_to_int, parse_fen
 from drewbert.core.move import Move
+from drewbert.core.position import Position
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import minimax
-from drewbert.adapters.fen import STARTING_FEN, parse_fen
+from drewbert.search.minimax import best_move
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciQuit: ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciUci: ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciNewGame: ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciIsReady: ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciSetOption:
     name: str
     value: str | None
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciPosition:
     fen: str | None
     startpos: bool
     moves: list[str] | None
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciGo:
     infinite: bool
     depth: int | None
@@ -56,15 +57,15 @@ class UciGo:
     ponder: bool
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciStop: ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciPonderHit: ...
 
 
-@dataclass
+@dataclass(frozen=True)
 class UciUnrecognized:
     content: list[str] | None
 
@@ -81,14 +82,20 @@ UciCommand = (
     | UciPonderHit
     | UciUnrecognized
 )
-ConfiguredSearch = Callable[[Position], int]
+ConfiguredSearch = Callable[[Position], Move | None]
 
 SEARCHES = {
-    "minimax": minimax,
+    "minimax": best_move,
 }
 EVALS = {
     "materialistic": materialistic_position_eval,
 }
+
+
+def uci_to_move(move: str) -> Move:
+    from_square, to_square = alg_sq_to_int(move[:2]), alg_sq_to_int(move[2:4])
+    promotion = FEN_TO_POS[move[-1]].type if len(move) > 4 else None
+    return Move(from_square, to_square, promotion)
 
 
 def split_by_starting_words(tokens, start_words):
@@ -97,8 +104,9 @@ def split_by_starting_words(tokens, start_words):
         if token in start_words:
             if current_group:
                 yield current_group
-            else:
-                current_group = [token]
+            current_group = [token]
+        else:
+            current_group.append(token)
     if current_group:
         yield current_group
 
@@ -107,9 +115,15 @@ def get_flag(clause_list, prefix):
     return any(c[0] == prefix for c in clause_list)
 
 
-def get_value(clause_list, prefix):
+def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
     matching = [c for c in clause_list if c[0] == prefix]
-    return None if not matching else matching[0][1]
+    if not matching:
+        return None
+    else:
+        try:
+            return convert(matching[0][1])
+        except ValueError:
+            return None  # allow malformed input without raising, per UCI guidance.
 
 
 def get_list(clause_list, prefix):
@@ -131,9 +145,11 @@ def parse(line: str) -> UciCommand:
         case "setoption":
             return UciSetOption(name=tokens[1], value=None if len(tokens) == 2 else tokens[2])
         case "position":
-            groups = split_by_starting_words(tokens, ["position", "fen", "startpos", "moves"])
+            groups = list(split_by_starting_words(tokens, ["position", "fen", "startpos", "moves"]))
             return UciPosition(
-                fen=get_value(groups, "fen"), startpos=get_flag(groups, "startpos"), moves=get_list(groups, "moves")
+                fen=get_value(groups, "fen", str),
+                startpos=get_flag(groups, "startpos"),
+                moves=get_list(groups, "moves"),
             )
         case "go":
             groups = split_by_starting_words(
@@ -157,28 +173,47 @@ def parse(line: str) -> UciCommand:
             )
             return UciGo(
                 infinite=get_flag(groups, "infinite"),
-                depth=get_value(groups, "depth"),
-                nodes=get_value(groups, "nodes"),
-                mate=get_value(groups, "mate"),
+                depth=get_value(groups, "depth", int),
+                nodes=get_value(groups, "nodes", int),
+                mate=get_value(groups, "mate", int),
                 searchmoves=get_list(groups, "searchmoves"),
                 ponder=get_flag(groups, "ponder"),
-                wtime=get_value(groups, "wtime"),
-                btime=get_value(groups, "btime"),
-                winc=get_value(groups, "winc"),
-                binc=get_value(groups, "binc"),
-                movestogo=get_value(groups, "movestogo"),
-                movetime=get_value(groups, "movetime"),
+                wtime=get_value(groups, "wtime", int),
+                btime=get_value(groups, "btime", int),
+                winc=get_value(groups, "winc", int),
+                binc=get_value(groups, "binc", int),
+                movestogo=get_value(groups, "movestogo", int),
+                movetime=get_value(groups, "movetime", int),
             )
         case "stop":
             return UciStop()
         case "ponderhit":
             return UciPonderHit()
         case _:
-            return UciUnrecognized(None if len(tokens) == 1 else tokens[1:])
+            return UciUnrecognized(tokens)
 
 
 def emit(line: str) -> None:
     print(line, flush=True)
+
+
+def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch) -> None:
+    move = search_fn(position)
+    emit(f"bestmove {str(move)}")
+
+
+def apply_uci_position_cmd(uci_position: UciPosition, position: Position):
+    if uci_position.fen:
+        position = parse_fen(uci_position.fen)
+    elif uci_position.startpos:
+        position = parse_fen(STARTING_FEN)
+    if uci_position.moves:
+        for move in uci_position.moves:
+            position.make_move(uci_to_move(move))
+
+
+def apply_uci_set_option_cmd(setoption: UciSetOption):
+    pass
 
 
 def main(search_fn: ConfiguredSearch) -> None:
@@ -186,16 +221,43 @@ def main(search_fn: ConfiguredSearch) -> None:
     while True:
         line = sys.stdin.readline()
         cmd = parse(line.strip())
+        match cmd:
+            case UciQuit():
+                sys.exit()
+            case UciUci():
+                emit("id name drewbert")
+                emit("id author drew")
+                emit("uciok")
+            case UciNewGame():
+                pass
+            case UciIsReady():
+                emit("readyok")
+            case UciSetOption():
+                apply_uci_set_option_cmd(cmd)
+            case UciPosition():
+                apply_uci_position_cmd(cmd, position)
+            case UciGo():
+                apply_uci_go_cmd(cmd, position, search_fn)
+            case UciPonderHit():
+                pass
+            case UciStop():
+                pass
+            case UciUnrecognized():
+                pass
+            case _:  # defensive check against future parse additions not mirrored on implementation
+                assert_never(cmd)  # pyright: ignore
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Engine Configuration")
-    parser.add_argument("eval", metavar="E", help="The evaluation function to be used in the engine")
-    parser.add_argument("search", metavar="S", help="The search function to be used in the engine")
-    parser.add_argument("depth", metavar="D", help="The fixed depth setting to be used in the search function")
+    parser.add_argument("--eval", metavar="E", required=True, help="The evaluation function to be used in the engine")
+    parser.add_argument("--search", metavar="S", required=True, help="The search function to be used in the engine")
+    parser.add_argument(
+        "--depth", metavar="D", type=int, default=3, help="The fixed depth setting to be used in the search function"
+    )
 
     args = parser.parse_args()  # - --search minimax --eval material --depth 3
-    eval = EVALS[args.evals]
+    eval = EVALS[args.eval]
 
     search: ConfiguredSearch = partial(SEARCHES[args.search], depth=args.depth, position_evaluator=eval)
     main(search)
