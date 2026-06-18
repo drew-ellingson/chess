@@ -38,7 +38,7 @@ class UciSetOption:
 class UciPosition:
     fen: str | None
     startpos: bool
-    moves: list[str] | None
+    moves: str | None
 
 
 @dataclass(frozen=True)
@@ -47,7 +47,7 @@ class UciGo:
     depth: int | None
     nodes: int | None
     mate: int | None
-    searchmoves: list[str] | None
+    searchmoves: str | None
     wtime: int | None
     btime: int | None
     winc: int | None
@@ -129,7 +129,7 @@ def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
 
 def get_list(clause_list, prefix):
     matching = [c for c in clause_list if c[0] == prefix]
-    return None if not matching else matching[0][1:]
+    return None if not matching else ' '.join(matching[0][1:])
 
 
 def parse(line: str) -> UciCommand:
@@ -148,7 +148,7 @@ def parse(line: str) -> UciCommand:
         case "position":
             groups = list(split_by_starting_words(tokens, ["position", "fen", "startpos", "moves"]))
             return UciPosition(
-                fen=get_value(groups, "fen", str),
+                fen=get_list(groups, "fen"),
                 startpos=get_flag(groups, "startpos"),
                 moves=get_list(groups, "moves"),
             )
@@ -203,14 +203,15 @@ def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch)
     emit(f"bestmove {str(move)}")
 
 
-def apply_uci_position_cmd(uci_position: UciPosition, position: Position):
+def apply_uci_position_cmd(uci_position: UciPosition, position: Position) -> Position:
     if uci_position.fen:
         position = parse_fen(uci_position.fen)
     elif uci_position.startpos:
         position = parse_fen(STARTING_FEN)
     if uci_position.moves:
-        for move in uci_position.moves:
+        for move in uci_position.moves.split(' '):
             position.make_move(uci_to_move(move))
+    return position
 
 
 def apply_uci_set_option_cmd(setoption: UciSetOption):
@@ -237,7 +238,7 @@ def main(search_fn: ConfiguredSearch) -> None:
             case UciSetOption():
                 apply_uci_set_option_cmd(cmd)
             case UciPosition():
-                apply_uci_position_cmd(cmd, position)
+                position = apply_uci_position_cmd(cmd, position)
             case UciGo():
                 apply_uci_go_cmd(cmd, position, search_fn)
             case UciPonderHit():

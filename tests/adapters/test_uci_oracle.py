@@ -39,12 +39,21 @@ def engine() -> Iterator[chess.engine.SimpleEngine]:
     SimpleEngine.popen_uci performs the full UCI handshake (uci → uciok)
     during construction; if the engine fails to respond correctly here, the
     fixture itself raises and the test errors before running.
+
+    If the engine subprocess has already died (e.g. an in-test crash made it
+    exit), `quit()` raises EngineTerminatedError because there's nothing left
+    to send `quit` to. That's expected — the real signal is the test failure
+    upstream, not the teardown — so we swallow it here to keep the report
+    clean.
     """
     eng = chess.engine.SimpleEngine.popen_uci(ENGINE_CMD)
     try:
         yield eng
     finally:
-        eng.quit()
+        try:
+            eng.quit()
+        except chess.engine.EngineTerminatedError:
+            pass
 
 
 def test_handshake_succeeds(engine: chess.engine.SimpleEngine) -> None:

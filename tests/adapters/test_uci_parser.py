@@ -74,7 +74,9 @@ def test_position_startpos_with_moves() -> None:
     cmd = parse("position startpos moves e2e4 e7e5 g1f3")
     assert isinstance(cmd, UciPosition)
     assert cmd.startpos is True
-    assert cmd.moves == ["e2e4", "e7e5", "g1f3"]
+    # `moves` is captured as the raw space-separated substring after the
+    # `moves` keyword; consumers split when they need individual tokens.
+    assert cmd.moves == "e2e4 e7e5 g1f3"
 
 
 def test_position_fen() -> None:
@@ -92,7 +94,8 @@ def test_position_fen_with_moves() -> None:
     fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
     cmd = parse(f"position fen {fen} moves e2e4")
     assert isinstance(cmd, UciPosition)
-    assert cmd.moves == ["e2e4"]
+    assert cmd.fen == fen
+    assert cmd.moves == "e2e4"
 
 
 # --- go ---
