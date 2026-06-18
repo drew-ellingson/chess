@@ -45,17 +45,40 @@ def test_parameterless_commands(line: str, expected_type: type) -> None:
 
 
 def test_setoption_with_value() -> None:
-    cmd = parse("setoption Hash 128")
+    cmd = parse("setoption name Hash value 128")
     assert isinstance(cmd, UciSetOption)
     assert cmd.name == "Hash"
     assert cmd.value == "128"
 
 
-def test_setoption_without_value() -> None:
-    cmd = parse("setoption ClearHash")
+def test_setoption_button_type_has_no_value() -> None:
+    """Spec: 'For the button type no value is needed.' GUIs send button-type
+    options (e.g. `Clear Hash`) without a value clause to trigger an action,
+    not to configure a setting. Parser should accept and set value=None."""
+    cmd = parse("setoption name Clear Hash")
     assert isinstance(cmd, UciSetOption)
-    assert cmd.name == "ClearHash"
+    assert cmd.name == "Clear Hash"
     assert cmd.value is None
+
+
+def test_setoption_multi_word_name_and_value() -> None:
+    """Spec: 'The name ... of the option in <id> ... can include spaces.'
+    Pins both that the name clause captures the full multi-token name and that
+    the value clause is parsed independently from the right keyword.
+
+    `Skill Level` is the canonical real-world example (Stockfish ships it)."""
+    cmd = parse("setoption name Skill Level value 10")
+    assert isinstance(cmd, UciSetOption)
+    assert cmd.name == "Skill Level"
+    assert cmd.value == "10"
+
+
+def test_setoption_missing_name_routes_to_unrecognized() -> None:
+    """`setoption` without the required `name` keyword is malformed. The parser
+    should route it to UciUnrecognized rather than constructing a UciSetOption
+    with name=None."""
+    cmd = parse("setoption Hash 128")
+    assert isinstance(cmd, UciUnrecognized)
 
 
 # --- position ---

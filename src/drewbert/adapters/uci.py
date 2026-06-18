@@ -1,6 +1,6 @@
 import argparse
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from functools import partial
 from typing import assert_never
@@ -55,6 +55,7 @@ class UciGo:
     movestogo: int | None
     movetime: int | None
     ponder: bool
+    perft: int | None
 
 
 @dataclass(frozen=True)
@@ -67,7 +68,7 @@ class UciPonderHit: ...
 
 @dataclass(frozen=True)
 class UciUnrecognized:
-    content: list[str] | None
+    content: list[str]
 
 
 UciCommand = (
@@ -99,7 +100,7 @@ def uci_to_move(move: str) -> Move:
     return Move(from_square, to_square, promotion)
 
 
-def split_by_starting_words(tokens, start_words):
+def split_by_starting_words(tokens: list[str], start_words: list[str]) -> Iterator[list[str]]:
     """Split a list of tokens into a list of clauses starting with specified words.
     Designed to be used with UCI inputs to parse GUI responses
     """
@@ -163,7 +164,12 @@ def parse(line: str) -> UciCommand:
         case "isready":
             return UciIsReady()
         case "setoption":
-            return UciSetOption(name=tokens[1], value=None if len(tokens) == 2 else tokens[2])
+            groups = list(split_by_starting_words(tokens, ["name", "value"]))
+            name = get_list(groups, "name")  # works for single and multi-token names
+            if not name:
+                return UciUnrecognized(tokens)
+            value = get_list(groups, "value")  # works for single and multi-token values.
+            return UciSetOption(name, value)
         case "position":
             groups = list(split_by_starting_words(tokens, ["position", "fen", "startpos", "moves"]))
             return UciPosition(
@@ -187,7 +193,6 @@ def parse(line: str) -> UciCommand:
                         "winc",
                         "binc",
                         "movestogo",
-                        "nodes",
                         "movetime",
                         "perft",
                     ],
@@ -206,6 +211,7 @@ def parse(line: str) -> UciCommand:
                 binc=get_value(groups, "binc", int),
                 movestogo=get_value(groups, "movestogo", int),
                 movetime=get_value(groups, "movetime", int),
+                perft=get_value(groups, "perft", int),
             )
         case "stop":
             return UciStop()
@@ -222,9 +228,12 @@ def emit(line: str) -> None:
 
 def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch) -> None:
     """Run engine given UCI go command parameters and print bestmove to stdout given
-    input parameters
+    input parameters. Currently limited functionality - returns fixed-depth best move
+    search ignoring parameters of UCI Go command.
     """
     move = search_fn(position)
+    if not move:
+        move = "0000"  # accepted terminal position output per UCI spec.
     emit(f"bestmove {str(move)}")
 
 
@@ -240,8 +249,8 @@ def apply_uci_position_cmd(uci_position: UciPosition, position: Position) -> Pos
     return position
 
 
-def apply_uci_set_option_cmd(setoption: UciSetOption):
-    """Set internal engine option given UCI set option command"""
+def apply_uci_set_option_cmd(setoption: UciSetOption) -> None:
+    """Function to set engine internal option based on UCI GUI inputs. Currently unimplemented."""
     pass
 
 
