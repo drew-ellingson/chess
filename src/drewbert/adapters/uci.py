@@ -135,7 +135,7 @@ def get_value[T](clause_list: list[list[str]], prefix: str, convert: Callable[[s
     else:
         try:
             return convert(matching[0][1])
-        except ValueError:
+        except (ValueError, IndexError):
             return None  # allow malformed input without raising, per UCI guidance.
 
 
