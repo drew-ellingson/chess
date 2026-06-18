@@ -93,12 +93,16 @@ EVALS = {
 
 
 def uci_to_move(move: str) -> Move:
+    """Convert uci move format to internal Move"""
     from_square, to_square = alg_sq_to_int(move[:2]), alg_sq_to_int(move[2:4])
     promotion = FEN_TO_POS[move[-1]].type if len(move) > 4 else None
     return Move(from_square, to_square, promotion)
 
 
 def split_by_starting_words(tokens, start_words):
+    """Split a list of tokens into a list of clauses starting with specified words.
+    Designed to be used with UCI inputs to parse GUI responses
+    """
     current_group = []
     for token in tokens:
         if token in start_words:
@@ -111,11 +115,18 @@ def split_by_starting_words(tokens, start_words):
         yield current_group
 
 
-def get_flag(clause_list, prefix):
+def get_flag(clause_list: list[list[str]], prefix: str) -> bool:
+    """Return whether any clause in the clause list represents the specified flag.
+    Designed to be used with UCI instructions parser.
+    """
     return any(c[0] == prefix for c in clause_list)
 
 
-def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
+def get_value[T](clause_list: list[list[str]], prefix: str, convert: Callable[[str], T]) -> T | None:
+    """Return whether any clause in the clause list represents a given key-value pair.
+    If the key is found, the value is returned as the type defined by the convert function.
+    Designed to be used with UCI instructions parser.
+    """
     matching = [c for c in clause_list if c[0] == prefix]
 
     if not matching:
@@ -127,12 +138,20 @@ def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
             return None  # allow malformed input without raising, per UCI guidance.
 
 
-def get_list(clause_list, prefix):
+def get_list(clause_list: list[list[str]], prefix: str) -> str | None:
+    """Return whether any clause in the clause list represents the given key-value pair
+    where the value is a list of tokens. Returns output as a space-separated string.
+    Designed to be used with UCI instructions parser.
+    """
     matching = [c for c in clause_list if c[0] == prefix]
     return None if not matching else " ".join(matching[0][1:])
 
 
 def parse(line: str) -> UciCommand:
+    """Parse an input line into the corresponding UCI command.
+    Per UCI spec, errs on the side of being permissive.
+    Any unrecognized command registers as UciUnrecognized but is passed through.
+    """
     tokens = line.split(" ")
     match tokens[0]:
         case "quit":
@@ -197,15 +216,20 @@ def parse(line: str) -> UciCommand:
 
 
 def emit(line: str) -> None:
+    """Print given line to stdout"""
     print(line, flush=True)
 
 
 def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch) -> None:
+    """Run engine given UCI go command parameters and print bestmove to stdout given
+    input parameters
+    """
     move = search_fn(position)
     emit(f"bestmove {str(move)}")
 
 
 def apply_uci_position_cmd(uci_position: UciPosition, position: Position) -> Position:
+    """Set engine position given UCI position command. No stdout output"""
     if uci_position.fen:
         position = parse_fen(uci_position.fen)
     elif uci_position.startpos:
@@ -217,6 +241,7 @@ def apply_uci_position_cmd(uci_position: UciPosition, position: Position) -> Pos
 
 
 def apply_uci_set_option_cmd(setoption: UciSetOption):
+    """Set internal engine option given UCI set option command"""
     pass
 
 
