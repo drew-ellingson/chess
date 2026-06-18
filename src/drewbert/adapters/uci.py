@@ -117,6 +117,7 @@ def get_flag(clause_list, prefix):
 
 def get_value[T](clause_list, prefix, convert: Callable[[str], T]) -> T | None:
     matching = [c for c in clause_list if c[0] == prefix]
+    
     if not matching:
         return None
     else:
@@ -138,7 +139,7 @@ def parse(line: str) -> UciCommand:
             return UciQuit()
         case "uci":
             return UciUci()
-        case "usinewgame":
+        case "ucinewgame":
             return UciNewGame()
         case "isready":
             return UciIsReady()
@@ -152,7 +153,7 @@ def parse(line: str) -> UciCommand:
                 moves=get_list(groups, "moves"),
             )
         case "go":
-            groups = split_by_starting_words(
+            groups = list(split_by_starting_words(
                 tokens,
                 [
                     "infinite",
@@ -170,7 +171,7 @@ def parse(line: str) -> UciCommand:
                     "movetime",
                     "perft",
                 ],
-            )
+            ))
             return UciGo(
                 infinite=get_flag(groups, "infinite"),
                 depth=get_value(groups, "depth", int),
@@ -221,6 +222,7 @@ def main(search_fn: ConfiguredSearch) -> None:
     while True:
         line = sys.stdin.readline()
         cmd = parse(line.strip())
+        
         match cmd:
             case UciQuit():
                 sys.exit()
@@ -250,10 +252,10 @@ def main(search_fn: ConfiguredSearch) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Engine Configuration")
-    parser.add_argument("--eval", metavar="E", required=True, help="The evaluation function to be used in the engine")
-    parser.add_argument("--search", metavar="S", required=True, help="The search function to be used in the engine")
+    parser.add_argument("--eval", required=True, help="The evaluation function to be used in the engine")
+    parser.add_argument("--search", required=True, help="The search function to be used in the engine")
     parser.add_argument(
-        "--depth", metavar="D", type=int, default=3, help="The fixed depth setting to be used in the search function"
+        "--depth", type=int, default=3, help="The fixed depth setting to be used in the search function"
     )
 
     args = parser.parse_args()  # - --search minimax --eval material --depth 3
