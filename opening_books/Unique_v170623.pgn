@@ -1,0 +1,5338 @@
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. a4 Bh7 10. Nb3 Nf5 11. Bd2 Nb6 12. g3 Be7 13. h4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.01.04"]
+[Round "7.29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 Be7 8. a3
+O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.11.25"]
+[Round "22"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E20"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. f3 c5 5. d5 d6 6. e4 exd5 7. cxd5 a6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.01.04"]
+[Round "7.29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 6. Be2 Nge7 7. O-O Ng6 8. Be3
+Qb6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.12.26"]
+[Round "2.25"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A34"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 c5 3. g3 Nc6 4. Nf3 Nf6 5. Bg2 d6 6. d3 Be7 7. O-O h6 8. Ne1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.19"]
+[Round "155"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Bg6 7. Nbd2 a6 8. c4
+Ne7 9. a3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.08.14"]
+[Round "3.30"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 d6 5. d4 Bg4 6. d5 Nd4 7. Be2 Nxe2 8. Qxe2
+g6 9. a4 Bg7 10. h3 Bd7 11. O-O O-O 12. a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.05.11"]
+[Round "71"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 a6 8. Qd2 b5
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.06.02"]
+[Round "38"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E73"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. e4 d6 4. d4 Bg7 5. Be2 O-O 6. Bg5 Na6 7. Qd2 c6 8. Nf3
+e5 9. Rd1 exd4 10. Nxd4 Nc5 11. f3 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.31"]
+[Round "3.16"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. e3 Nf6 5. b5 Qc7 6. Qe2 Bg4 7. h3 Bxf3 8. Qxf3
+Nbd7 9. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.11"]
+[Round "109"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Nbd2 O-O 6. Bxc6 dxc6 7. Qe2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.05.10"]
+[Round "139"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. c3 h6 8. a4 Qc7
+9. Na3 g5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.05.13"]
+[Round "13.1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 a6 8. Ne2
+Qb6 9. Qc1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "52"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E90"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. d4 O-O 6. h3 e5 7. d5 Nh5 8. g3 f5
+9. exf5 gxf5 10. Bg5 Qe8 11. Nh4 Na6 12. Be2 Nf6 13. Qc2 Nb4 14. Qd2 a5 15. a3
+Na6 16. Qc2 e4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. a4 Bh7 10. Nb3 Nf5 11. Bd2 Nb6 12. Ra2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.26"]
+[Round "136"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. d3 Bc5 5. c3 d6 6. O-O a5 7. Re1 O-O 8. h3 h6
+9. Nbd2 Be6 10. Bb5 Qb8 11. Nf1 Qa7 12. Qd2 a4 13. Ng3 Bb6 14. Qe2 Qa5 15. Bxc6
+bxc6 16. Nh4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Bh7 9. Nb3 Rc8 10. a4 Nf5 11. a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.31"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C34"]
+[PlyCount "11"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. f4 exf4 3. Nf3 d6 4. d4 g5 5. h4 g4 6. Ng1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bxc3+ 7. bxc3 Nd7 8. g3
+Nc5 9. Nh4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.19"]
+[Round "155"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Bg6 7. Nbd2 a6 8. c3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.09"]
+[Round "11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A92"]
+[PlyCount "12"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 f5 2. c4 Nf6 3. g3 e6 4. Nf3 Be7 5. Bg2 O-O 6. O-O d5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.02.27"]
+[Round "2.10"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Ne2 d6 3. Nbc3 a6 4. d4 cxd4 5. Nxd4 e6 6. Be3 Nf6 7. a3 b5 8. g4
+Bb7 9. Bg2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.14"]
+[Round "119"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. Nbd2 O-O 7. Nc4 Nd7 8.
+O-O Re8 9. Bd2 f6 10. Nh4 g6 11. Kh1 Nb6 12. Na5 Bf8 13. a4 Nd7 14. g4 Nc5 15.
+Ng2 Qd7 16. f3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2017.10.30"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B97"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e6 7. f4 Qb6 8. Nb3
+Be7 9. Qf3 Nbd7 10. O-O-O Qc7 11. Bd3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "35"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Bc5 6. Nb3 Be7 7. O-O Qc7 8.
+Qg4 g6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 d6 6. O-O Bb6 7. b4 O-O 8. a4 a5
+9. b5 Ne7 10. Nbd2 Ng6 11. Bb3 Bg4 12. h3 Bh5 13. Kh2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 a4 10. Nf1 Bg6 11. Ng3 c5 12. Bd3 Bxd3 13. Qxd3 Nc6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.17"]
+[Round "39"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 a6 7. Nge2 Nbd7 8. Qd2
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.211"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. Bb2 Nf6 5. g3 a5 6. b5 Qc7 7. d3 e5 8. e3 Be7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Bc5 6. Nb3 Be7 7. O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 d6 6. O-O Bb6 7. h3 h6 8. Nbd2
+g5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.211"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. Bb2 Nf6 5. g3 a5 6. b5 Qc7 7. d3 e5 8. e3 Be6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "7"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B11"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. Nc3 d5 3. Nf3 Bg4 4. h3 Bxf3 5. Qxf3 Nf6 6. d3 e5 7. Be2 d4 8. Nb1
+Nbd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "173"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Qb6 6. a3 c4 7. Nbd2 Na5 8. Qc2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.31"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B15"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 c6 4. f4 d5 5. e5 h5 6. Nf3 Nh6 7. Be3 b6 8. h3 Nf5
+9. Bf2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.06.05"]
+[Round "11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E83"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. e4 d6 4. d4 Bg7 5. f3 O-O 6. Be3 a6 7. Qd2 Nc6 8. O-O-O
+b5 9. h4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.01.04"]
+[Round "7.29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Qb6 6. a3 c4 7. Nbd2 Na5 8. Rb1 Bd7
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. c4 d6 4. Nc3 Nf6 5. f3 a6 6. Be3 O-O 7. Nge2 b5 8. h4 h5
+9. Nf4 b4 10. Ncd5 Nc6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B07"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 d6 2. d4 Nf6 3. Nc3 e5 4. Nge2 Be7 5. h3 c6 6. g4 O-O 7. Bg2 b5 8. Ng3 b4
+9. Nce2 c5 10. d5 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "30"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Qd2
+Bd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.190"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "33"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3
+h5 9. Qd2 Nbd7 10. Nd5 Bxd5 11. exd5 g6 12. Be2 Bg7 13. Na5 Rb8 14. O-O e4 15.
+f4 Ng4 16. Bxg4 hxg4 17. Rab1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "50"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E99"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 O-O 6. Be2 e5 7. O-O Nc6 8. d5
+Ne7 9. Ne1 Nd7 10. Be3 f5 11. f3 f4 12. Bf2 g5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.211"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. Bb2 Nf6 5. g3 a5 6. b5 Qc7 7. d3 e5 8. e3 h6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "16"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. c3 f6 7. O-O Qc7 8. Re1
+O-O-O 9. Bf1 fxe5 10. dxe5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C10"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Nd7 5. Bd3 Ngf6 6. Nf3 Nxe4 7. Bxe4 c5 8.
+O-O Be7 9. c3 Nf6 10. Bc2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B43"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Qc7 6. Nc3 Nf6 7. O-O Bc5 8.
+Nb3 Ba7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E89"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 e5 7. d5 c6 8. Qd2 cxd5
+9. cxd5 Nbd7 10. Nge2 a6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. Re1
+g5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "63"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C00"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. g3 Nf6 3. Bg2 c5 4. O-O e6 5. d3 Be7 6. Nbd2 O-O 7. e4 Nc6 8. Re1
+b6 9. e5 Nd7 10. Nf1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "69"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B11"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. Nc3 d5 3. Nf3 Bg4 4. h3 Bxf3 5. Qxf3 Nf6 6. d3 e6 7. Be2 Nbd7 8.
+Qg3 Qb8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B09"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. f4 Nf6 5. Nf3 c5 6. dxc5 Qa5 7. Bd3 Qxc5 8. Qe2
+O-O 9. Be3 Qa5 10. O-O Bg4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C10"]
+[PlyCount "10"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nc6 4. e5 a6 5. Nf3 f6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.13"]
+[Round "75"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B84"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Ne2 d6 3. Nbc3 a6 4. d4 cxd4 5. Nxd4 e6 6. Be2 Nf6 7. f4 Nc6 8. Be3
+Bd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.16"]
+[Round "45"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e6 7. f3 b5 8. Qd2
+b4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "63"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C00"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. g3 Nf6 3. Bg2 c5 4. O-O e6 5. d3 Be7 6. Nbd2 O-O 7. e4 Nc6 8. e5
+Nd7 9. Re1 Qc7 10. Qe2 b5 11. Nf1 a5 12. Bf4 a4 13. Ne3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.211"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "12"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. Bb2 Nf6 5. g3 a5 6. b5 Nbd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.15"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B94"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 Nbd7 7. Qe2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.09.08"]
+[Round "4.11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. O-O Bg4 7. h3 Bh5 8.
+g4 Nxg4 9. hxg4 Bxg4 10. Be3 Be7 11. Kg2 f5 12. Qe1 Bxf3+ 13. Kxf3 f4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.09"]
+[Round "29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e3 Bb4 5. Qc2 Bxc3 6. Qxc3 d6 7. b4 O-O 8.
+Bb2 Re8 9. Be2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "7"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B11"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. Nc3 d5 3. Nf3 Bg4 4. h3 Bxf3 5. Qxf3 Nf6 6. d3 e5 7. g4 d4 8. Ne2
+Nfd7 9. h4 Bb4+ 10. Kd1 c5 11. g5 Nc6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "19"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C50"]
+[PlyCount "10"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 d6 4. c3 f5 5. d3 f4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.166"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D30"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 e6 3. c4 Nf6 4. e3 c6 5. Bd3 Nbd7 6. b3 Ne4 7. O-O f5 8. Bb2
+Bd6 9. Ne5 O-O 10. Qc2 Nxe5 11. dxe5 Be7 12. Nc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.211"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. Bb2 Nf6 5. g3 a5 6. b5 Qc7 7. d3 e5 8. Bg2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B08"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Nf3 Nf6 6. h3 O-O 7. a4 Nc6 8. Bd3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Bg6 7. Nbd2 a5 8. a4 h6
+9. Nb3 Ne7 10. Bd2 Qb6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.06"]
+[Round "10"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 c5 4. e3 Nc6 5. Nbd2 cxd4 6. exd4 Bf5 7. Bb5 Rc8 8.
+Ne5 Qb6 9. Bxc6+ bxc6 10. Nb3 h5 11. O-O Ne4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B09"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. f4 Nf6 5. Nf3 O-O 6. Bd3 Na6 7. O-O c5 8. d5
+Bg4 9. Bc4 Nc7 10. h3 Bxf3 11. Qxf3 a6 12. a4 b6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C95"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Nb8 10. d4 Nbd7 11. Bc2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B61"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nc3 Nc6 3. Nge2 d6 4. d4 cxd4 5. Nxd4 Nf6 6. Bg5 Bd7 7. Qd2 Nxd4 8.
+Qxd4 Qa5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "31"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. d3 Bc5 5. O-O d6 6. c3 a5 7. Nbd2 O-O 8. Re1
+Bb6 9. h3 h6 10. Nf1 a4 11. Bb5 a3 12. bxa3 Ne7 13. Ng3 Ng6 14. a4 c6 15. Bc4
+d5 16. Bb3 Re8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e6 7. f3 b5 8. g4 b4
+9. Nce2 h6 10. c4 e5 11. Nc2 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 Bf5 4. c4 e6 5. Qb3 Nc6 6. c5 Rb8 7. h3 Ne4 8. e3 g5
+9. Bh2 Bg7 10. Nc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O d6 7. Bg5 h6 8. Bh4
+a6 9. a4 g5 10. Bg3 Bg4 11. h3 Bh5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Bc5 6. Nb3 Ba7 7. Qg4 Nf6 8.
+Qg3 d6 9. Nc3 Nc6 10. Bd2 Nh5 11. Qh3 Nf6 12. O-O-O b5 13. Bg5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.23"]
+[Round "71"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A65"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. d4 Bg7 4. e4 d6 5. Be2 O-O 6. Bg5 c5 7. d5 h6 8. Be3 e6
+9. Qd2 exd5 10. cxd5 Re8 11. f3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2017.12.31"]
+[Round "79.7"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 6. Be2 Nge7 7. O-O Ng6 8. Re1
+Be7 9. a3 O-O 10. Be3 Kh8 11. Nbd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B94"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 Nbd7 7. Bc4 Qb6 8.
+Bb3 e6 9. f3 Be7 10. Be3 Nc5 11. g4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. Nb3
+g5 9. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.25"]
+[Round "34"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E92"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. d4 Bg7 4. Nf3 O-O 5. e4 d6 6. Be2 e5 7. d5 a5 8. h3 Nh5
+9. g3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.10.26"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D43"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. c4 e6 3. Nf3 Nf6 4. Nc3 c6 5. Bg5 h6 6. Bh4 dxc4 7. e4 g5 8. Bg3 b5
+9. Be2 Bb7 10. Qc2 Nbd7 11. Rd1 Bb4 12. O-O a6 13. Nd2 Qb6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Bh7 9. b4 a5 10. Nb3 a4 11. Nc5 Nxc5 12. dxc5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "49"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E90"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. d4 d6 3. Nc3 g6 4. Nf3 Bg7 5. e4 O-O 6. h3 e5 7. d5 Nh5 8. Be3 f5
+9. Bd3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A65"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 c5 7. Nge2 Nc6 8. d5
+Ne5 9. Ng3 e6 10. Be2 exd5 11. cxd5 h5 12. O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "30"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. Nbd2 O-O 7. Nc4 Nd7 8.
+O-O Re8 9. Bd2 f6 10. Nh4 g6 11. Kh1 Nb6 12. Na5 Bf8 13. a4 Nd7 14. g3 Nc5 15.
+Nc4 Ne6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "34"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Rc1
+Bd7 16. Qd2 Rc8 17. d5 h6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "88"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Nf6 6. O-O Qc7 7. Qe2 Bc5 8.
+Nb3 Be7 9. e5 Nd5 10. c4 Nb4 11. Bf4 Nxd3 12. Qxd3 Nc6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B07"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 d6 2. d4 Nf6 3. Nc3 e5 4. Nge2 Be7 5. h3 c6 6. g4 O-O 7. Bg2 b5 8. a3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "140"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 Qb6 8. Na4
+Qa5+ 9. c3 c4 10. b4 Qc7 11. Be2 b5 12. Nc5 a5 13. a3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "246"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E90"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. d4 Bg7 4. Nf3 O-O 5. e4 d6 6. h3 e5 7. d5 Nh5 8. g3 f5
+9. exf5 gxf5 10. Nh4 Nf4 11. Bd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A65"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 c5 7. Nge2 Nc6 8. d5
+Ne5 9. Ng3 e6 10. Be2 exd5 11. cxd5 a6 12. a4 h5 13. O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B09"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. f4 Nf6 5. Nf3 O-O 6. Bd3 Nc6 7. O-O e5 8. d5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d3 Nf6 2. Nf3 d5 3. g3 Nc6 4. d4 Bf5 5. Bg2 e6 6. Bg5 h6 7. Bxf6 Qxf6 8. c3
+g5 9. Nbd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "33"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Rc1
+Bd7 16. Qd2 cxb5 17. cxb5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.242"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B89"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bc4 e6 7. Be3 Be7 8.
+Qe2 a6 9. O-O-O O-O 10. Bb3 Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "140"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 Qb6 8. Na4
+Qa5+ 9. c3 c4 10. b4 Qc7 11. a3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. a4 b4 7. Nce2 a5 8. Ng3 c5
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C41"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 d6 2. d4 Nf6 3. Nc3 e5 4. Nf3 exd4 5. Nxd4 Be7 6. Bf4 O-O 7. Qd2 Re8 8.
+O-O-O Nc6 9. f3 Nxd4 10. Qxd4 Be6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "38"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Rc1
+Bd7 16. Qd2 Rc8 17. d5 Nf8 18. Qe1 h6 19. Nd2 c5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.08.17"]
+[Round "1.1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "43"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. O-O Nf6 5. d3 d6 6. c3 a5 7. Re1 O-O 8. h3 h6
+9. Nbd2 Be6 10. Bb5 Qb8 11. Nf1 Qa7 12. d4 exd4 13. Bxc6 dxc3 14. Ba4 Bxf2+ 15.
+Kh2 Bxe1 16. Qxe1 Qc5 17. bxc3 d5 18. e5 Ne4 19. Bb2 Ra6 20. Rc1 f5 21. Bc2 a4
+22. Ng3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Bg6 7. Nbd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "142"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 d6 6. O-O Bb6 7. Bg5 h6 8. Bh4
+g5 9. Bg3 Ne7 10. Nbd2 Ng6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Ne2 d6 3. Nbc3 Nf6 4. d4 cxd4 5. Nxd4 a6 6. f3 e5 7. Nb3 Be6 8. Be3
+Nbd7 9. g4 Be7 10. Qd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.23"]
+[Round "71"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E73"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. d4 Bg7 4. e4 d6 5. Be2 O-O 6. Be3 e5 7. d5 Na6 8. g4 Nc5
+9. f3 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "140"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 Qb6 8. Na4
+Qa5+ 9. c3 b6 10. Bd2 c4 11. b4 Qa6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "10"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "27"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. O-O Nd7 7. Nbd2 O-O 8.
+Nc4 Re8 9. Bd2 f6 10. Nh4 g6 11. Kh1 Nb6 12. Na5 Bf8 13. a4 c5 14. Nf3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.23"]
+[Round "71"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E74"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. d4 Bg7 4. e4 d6 5. Be2 O-O 6. Bg5 c5 7. d5 h6 8. Be3 e6
+9. Qd2 exd5 10. exd5 Kh7 11. h4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C95"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Nb8 10. d4 Nbd7 11. c4 c6 12. Nc3 b4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 Nc8 8. c3
+Bg6 9. Ne1 Be7 10. Nd3 h6 11. Nf4 Bh7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.08"]
+[Round "1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D37"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 Be7 5. Bf4 O-O 6. e3 Nbd7 7. c5 c6 8. b4
+Nh5 9. Bd3 a5 10. a3 f6 11. Bg3 e5 12. Be2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.14"]
+[Round "42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 a6 7. Nge2 b5 8. Qd2
+Nbd7 9. h4 h5 10. O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.15"]
+[Round "68"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B92"]
+[PlyCount "30"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be2 e5 7. Nb3 Be7 8. O-O
+O-O 9. Be3 Be6 10. Qd3 Nbd7 11. Nd5 Bxd5 12. exd5 Ne8 13. a4 f5 14. a5 Rc8 15.
+c4 g6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. c3 f6 7. O-O Qc7 8. Re1
+O-O-O 9. Bd3 Bg4 10. Bf4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.21"]
+[Round "191"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D44"]
+[PlyCount "36"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 Nf6 2. d4 d5 3. c4 e6 4. Nc3 c6 5. Bg5 dxc4 6. e4 b5 7. e5 h6 8. Bh4 g5
+9. Nxg5 hxg5 10. Bxg5 Nbd7 11. g3 Bb7 12. Bg2 Qb6 13. exf6 O-O-O 14. O-O c5 15.
+d5 b4 16. Na4 Qa6 17. a3 Bxd5 18. Bxd5 Ne5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.21"]
+[Round "82"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. a4 b4 7. Nce2 Nf6 8. Ng3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.21"]
+[Round "102"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "48"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. Nbd2 O-O 7. Nc4 Nd7 8.
+O-O Re8 9. Bd2 f6 10. Nh4 g6 11. Kh1 Nb6 12. Na5 Bf8 13. a4 Nd7 14. g4 Nc5 15.
+Ng2 Ne6 16. Nc4 Bc5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "34"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E83"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 a6 7. Qd2 Nc6 8. b3 Bd7
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "15"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B48"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 c5 2. e4 e6 3. d4 cxd4 4. Nxd4 Nc6 5. Nc3 Qc7 6. Be3 a6 7. Qf3 Nf6 8.
+O-O-O Ne5 9. Qg3 b5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.23"]
+[Round "34"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C50"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. d3 Bc5 5. a4 d6 6. O-O a5 7. c3 O-O 8. Nbd2
+Bb6 9. Re1 Ng4 10. Rf1 Kh8 11. h3 f5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.23"]
+[Round "41"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B31"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. Bb5 g6 4. Bxc6 dxc6 5. d3 Bg7 6. h3 b6 7. O-O Nf6 8. a4
+a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "27"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 d6 6. O-O Bb6 7. b4 O-O 8. a4 a5
+9. b5 Ne7 10. Nbd2 Ng6 11. Ba2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "25"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B66"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O h6 9. Nxc6 bxc6 10. Bf4 d5 11. Qe3 Bb4 12. Be2 O-O 13. e5 Nh7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C95"]
+[PlyCount "29"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Nb8 10. d4 Nbd7 11. Nbd2 Bb7 12. Bc2 Re8 13. a4 Bf8 14. Bd3 c6 15. Qc2
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "34"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e6 7. f3 b5 8. a3 h5
+9. Qd2 Nbd7 10. O-O-O Bb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "10"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D43"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. Bg5 h6 6. Bh4 dxc4 7. e4 g5 8. Bg3 b5
+9. Be2 Bb7 10. O-O Nbd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C95"]
+[PlyCount "28"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Nb8 10. d4 Nbd7 11. c4 c5 12. dxe5 Nxe5 13. Nxe5 dxe5 14. Nc3 Qb6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E21"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 Bb4+ 4. Nc3 b6 5. Bg5 h6 6. Bh4 g5 7. Bg3 Ne4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.11"]
+[Round "109"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Nbd2 O-O 6. Bxc6 dxc6 7. Nc4 Nd7 8.
+Ne3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.190"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "38"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3
+h5 9. Be2 Nbd7 10. a4 Be7 11. Qd2 Qc7 12. O-O O-O 13. Rfc1 h4 14. Nd5 Bxd5 15.
+exd5 b6 16. g4 hxg3 17. hxg3 Nh5 18. Kg2 f5 19. Bf2 Ndf6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O Bb6 7. a4 d6 8. Nbd2
+h6 9. b4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. a4 b4 7. Nce2 a5 8. Ng3 Nd7
+9. Nf3 Bb7 10. Bb5 c6 11. Bc4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "127"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D30"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 e6 3. c4 Nf6 4. e3 c6 5. Bd3 Nbd7 6. b3 Ne4 7. O-O f5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "76"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E94"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 c6 2. e4 g6 3. d4 d6 4. Nc3 Bg7 5. Nf3 Nf6 6. Be2 O-O 7. O-O e5 8. d5 Na6
+9. Be3 Ng4 10. Bg5 f6 11. Bh4 c5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "41"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Ne2 d6 3. Nbc3 Nf6 4. d4 cxd4 5. Nxd4 a6 6. f3 e5 7. Nb3 Be6 8. Be3
+Nbd7 9. g4 Be7 10. Qd2 O-O 11. O-O-O b5 12. g5 Nh5 13. Nd5 Bxd5 14. exd5 f6 15.
+gxf6 Bxf6 16. Na5 Qe8 17. Bh3 Nf4 18. Bxf4 exf4 19. Rhe1 Ne5 20. Re4 Kh8 21.
+Qe2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "230"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E13"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 Bb4+ 4. Nc3 b6 5. Bg5 Bb7 6. e3 h6 7. Bh4 g5 8. Bg3
+Ne4 9. Qc2 Bxc3+ 10. bxc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "248"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e6 7. f3 b5 8. Qd2
+Nbd7 9. O-O-O h5 10. a3 Bb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.21"]
+[Round "204"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 d6 6. O-O Bb6 7. Bg5 h6 8. Bh4
+g5 9. Bg3 Ne7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.21"]
+[Round "186"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B95"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e6 7. Qf3 Nbd7 8.
+Be2 Be7 9. g4 Qc7 10. Be3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "213"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A65"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Bg5 c5 7. d5 e6 8. Qd2 exd5
+9. cxd5 a6 10. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Bh7 9. b4 Ng6 10. Nb3 Be7 11. Re1 O-O 12. Bd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "52"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C45"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Nxd4 Nf6 5. Nxc6 bxc6 6. e5 Qe7 7. Qe2 Nd5 8.
+Nd2 g6 9. c4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "44"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B13"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. c4 d5 3. exd5 cxd5 4. d4 Nf6 5. Nc3 Nc6 6. Bg5 Be6 7. Nf3 g6 8.
+Bxf6 exf6 9. c5 Bg7 10. Be2 a6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B84"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. Nc3 a6 4. d4 cxd4 5. Nxd4 d6 6. Be2 Nf6 7. Be3 b5 8. Bf3
+e5 9. Nf5 g6 10. Nh6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "47"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. O-O Nd7 7. Nbd2 O-O 8.
+Nc4 Re8 9. Bd2 f6 10. Nh4 g6 11. Kh1 Nb6 12. Na5 Bf8 13. a4 Nd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "32"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 a6 7. Qd2 Nbd7 8. Rd1
+e5 9. Nh3 exd4 10. Bxd4 c6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "14"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B85"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Ne2 d6 3. Nbc3 a6 4. d4 cxd4 5. Nxd4 e6 6. Be2 Nf6 7. O-O Nc6 8.
+Be3 Qc7 9. Qe1 Be7 10. f4 O-O 11. Qg3 Nxd4 12. Bxd4 b5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.29"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Rc1
+Bd7 16. d5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2017.12.31"]
+[Round "79.7"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Qb6 6. a3 c4 7. Nbd2 Na5 8. Be2 Bd7
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. Nb3
+Bh7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.30"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B07"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. c3 d6 3. d4 Nf6 4. f3 Nbd7 5. Be3 e6 6. Bd3 Be7 7. Ne2 O-O 8. O-O
+e5 9. d5 Nh5 10. Qd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.08.17"]
+[Round "1.1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "46"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. O-O Nf6 5. d3 d6 6. c3 a5 7. Re1 O-O 8. h3 h6
+9. Nbd2 Be6 10. Bb5 Qb8 11. Nf1 Qa7 12. d4 exd4 13. Bxc6 dxc3 14. Ba4 Bxf2+ 15.
+Kh2 Bxe1 16. Qxe1 Qc5 17. bxc3 d5 18. e5 Ne4 19. Bb2 Ra6 20. Rc1 f5 21. Bc2 b5
+22. Ng3 a4 23. a3 Rb6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.31"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E42"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. e3 c5 5. Nge2 b6 6. a3 Ba5 7. Rb1 Na6 8. f3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.09.24"]
+[Round "2.15"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 cxd4 8. Nxd4
+Bc5 9. Qd2 O-O 10. O-O-O Nxd4 11. Bxd4 a6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.30"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B43"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Nc3 Qc7 6. Qf3 Bd6 7. Be3 Nc6 8.
+O-O-O Be5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C92"]
+[PlyCount "35"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Bb7 10. d4 Re8 11. Nbd2 Bf8 12. a4 exd4 13. cxd4 h6 14. Bc2 Nb4 15.
+Bb1 c5 16. d5 Nd7 17. Ra3 f5 18. g4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B63"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. Bg5 e6 7. Qd2 Qb6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.19"]
+[Round "155"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Bg6 7. Nbd2 Nh6 8. Nb3
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.13"]
+[Round "2"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. O-O Nd7 7. Nbd2 O-O 8.
+Nc4 Re8 9. Bd2 f6 10. Nh4 Bf8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 c6 12. h3 O-O 13. O-O h6 14. Qe1 Be6 15. d5
+Bd7 16. Rb1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. Nb3
+Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C95"]
+[PlyCount "28"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Nb8 10. d4 Nbd7 11. Nbd2 c5 12. Bc2 Bb7 13. d5 c4 14. Nf1 Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.01"]
+[Round "97"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 f6 4. e3 e5 5. c5 d3 6. Qb3 e4 7. Nd4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "25"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B43"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. Nc3 a6 4. d4 cxd4 5. Nxd4 b5 6. Bd3 Qb6 7. Nb3 Qc7 8. O-O
+Nf6 9. f4 Bb7 10. e5 Nd5 11. Ne4 Be7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C58"]
+[PlyCount "34"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bb5+ c6 7. dxc6 bxc6 8.
+Qf3 Be7 9. Bd3 O-O 10. O-O Rb8 11. b3 Rb4 12. c4 h6 13. Ne4 Nh7 14. Bc2 f5 15.
+Ng3 Ng5 16. Qh5 f4 17. Ne4 Ne6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.25"]
+[Round "4"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B89"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bc4 e6 7. Be3 Be7 8.
+Qe2 Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "35"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 Re8 14. Qc2 c6 15. h3
+Bd7 16. a4 Rc8 17. Rf2 Be6 18. Rd1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C10"]
+[PlyCount "10"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nc6 4. Nf3 Nf6 5. Bd3 Bb4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Bg6 7. a4 a5 8. Na3 Ne7
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.25"]
+[Round "4"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. f3 a6 7. Be3 e5 8. Nb3
+Be6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C95"]
+[PlyCount "28"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. c3
+d6 9. h3 Nb8 10. d4 Nbd7 11. Nbd2 c5 12. d5 c4 13. Bc2 Qc7 14. Nf1 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.16"]
+[Round "45"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e6 7. f3 b5 8. Qd2
+Nbd7 9. g4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.17"]
+[Round "39"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E84"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 a6 7. Qd2 Nc6 8. Nge2
+Rb8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. a4 b4 7. Nce2 Nf6 8. Ng3 h5
+9. f3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.21"]
+[Round "18"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A13"]
+[PlyCount "35"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. g3 Nf6 3. Bg2 c5 4. O-O e6 5. c4 d4 6. e3 Nc6 7. d3 Bd6 8. exd4
+cxd4 9. Bg5 h6 10. Bxf6 Qxf6 11. Nbd2 Qe7 12. Ne4 Bc7 13. a3 e5 14. b4 O-O 15.
+Re1 Bg4 16. h3 Bh5 17. g4 Bg6 18. Ng3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.25"]
+[Round "4"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B88"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bc4 e6 7. Be3 a6 8. Bb3
+Qc7 9. Qe2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "59"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. c3 e6 5. Nf3 Nd7 6. Be2 f6 7. O-O Qc7 8. Bf4
+fxe5 9. dxe5 Ne7 10. Nd4 Ng6 11. Bh5 O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B66"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O Nxd4 9. Qxd4 Be7 10. f4 b5 11. Bxf6 gxf6 12. Kb1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.65"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Bh7 9. Re1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.11"]
+[Round "109"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Nbd2 O-O 6. Bxc6 dxc6 7. Nc4 Nd7 8.
+Ne3 Re8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 Qc7 10. Nf1 c5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 c6 12. h3 O-O 13. O-O h6 14. Qe1 Be6 15. d5
+Bd7 16. Nd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C10"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nc6 4. Nf3 Nf6 5. Bd3 Nb4 6. Bg5 dxe4 7. Bxe4 Be7 8.
+Bxf6 Bxf6 9. Qe2 c6 10. a3 Nd5 11. Nxd5 cxd5 12. Bd3 Bd7 13. c3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.65"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. Nb3
+Bh7 9. a4 a5 10. Bd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "10"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "27"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Bxc6 dxc6 6. O-O Nd7 7. Nbd2 O-O 8.
+Nc4 Re8 9. Bd2 f6 10. Nh4 g6 11. Kh1 Nb6 12. Na5 Bf8 13. a4 c5 14. b3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.02"]
+[Round "35"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B13"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. Nf3 d5 3. exd5 cxd5 4. d4 Nc6 5. c3 Nf6 6. Bf4 g6 7. Bd3 Bg7 8.
+Nbd2 O-O 9. O-O Nh5 10. Be3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.04.23"]
+[Round "2.6"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E97"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. d4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 O-O 6. Be2 e5 7. O-O Nc6 8. d5
+Ne7 9. b4 a5 10. bxa5 Rxa5 11. a4 Ra8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.04.23"]
+[Round "3.11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D44"]
+[PlyCount "41"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 Nf6 2. d4 d5 3. c4 e6 4. Nc3 c6 5. Bg5 dxc4 6. e4 b5 7. e5 h6 8. Bh4 g5
+9. Nxg5 hxg5 10. Bxg5 Nbd7 11. g3 Bb7 12. Bg2 Qb6 13. exf6 O-O-O 14. O-O c5 15.
+d5 b4 16. Na4 Qa6 17. a3 Bxd5 18. Bxd5 Ne5 19. Qe2 Rxd5 20. axb4 cxb4 21. Nc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.01.04"]
+[Round "7.29"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 6. Be2 Nge7 7. O-O Ng6 8. Be3
+Qb6 9. Na3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Qc7 6. O-O Nf6 7. c4 Nc6 8. Be3
+Ne5 9. h3 b6 10. Nc3 Bb7 11. Rc1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E01"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. g3 Nbd7 6. Bg2 dxc4 7. a4 a5 8. O-O
+Bb4 9. e4 O-O 10. Qe2 b6 11. Bd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "127"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D30"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 e6 3. c4 Nf6 4. e3 c6 5. Bd3 Nbd7 6. b3 Ne4 7. O-O f5 8. Qc2 g5
+9. a4 g4 10. Ne1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "163"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. c3 f6 7. O-O Qc7 8. Bf4
+O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "6"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C18"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 c5 5. a3 Bxc3+ 6. bxc3 Ne7 7. Qg4 cxd4 8.
+Qxg7 Rg8 9. Qxh7 Qc7 10. Ne2 dxc3 11. h4 Nbc6 12. f4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D44"]
+[PlyCount "46"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. Bg5 dxc4 6. e4 b5 7. e5 h6 8. Bh4 g5
+9. Nxg5 hxg5 10. Bxg5 Nbd7 11. g3 Bb7 12. Bg2 Qb6 13. exf6 O-O-O 14. O-O c5 15.
+d5 b4 16. Na4 Qa6 17. a3 Bxd5 18. Bxd5 Ne5 19. Nxc5 Bxc5 20. Qe2 exd5 21. Qxe5
+b3 22. Rae1 Qc6 23. h4 Kb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Nf6 6. O-O Qc7 7. Qe2 Bd6 8. f4
+Bc5 9. c3 d6 10. Kh1 e5 11. Nb3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.26"]
+[Round "201"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E36"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 d5 5. a3 Bxc3+ 6. Qxc3 c5 7. dxc5 d4 8.
+Qg3 Nc6 9. Nf3 O-O 10. b4 Re8 11. Bh6 Nh5 12. Qg4 g6 13. Qg5 e5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C10"]
+[PlyCount "11"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nc6 4. Nf3 Nf6 5. e5 Ne4 6. Ne2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.17"]
+[Round "39"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Bg5 a6 7. Qd2 c5 8. d5 Qa5
+9. a4 Re8 10. Nge2 Nbd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.65"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. Nb3
+Qc7 9. a4 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Nf3 b5 6. Bd3 Bb7 7. e5 Nd7 8. e6
+fxe6 9. Ng5 Nf8 10. O-O Nf6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Qc7 6. O-O Nf6 7. c4 Nc6 8. Be3
+Ne5 9. h3 b6 10. f4 Nxd3 11. Qxd3 Bb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. h4 Nf6 7. f3 h5 8. O-O-O
+Nbd7 9. Nh3 Nb6 10. Bd3 c6 11. Ng5 Qc7 12. Kb1 b4 13. Ne2 c5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Rc1
+h6 16. a4 Bd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "140"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 Qb6 8. Na4
+Qa5+ 9. c3 b6 10. Kf2 Ba6 11. b3 Bxf1 12. Rxf1 Be7 13. h4 Qa6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.17"]
+[Round "39"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Bg5 Nc6 7. Nge2 a6 8. Qd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "35"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Rc1
+h6 16. Qc2 Bd7 17. Qf2 Rc8 18. d5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.01"]
+[Round "3"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B66"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O h6 9. Be3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.02.07"]
+[Round "?"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E98"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. Nf3 O-O 6. Be2 e5 7. O-O Nc6 8. d5
+Ne7 9. Ne1 Ne8 10. Be3 f5 11. f3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.04.14"]
+[Round "159"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D70"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. f3 d5 4. cxd5 Nxd5 5. e4 Nb6 6. Nc3 Bg7 7. Be3 O-O 8. Qd2
+Nc6 9. O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "42"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. Be2 O-O 11. O-O Ng6 12. Qe1 c6 13. Rb1 Be6 14. Qg3 h6 15.
+Nd2 Qe7 16. a4 Rfd8 17. d4 exd4 18. exd4 a5 19. b5 c5 20. e5 dxe5 21. d5 Bd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Qc7 9. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "71"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C10"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nc6 4. e5 a6 5. f4 Be7 6. Nf3 Nh6 7. Be3 b6 8. Ne2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "238"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. h4 Nf6 7. f3 h5 8. O-O-O
+Nbd7 9. Nh3 c6 10. Ng5 Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.241"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B31"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. Bb5 g6 4. Bxc6 dxc6 5. d3 Bg7 6. h3 b6 7. O-O Nf6 8. a4
+a5 9. Qe2 Qc7 10. e5 Nd5 11. Na3 O-O 12. Bd2 Bd7 13. Rae1 f6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "20"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Bh7 9. Nb3 Nf5 10. Bd3 Bg6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "81"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e6 7. f3 b5 8. g4 b4
+9. Nce2 e5 10. Nf5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E91"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. e4 d6 4. d4 Bg7 5. Be2 O-O 6. Bg5 Na6 7. Nf3 h6 8. Be3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "60"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C51"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Bc5 6. d4 exd4 7. cxd4 Bb6 8.
+O-O d6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.09"]
+[Round "102"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d3 Nf6 2. Nf3 d5 3. g3 Nc6 4. d4 Bf5 5. Bg2 e6 6. Bg5 Qd6 7. O-O Ne4 8. Be3
+O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "27"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O d6 7. Bg5 h6 8. Bh4
+a6 9. a4 g5 10. Bg3 g4 11. Bh4 gxf3 12. Qxf3 Kg7 13. Qg3+ Kh7 14. Qf3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.01.23"]
+[Round "1.102"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O Bd7 13. h3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.01.23"]
+[Round "1.180"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D35"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. d4 e6 3. Nc3 d5 4. cxd5 exd5 5. Bg5 c6 6. e3 Be7 7. Bd3 O-O 8. Nf3
+h6 9. Bf4 Bd6 10. Bxd6 Qxd6 11. Qc2 Re8 12. O-O Nbd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.01.23"]
+[Round "1.92"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B68"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O Be7 9. f4 Bd7 10. Nf3 b5 11. e5 b4 12. exf6 bxc3 13. Qxc3 gxf6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.01.23"]
+[Round "1.240"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C50"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. O-O Nf6 5. d3 d6 6. Nbd2 a5 7. c3 O-O 8. h3
+h6 9. Re1 Be6 10. Bb5 Qb8 11. Nf1 Qa7 12. Re2 a4 13. Ng3 Qa5 14. Bxc6 bxc6 15.
+Nh4 Rfe8 16. Re1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 Bg6 10. Nf1 a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "60"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C51"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. b4 Bxb4 5. c3 Bd6 6. d4 Nf6 7. O-O O-O 8. Re1
+h6 9. Nbd2 a5 10. a3 a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B67"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O Bd7 9. f4 h6 10. Bh4 b5 11. Bxf6 gxf6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E01"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. g3 dxc4 6. Bg2 Nbd7 7. O-O b5 8. e4
+Bb7 9. e5 Nd5 10. Ng5 h6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O Bb6 7. a4 d6 8. Bg5
+h6 9. Bh4 g5 10. Bg3 g4 11. Bh4 gxf3 12. Qxf3 Kg7 13. Nd2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "227"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B95"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e6 7. Qf3 h6 8. Be3
+Qc7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "43"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C18"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 c5 5. a3 Bxc3+ 6. bxc3 Ne7 7. h4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. c3 h6 8. a4 a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 O-O 6. a3 Bxc3+ 7. bxc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.01.23"]
+[Round "1.92"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B68"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O Be7 9. f4 Bd7 10. Nf3 b5 11. Bxf6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.10"]
+[Round "78"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D73"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. g3 g6 2. Bg2 d5 3. Nf3 Bg7 4. d4 Nf6 5. O-O c6 6. c4 dxc4 7. a4 Ne4 8. Nc3
+Nd6 9. e4 Bg4 10. Be3 Qc8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "20"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3
+Bh7 9. Nb3 Nf5 10. Bd3 a5 11. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "140"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C11"]
+[PlyCount "29"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Nf6 4. e5 Nfd7 5. f4 c5 6. Nf3 Nc6 7. Be3 Qb6 8. Na4
+Qa5+ 9. c3 b6 10. Bd2 c4 11. b4 Nxb4 12. cxb4 Bxb4 13. Qc2 Bxd2+ 14. Nxd2 b5
+15. Nc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B80"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. Nc3 a6 4. d4 cxd4 5. Nxd4 d6 6. Be3 Nf6 7. a3 Be7 8. f3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.215"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A07"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. g3 c6 3. Bg2 Nf6 4. d3 Bf5 5. O-O Nbd7 6. Nbd2 e6 7. Re1 h6 8. e4
+Bh7 9. e5 Ng8 10. a4 a5 11. Nd4 Ne7 12. Bh3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 Qc7 10. Nf1 Bg6 11. Ne3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "29"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 c6 12. h3 O-O 13. O-O h6 14. Rb1 b6 15. a4
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "95"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3
+Be7 9. Qd2 h5 10. Nd5 Nxd5 11. exd5 Bf5 12. Be2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E80"]
+[PlyCount "11"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. c4 d6 4. Nc3 Nf6 5. f3 c6 6. Be3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "97"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C65"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. d3 Bc5 5. Nbd2 O-O 6. Bxc6 dxc6 7. Nc4 Nd7 8.
+Qe2 Re8 9. Bd2 Bf8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "218"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. c3 h6 8. a4 Bg6
+9. a5 Bxb1 10. Rxb1 Qxa5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.240"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A09"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. c4 d4 3. b4 c5 4. Bb2 Nf6 5. g3 a5 6. b5 Qc7 7. Bg2 e5 8. e3 Be6
+9. d3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.190"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3
+h5 9. Qd2 Nbd7 10. Nd5 Nxd5 11. exd5 Bf5 12. Be2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "63"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C00"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. Nf3 d5 2. g3 Nf6 3. Bg2 c5 4. O-O e6 5. d3 Be7 6. Nbd2 O-O 7. e4 Nc6 8. Re1
+Qc7 9. e5 Nd7 10. Qe2 b5 11. Nf1 a5 12. h4 a4 13. a3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B06"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Qd2 b5 6. f3 Nd7 7. O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.18"]
+[Round "37"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E94"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. c4 g6 3. d4 d6 4. Nc3 Bg7 5. Be2 Nd7 6. Nf3 Ngf6 7. O-O O-O 8. Be3
+e5 9. d5 Qe7 10. Nd2 Kh8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B43"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Qc7 6. Nc3 Nf6 7. Qe2 d6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D44"]
+[PlyCount "45"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. Bg5 dxc4 6. e4 b5 7. e5 h6 8. Bh4 g5
+9. Nxg5 hxg5 10. Bxg5 Nbd7 11. g3 Bb7 12. Bg2 Qb6 13. exf6 O-O-O 14. O-O c5 15.
+d5 b4 16. Na4 Qa6 17. a3 Bxd5 18. Bxd5 Ne5 19. Nxc5 Bxc5 20. axb4 Bxf2+ 21.
+Kxf2 Qb6+ 22. Kg2 Rxd5 23. Qe2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 Bg6 10. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E73"]
+[PlyCount "28"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. e4 d6 4. d4 Bg7 5. Be2 O-O 6. Bg5 Na6 7. h4 e5 8. d5 h6
+9. Be3 Nc5 10. Qc2 c6 11. Bxc5 dxc5 12. h5 Bd7 13. hxg6 fxg6 14. Nf3 Qe8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.04"]
+[Round "212"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B08"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 g6 2. d4 Bg7 3. Nc3 d6 4. Be3 a6 5. Nf3 Nf6 6. h3 O-O 7. a4 Nc6 8. Qd2 e6
+9. Be2 b6 10. Bh6 Bb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E04"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. g3 dxc4 6. Bg2 b5 7. Ne5 a6 8. O-O
+Bb7 9. b3 b4 10. Na4 c3 11. Nc4 a5 12. Bf4 Nd5 13. Be5 Nd7 14. e4 Nc7 15. Bd6
+Nb5 16. Bxf8 Kxf8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "13"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 Bf5 4. c4 e6 5. Qb3 Nc6 6. c5 Rb8 7. e3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.17"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 d6 6. O-O Bb6 7. h3 h6 8. a4 g5
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B13"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 c5 4. e3 cxd4 5. exd4 Nc6 6. c3 Bf5 7. Nbd2 e6 8.
+Qb3 Bd6 9. Qxb7 Bxf4 10. Qxc6+ Kf8 11. Ne5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C58"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bb5+ c6 7. dxc6 bxc6 8.
+Bd3 Nd5 9. Nf3 Bd6 10. O-O Nf4 11. Nc3 Nxd3 12. cxd3 O-O 13. Re1 Re8 14. Ne4 c5
+15. b3 Bf8 16. Ba3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D46"]
+[PlyCount "44"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Qc2 Bd6 7. Bd3 O-O 8. O-O
+dxc4 9. Bxc4 a6 10. Rd1 b5 11. Bd3 Bb7 12. Ng5 h6 13. Nge4 Bc7 14. a3 a5 15. b3
+Qe7 16. Bb2 Nd5 17. Rdc1 Rac8 18. Nxd5 cxd5 19. Nc5 Bc6 20. Qe2 Nxc5 21. dxc5
+Rb8 22. b4 e5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.11"]
+[Round "1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C88"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. a4
+b4 9. d3 d6 10. a5 Rb8 11. Nbd2 Be6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.11"]
+[Round "38"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D46"]
+[PlyCount "44"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Qc2 Bd6 7. Bd3 O-O 8. O-O
+dxc4 9. Bxc4 a6 10. Rd1 b5 11. Bd3 Bb7 12. Ng5 h6 13. Nge4 Bc7 14. a3 a5 15. b3
+Nd5 16. Bb2 Qe7 17. h3 Rfc8 18. Re1 Rd8 19. Rec1 Rdc8 20. Qe2 Rd8 21. Qc2 Rac8
+22. Qd2 N5b6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.08.17"]
+[Round "1.1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "33"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. O-O Nf6 5. d3 d6 6. c3 a5 7. Re1 O-O 8. h3 h6
+9. Nbd2 Be6 10. Bb5 Qb8 11. Nf1 Qa7 12. Re2 a4 13. Bxc6 bxc6 14. d4 exd4 15.
+cxd4 Bb6 16. Ng3 Qa6 17. e5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.01.27"]
+[Round "5.64"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A03"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. f4 d5 2. Nf3 Nf6 3. g3 g6 4. Bg2 Bg7 5. O-O O-O 6. d3 c5 7. Qe1 d4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.01"]
+[Round "99"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 6. Be2 Nge7 7. Na3 cxd4 8. cxd4
+Nf5 9. Nc2 Qb6 10. g4 Nfe7 11. O-O h5 12. g5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.22"]
+[Round "133"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E81"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6 5. f3 O-O 6. Be3 a6 7. Bd3 Nfd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.06"]
+[Round "26"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 c5 6. Be3 cxd4 7. Nxd4 Ne7 8. Nd2
+Nbc6 9. N2f3 Be4 10. O-O Bxf3 11. Nxf3 Nf5 12. Bf4 h6 13. Bd3 g5 14. Bd2 g4 15.
+Ne1 h5 16. Bxf5 exf5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "6"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C19"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 c5 5. a3 Bxc3+ 6. bxc3 Ne7 7. Nf3 h6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.12.25"]
+[Round "13"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B44"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 e6 6. e4 Bc5 7. Nb3 Bb4 8.
+Bd3 b6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 c5 4. e3 e6 5. Nbd2 Nc6 6. c3 cxd4 7. exd4 Nh5 8.
+Be3 Bd6 9. Ne5 g6 10. Nd3 Ng7 11. g3 O-O 12. Bg2 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C58"]
+[PlyCount "23"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bb5+ c6 7. dxc6 bxc6 8.
+Qf3 Be7 9. Bd3 O-O 10. Nc3 Rb8 11. O-O Rb4 12. Qd1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D48"]
+[PlyCount "33"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Bd3 dxc4 7. Bxc4 b5 8. Bd3
+Bb7 9. O-O a6 10. e4 c5 11. d5 Qc7 12. Qe2 c4 13. Bc2 Bd6 14. Re1 Ne5 15. Nxe5
+Bxe5 16. f4 Bd4+ 17. Kh1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.08.17"]
+[Round "1.1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "34"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. O-O Nf6 5. d3 d6 6. c3 a5 7. Re1 O-O 8. h3 h6
+9. Bb5 Ba7 10. Nbd2 Ne7 11. d4 Ng6 12. Bd3 Re8 13. a4 c6 14. b3 Bb6 15. dxe5
+dxe5 16. Nc4 Bc7 17. Be3 Be6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D46"]
+[PlyCount "45"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Qc2 Bd6 7. Bd3 O-O 8. O-O
+dxc4 9. Bxc4 a6 10. Rd1 b5 11. Bd3 Bb7 12. Ng5 h6 13. Nge4 Bc7 14. a3 a5 15. b3
+Nd5 16. Bb2 Qe7 17. h3 Rfc8 18. Re1 Rd8 19. Rec1 Rdc8 20. Qe2 Rd8 21. Qc2 Rdc8
+22. Rd1 Rd8 23. Re1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "33"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O d6 7. Bg5 h6 8. Bh4
+a6 9. Nbd2 g5 10. Bg3 Ba7 11. a4 Nh7 12. Kh1 Kh8 13. b4 f5 14. exf5 Bxf5 15. b5
+Na5 16. bxa6 bxa6 17. Bxa6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "17"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B85"]
+[PlyCount "26"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nc3 e6 3. Nf3 a6 4. Be2 Nc6 5. d4 cxd4 6. Nxd4 Qc7 7. O-O Nf6 8.
+Be3 d6 9. f4 Be7 10. Kh1 O-O 11. a4 Bd7 12. Nb3 b6 13. Bf3 Rab8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.11"]
+[Round "1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C90"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. a4
+b4 9. a5 d6 10. c3 bxc3 11. dxc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.11"]
+[Round "52"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D46"]
+[PlyCount "59"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Qc2 Bd6 7. Bd3 O-O 8. O-O
+dxc4 9. Bxc4 a6 10. Rd1 b5 11. Bd3 Qc7 12. Bd2 c5 13. Ne4 c4 14. Nxd6 Qxd6 15.
+Be2 Bb7 16. b3 Bd5 17. Qb2 Ne4 18. Be1 Rfc8 19. Rac1 f6 20. Ba5 f5 21. Ne1 Nef6
+22. Nf3 Ne4 23. Ne1 Rab8 24. f3 Nef6 25. Nc2 h5 26. Bf1 h4 27. Be1 h3 28. Bg3
+c3 29. Qb1 Qb6 30. Bxb8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "6"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C19"]
+[PlyCount "15"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 c5 5. a3 Bxc3+ 6. bxc3 Ne7 7. Nf3 Bd7 8. Bd3
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. a4 Bh7 10. Nb3 Nf5 11. Bd2 Nb6 12. Ne1 Nd7 13. g3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C59"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bb5+ c6 7. dxc6 bxc6 8.
+Be2 h6 9. Nh3 Bc5 10. O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.11"]
+[Round "45"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D46"]
+[PlyCount "49"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Qc2 Bd6 7. Bd3 O-O 8. O-O
+dxc4 9. Bxc4 a6 10. Rd1 b5 11. Bd3 Bb7 12. Ng5 h6 13. Nge4 Bc7 14. a3 a5 15. b3
+Nd5 16. Bb2 Qe7 17. h3 Rfc8 18. Re1 Rd8 19. Rec1 Rdc8 20. Qe2 Rd8 21. f4 Bb6
+22. Kh2 Bc7 23. Rc2 Re8 24. Kg1 Bb6 25. Kh1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B43"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Qc7 6. Nc3 Nf6 7. f4 Bb4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O Bb6 7. Bg5 h6 8. Bh4
+d6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "25"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B51"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. Bb5+ Nd7 4. Ba4 Ngf6 5. O-O a6 6. c4 e6 7. Qe2 Be7 8. d4
+cxd4 9. Nxd4 Qc7 10. Nc3 O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 c5 4. e3 e6 5. Nbd2 Nc6 6. c3 cxd4 7. exd4 Nh5 8.
+Bg5 f6 9. Be3 Bd6 10. g3 O-O 11. Bd3 Qe8 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O d6 7. Bg5 h6 8. Bh4
+a5 9. Nbd2 g5 10. Bg3 Ba7 11. a4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.11.26"]
+[Round "37"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B96"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e6 7. f4 Nbd7 8. Qe2
+Qc7 9. O-O-O *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "6"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C18"]
+[PlyCount "14"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 c5 5. a3 Bxc3+ 6. bxc3 Qa5 7. Bd2 Qa4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "163"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "17"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. c3 f6 7. O-O Qc7 8. Re1
+O-O-O 9. Be3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.01"]
+[Round "99"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 6. Be2 Nge7 7. Na3 cxd4 8. cxd4
+Nf5 9. Nc2 Be7 10. O-O Qb6 11. Kh1 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.190"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3
+h5 9. Be2 Nbd7 10. a4 Be7 11. O-O h4 12. a5 h3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.03.01"]
+[Round "99"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C02"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. c3 Nc6 5. Nf3 Bd7 6. Be2 Nge7 7. Na3 cxd4 8. cxd4
+Nf5 9. Nc2 Qa5+ 10. Bd2 Qb6 11. Bc3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D46"]
+[PlyCount "32"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Qc2 Bd6 7. Bd3 O-O 8. O-O
+dxc4 9. Bxc4 a6 10. e4 e5 11. Rd1 Qc7 12. h3 exd4 13. Nxd4 Re8 14. Be3 b5 15.
+Bf1 g6 16. Rac1 Bb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "30"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O d6 7. Bg5 h6 8. Bh4
+a5 9. Nbd2 g5 10. Bg3 Ba7 11. Bb3 Nh7 12. Kh1 Qf6 13. Rc1 Qg7 14. Nc4 Nf6 15.
+Ne3 Ne7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.10.15"]
+[Round "98"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B42"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 e6 3. d4 cxd4 4. Nxd4 a6 5. Bd3 Nf6 6. O-O d6 7. c4 Be7 8. Nc3
+O-O 9. Be3 Nc6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "25"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O d6 7. Bg5 h6 8. Bh4
+a5 9. Re1 g5 10. Bg3 Ba7 11. Nbd2 Nh7 12. h3 h5 13. d4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.05"]
+[Round "23"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B67"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 Nc6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 d6 6. Bg5 e6 7. Qd2 a6 8.
+O-O-O Bd7 9. Kb1 Be7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C59"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Nf6 4. Ng5 d5 5. exd5 Na5 6. Bb5+ c6 7. dxc6 bxc6 8.
+Be2 h6 9. Nh3 Nb7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "69"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B11"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. Nc3 d5 3. Nf3 Bg4 4. h3 Bxf3 5. Qxf3 Nf6 6. d3 e6 7. Be2 Nbd7 8.
+Qg3 a6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2021.03.25"]
+[Round "9"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C54"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Nf6 5. d3 O-O 6. O-O Bb6 7. a4 d6 8. Bg5
+a5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.06"]
+[Round "214"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 a5
+9. Re1 a4 10. Nf1 Bg6 11. Nh4 Bh7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2019.08.25"]
+[Round "2.42"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D48"]
+[PlyCount "24"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nf3 d5 4. Nc3 c6 5. e3 Nbd7 6. Bd3 dxc4 7. Bxc4 b5 8. Bd3
+Bb7 9. O-O a6 10. e4 c5 11. d5 Qc7 12. Qe2 Bd6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.11"]
+[Round "1"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C90"]
+[PlyCount "22"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 b5 7. Bb3 O-O 8. a4
+b4 9. a5 d6 10. c3 Rb8 11. Bc4 h6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.12.27"]
+[Round "165"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "A28"]
+[PlyCount "29"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. e4 Bb4 5. d3 d6 6. a3 Bc5 7. b4 Bb6 8. Be3
+Bxe3 9. fxe3 Ne7 10. d4 Ng6 11. Bd3 O-O 12. O-O a5 13. b5 c6 14. h3 Re8 15. Qe1
+*
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.26"]
+[Round "201"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E36"]
+[PlyCount "20"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 d5 5. a3 Bxc3+ 6. Qxc3 c5 7. dxc5 d4 8.
+Qg3 Nc6 9. b4 e5 10. Nf3 e4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.05.24"]
+[Round "10"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B89"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 Nc6 6. Bc4 e6 7. Be3 a6 8. Bb3
+Na5 9. Qe2 b5 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.21"]
+[Round "1.65"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B12"]
+[PlyCount "19"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c6 2. d4 d5 3. e5 Bf5 4. Nf3 e6 5. Be2 Nd7 6. O-O Ne7 7. Nbd2 h6 8. c3 g5
+9. Re1 Bg6 10. Nb3 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.04"]
+[Round "6"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "C19"]
+[PlyCount "16"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 e6 2. d4 d5 3. Nc3 Bb4 4. e5 c5 5. a3 Bxc3+ 6. bxc3 Ne7 7. a4 Nbc6 8. Nf3
+Bd7 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2022.11.19"]
+[Round "24"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "D02"]
+[PlyCount "21"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. d4 d5 2. Nf3 Nf6 3. Bf4 c5 4. e3 e6 5. Nbd2 Nc6 6. c3 cxd4 7. exd4 Nh5 8.
+Be3 Bd6 9. Ne5 g6 10. Ndf3 f6 11. Ng4 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.06.08"]
+[Round "11"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "E73"]
+[PlyCount "18"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. c4 Nf6 2. Nc3 g6 3. e4 d6 4. d4 Bg7 5. Be2 O-O 6. Bg5 Na6 7. f3 c6 8. Qd2
+Nc7 9. h4 Ne6 *
+
+[Event "Unique"]
+[Site "?"]
+[Date "2023.04.20"]
+[Round "1.190"]
+[White "X"]
+[Black "X"]
+[Result "*"]
+[ECO "B90"]
+[PlyCount "31"]
+[EventDate "2023.??.??"]
+[EventType "match"]
+[EventRounds "15"]
+[Source "SC"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Be3 e5 7. Nb3 Be6 8. f3
+h5 9. Qd2 Nbd7 10. Nd5 Bxd5 11. exd5 g6 12. Be2 Bg7 13. Na5 Rb8 14. O-O e4 15.
+Nc4 O-O 16. f4 *
+

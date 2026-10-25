@@ -46,13 +46,16 @@ CONCURRENCY = 4
 TIME_CONTROL = "inf"
 TOURNAMENT_TYPE = "round-robin"
 PGN_OUT = "games.pgn"
+OPENINGS_FILE = Path(REPO_ROOT / "opening_books/Unique_v170623.pgn")
+GAMES = 2
 
 
 def resolve_and_provision_sha(ref: str) -> tuple[str, Path]:
     """Resolve `ref` to a short SHA and ensure a worktree exists for it.
 
-    Worktrees are cached at WORKTREE_ROOT/<short-sha>/. If the directory
-    already exists we skip both `git worktree add` and `uv sync` — first
+    Worktrees are cached at WORKTREE_ROOT/<short-sha>/. If the worktree directory is populated,
+    we skip both `git worktree add` and `uv sync`. If the worktree direcotry exists but
+    is not populated, we remove the directory and prune worktrees before rebuilding. First
     invocation for a SHA takes ~10s, subsequent invocations are free.
     """
     short_sha = subprocess.run(
@@ -64,8 +67,11 @@ def resolve_and_provision_sha(ref: str) -> tuple[str, Path]:
     ).stdout.strip()
 
     worktree_path = WORKTREE_ROOT / short_sha
-    if worktree_path.exists():
+    if worktree_path.exists() and Path.is_file(Path(worktree_path / ".git")):
         return short_sha, worktree_path
+    elif worktree_path.exists():
+        shutil.rmtree(worktree_path)
+        subprocess.run(["git", "worktree", "prune"], cwd=REPO_ROOT)
 
     WORKTREE_ROOT.mkdir(parents=True, exist_ok=True)
     # --detach avoids polluting the branch list with worktree-owned refs.
@@ -132,6 +138,12 @@ def build_cutechess_command(engine_blocks: list[list[str]]) -> list[str]:
             str(CONCURRENCY),
             "-pgnout",
             PGN_OUT,
+            "-openings",
+            f"file={OPENINGS_FILE}",
+            "format=pgn",
+            "order=random",
+            "-games",
+            str(GAMES),
         ]
     )
     return cmd
@@ -170,6 +182,11 @@ def main() -> None:
     if len(set(short_shas)) != len(short_shas):
         dupes = sorted({s for s in short_shas if short_shas.count(s) > 1})
         sys.exit(f"Duplicate SHAs (refs resolve to same commit): {dupes}")
+
+    external_engines = [Path(e).name for e in args.external]
+    if len(set(external_engines)) != len(external_engines):
+        dupes = sorted(e for e in external_engines if external_engines.count(e) > 1)
+        sys.exit(f"Duplicate external engines: {dupes}")
 
     engine_blocks: list[list[str]] = []
     for short_sha, worktree_path in resolved:
