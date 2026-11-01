@@ -98,7 +98,6 @@ SEARCHES = {
 EVALS = {
     "materialistic": materialistic_position_eval,
 }
-DEFAULT_DEPTH_LIMIT = 5
 
 
 def uci_to_move(move: str) -> Move:
@@ -236,17 +235,15 @@ def emit(line: str) -> None:
 
 def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch) -> None:
     """Run engine given UCI go command parameters and print bestmove to stdout given
-    input parameters. Currently limited functionality - returns fixed-depth best move
-    search ignoring parameters of UCI Go command.
-    """
+    input parameters. Currently limited functionality: supports {w/b}time, {w/b}inc, movestogo, movetime,
+    depth. Does not support UCI spec outside these args."""
     start_time = time.monotonic()
 
     time_params = (go.wtime, go.winc) if position.side_to_move == Color.WHITE else (go.btime, go.binc)
     time_budget = budget_time(*time_params, go.movetime, go.movestogo)
     deadline = start_time + time_budget / 1000 if time_budget is not None else None
-    depth_limit = go.depth if go.depth else DEFAULT_DEPTH_LIMIT
-    context = SearchContext(deadline=deadline) if deadline else SearchContext(depth_limit=depth_limit)
 
+    context = SearchContext(deadline=deadline if deadline else None, depth_limit=go.depth if go.depth else None)
     move = search_fn(position, context=context)
     if not move:
         move = "0000"  # accepted terminal position output per UCI spec.
@@ -308,7 +305,7 @@ if __name__ == "__main__":
     parser.add_argument("--eval", required=True, help="The evaluation function to be used in the engine")
     parser.add_argument("--search", required=True, help="The search function to be used in the engine")
 
-    args = parser.parse_args()  # - --search minimax --eval material --depth 3
+    args = parser.parse_args()  # - --search minimax --eval material
     eval = EVALS[args.eval]
 
     search: ConfiguredSearch = partial(SEARCHES[args.search], position_evaluator=eval)

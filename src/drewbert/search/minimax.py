@@ -13,10 +13,8 @@ CHECKMATE_SCORE = 10000000
 STALEMATE_SCORE = 0
 
 
-class SearchTimeout(BaseException):
-    def __init__(self):
-        super().__init__()
-        self.message = "Deadline has been exceeded"
+class SearchTimeout(Exception):
+    """Raised inside search when the deadline passes, caught by the iterative deepening driver"""
 
 
 @dataclass
@@ -50,13 +48,14 @@ def minimax(
     In case of multiple checkmates in the search tree, uses minimal plies_from_root value to prioritize
     faster checkmate.
 
-    CURRENTLY, if deadline is reached prior to move being reached, returns None.
+    raises SearchTimeout if time.monotonic() exceeds the deadline defined in context.
     """
 
+    node_check_frequency = 300
     context.nodes_computed += 1
 
-    if context.deadline and context.nodes_computed % 1000 == 0 and time.monotonic() >= context.deadline:
-        raise SearchTimeout()
+    if context.deadline and context.nodes_computed % node_check_frequency == 0 and time.monotonic() >= context.deadline:
+        raise SearchTimeout("Deadline has been exceeded")
 
     legal_moves = generate_legal_moves(position)
     if not legal_moves:
@@ -110,6 +109,16 @@ def best_move(
 def best_move_iterative_deepening(
     position: Position, position_evaluator: PositionEvalFn, context: SearchContext
 ) -> Move | None:
+    """Provide the best move in the given position. Iterates through increasing depth, storing the best result
+    from each completed depth.
+
+    Terminates based on signals from context.depth_limit or context.deadline that need to be passed in
+    by any driver.
+
+    Always completes depth=1 search to return a valid move, regardless of deadline passed by driver.
+
+    Raises a ValueError if neither context.depth_limit nor context.deadline are defined.
+    """
 
     if not context.deadline and not context.depth_limit:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
@@ -117,8 +126,12 @@ def best_move_iterative_deepening(
     # fresh context for depth=1 case so deadline isn't a concern and a move is always returned.
     curr_best_move = best_move(position=position, position_evaluator=position_evaluator, depth=1)
 
+    # return early for terminal positions
+    if curr_best_move is None:
+        return None
+
     depth = 2
-    while depth >= 1:
+    while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
         try:
             curr_best_move = best_move(
                 position=position, position_evaluator=position_evaluator, context=context, depth=depth
