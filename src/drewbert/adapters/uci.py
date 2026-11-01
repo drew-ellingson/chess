@@ -243,7 +243,7 @@ def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch)
 
     time_params = (go.wtime, go.winc) if position.side_to_move == Color.WHITE else (go.btime, go.binc)
     time_budget = budget_time(*time_params, go.movetime, go.movestogo)
-    deadline = start_time + time_budget // 1000 if time_budget else None
+    deadline = start_time + time_budget / 1000 if time_budget is not None else None
     depth_limit = go.depth if go.depth else DEFAULT_DEPTH_LIMIT
     context = SearchContext(deadline=deadline) if deadline else SearchContext(depth_limit=depth_limit)
 
