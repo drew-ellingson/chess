@@ -1,8 +1,8 @@
 def budget_time(
     remaining_ms: int | None, increment_ms: int | None, move_time: int | None, moves_to_go: int | None = None
 ) -> int | None:
-    """Calculate how much time to spend on a given move from information contained in the UCI Go command. Return time in ms
-    if the result is well determined; return None if not.
+    """Calculate how much time to spend on a given move from information contained in the UCI Go command. Return time in
+    ms if the result is well determined; return None if not.
 
     If multiple contexts exist in the UCI Go for time calculation, return the smallest provided budget value"""
 

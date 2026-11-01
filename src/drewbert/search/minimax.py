@@ -111,8 +111,8 @@ def best_move_iterative_deepening(
     position: Position, position_evaluator: PositionEvalFn, context: SearchContext
 ) -> Move | None:
 
-    if not context.deadline:
-        raise ValueError("Deadline must be set to use iterative deepening")
+    if not context.deadline and not context.depth_limit:
+        raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
     # fresh context for depth=1 case so deadline isn't a concern and a move is always returned.
     curr_best_move = best_move(position=position, position_evaluator=position_evaluator, depth=1)
