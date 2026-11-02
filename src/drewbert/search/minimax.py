@@ -1,44 +1,13 @@
 import time
-from collections.abc import Callable
-from dataclasses import dataclass
 from functools import partial
-from typing import Any
 
 from drewbert.core.helpers import move_applied
 from drewbert.core.movegen import generate_legal_moves, is_in_check
 from drewbert.core.position import Color, Move, Position
-from drewbert.search.types import PositionEvalFn
+from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult, SearchTimeout
 
 CHECKMATE_SCORE = 10000000
 STALEMATE_SCORE = 0
-
-
-class SearchTimeout(Exception):
-    """Raised inside search when the deadline passes, caught by the iterative deepening driver"""
-
-
-@dataclass
-class SearchContext:
-    deadline: float | None = None
-    nodes_computed: int = 0
-    depth_limit: int | None = None
-    curr_best_move: Move | None = None
-
-
-@dataclass(frozen=True)
-class SearchResult:
-    """Search result data and metadata. Max depth reached returns the largest _completed_ search depth.
-    search_time returns the total search time in seconds, ignoring any latency from the call site."""
-
-    move: Move | None
-    nodes_computed: int
-    max_depth_reached: int
-    search_time: float
-
-
-def _optimization_fn(position: Position) -> Callable[..., Any]:
-    """return max or min depending on side to move. white wants to maximize eval, black to minimize"""
-    return max if position.side_to_move == Color.WHITE else min
 
 
 def _score_cand_move(position: Position, move: Move, search_fn: PositionEvalFn) -> int:
@@ -112,7 +81,7 @@ def minimax(
                 if plies_from_root == 0:
                     context.curr_best_move = move
                 alpha = max(alpha, curr_eval)
-            if beta <= alpha:
+            if beta < alpha:
                 break
         return max_eval
     else:
@@ -135,7 +104,7 @@ def minimax(
                 if plies_from_root == 0:
                     context.curr_best_move = move
                 beta = min(beta, curr_eval)
-            if beta <= alpha:
+            if beta < alpha:
                 break
         return min_eval
 

@@ -11,8 +11,9 @@ from drewbert.core.move import Move
 from drewbert.core.position import Position
 from drewbert.core.types import Color
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import SearchContext, SearchResult, best_move
+from drewbert.search.minimax import best_move
 from drewbert.search.time_management import budget_time
+from drewbert.search.types import SearchContext, SearchResult
 
 
 @dataclass(frozen=True)
