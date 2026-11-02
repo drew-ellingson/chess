@@ -1,5 +1,4 @@
 """Chess engine tournament harness.
-
 Runs a cutechess-cli match between N drewbert commits and/or M external UCI
 engines. Requires >=2 total engines.
 

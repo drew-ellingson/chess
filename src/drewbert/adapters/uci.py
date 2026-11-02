@@ -93,7 +93,7 @@ UciCommand = (
 )
 
 SEARCHES = {
-    "minimax": best_move,
+    "negamax": best_move,
 }
 EVALS = {
     "materialistic": materialistic_position_eval,
@@ -309,7 +309,7 @@ if __name__ == "__main__":
     parser.add_argument("--eval", required=True, help="The evaluation function to be used in the engine")
     parser.add_argument("--search", required=True, help="The search function to be used in the engine")
 
-    args = parser.parse_args()  # - --search minimax --eval material
+    args = parser.parse_args()  # - --search negamax --eval material
     eval = EVALS[args.eval]
 
     search: ConfiguredSearch = partial(SEARCHES[args.search], position_evaluator=eval)
