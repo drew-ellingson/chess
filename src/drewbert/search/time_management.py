@@ -6,7 +6,7 @@ def budget_time(
 
     If multiple contexts exist in the UCI Go for time calculation, return the smallest provided budget value"""
 
-    latency_budget_ms = 100
+    latency_budget_ms = 250
     moves_remaining_default = 30
 
     calc_time = None
