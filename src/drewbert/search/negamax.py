@@ -20,7 +20,7 @@ def _score_cand_move(position: Position, move: Move, search_fn: PositionEvalFn) 
     return val
 
 
-def minimax(
+def negamax(
     position: Position,
     position_evaluator: PositionEvalFn,
     context: SearchContext,
@@ -38,6 +38,7 @@ def minimax(
     raises SearchTimeout if time.monotonic() exceeds the deadline defined in context.
     """
 
+    sign = 1 if position.side_to_move == Color.WHITE else -1
     node_check_frequency = 300
     context.nodes_computed += 1
 
@@ -50,63 +51,33 @@ def minimax(
         if not is_in_check(position, position.side_to_move):
             return STALEMATE_SCORE
         else:
-            return (
-                -CHECKMATE_SCORE + plies_from_root
-                if position.side_to_move == Color.WHITE
-                else CHECKMATE_SCORE - plies_from_root
-            )
+            return -CHECKMATE_SCORE + plies_from_root
 
     # base case - end of recursion
     if depth == 0:
         curr_eval = position_evaluator(position)
-        return curr_eval
+        return sign * curr_eval
 
-    if position.side_to_move == Color.WHITE:
-        max_eval = -CHECKMATE_SCORE
-        for move in legal_moves:
-            # recursive case - handle position state management and make the recursive call
-            search_fn = partial(
-                minimax,
-                position_evaluator=position_evaluator,
-                context=context,
-                depth=depth - 1,
-                alpha=alpha,
-                beta=beta,
-                plies_from_root=plies_from_root + 1,
-            )
-
-            curr_eval = _score_cand_move(position, move, search_fn)
-            if curr_eval >= max_eval:
-                max_eval = curr_eval
-                if plies_from_root == 0:
-                    context.curr_best_move = move
-                alpha = max(alpha, curr_eval)
-            if beta < alpha:
-                break
-        return max_eval
-    else:
-        min_eval = CHECKMATE_SCORE
-        for move in legal_moves:
-            # recursive case - handle position state management and make the recursive call
-            search_fn = partial(
-                minimax,
-                position_evaluator=position_evaluator,
-                context=context,
-                depth=depth - 1,
-                alpha=alpha,
-                beta=beta,
-                plies_from_root=plies_from_root + 1,
-            )
-
-            curr_eval = _score_cand_move(position, move, search_fn)
-            if curr_eval <= min_eval:
-                min_eval = curr_eval
-                if plies_from_root == 0:
-                    context.curr_best_move = move
-                beta = min(beta, curr_eval)
-            if beta < alpha:
-                break
-        return min_eval
+    max_eval = -CHECKMATE_SCORE
+    for move in legal_moves:
+        search_fn = partial(
+            negamax,
+            position_evaluator=position_evaluator,
+            context=context,
+            depth=depth - 1,
+            alpha=-beta,
+            beta=-alpha,
+            plies_from_root=plies_from_root + 1,
+        )
+        curr_eval = -1 * _score_cand_move(position, move, search_fn)
+        if curr_eval > max_eval:
+            max_eval = curr_eval
+            if plies_from_root == 0:
+                context.curr_best_move = move
+        alpha = max(alpha, curr_eval)
+        if alpha >= beta:
+            break
+    return max_eval
 
 
 def best_move(position: Position, position_evaluator: PositionEvalFn, context: SearchContext) -> SearchResult:
@@ -126,7 +97,7 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
     if context.deadline is None and context.depth_limit is None:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
-    minimax(position=position, position_evaluator=position_evaluator, context=context, depth=1)
+    negamax(position=position, position_evaluator=position_evaluator, context=context, depth=1)
     curr_best_move = context.curr_best_move
 
     # return early for terminal positions or low-depth calls
@@ -136,7 +107,7 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
     depth = 2
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
         try:
-            minimax(position=position, position_evaluator=position_evaluator, context=context, depth=depth)
+            negamax(position=position, position_evaluator=position_evaluator, context=context, depth=depth)
             curr_best_move = context.curr_best_move
         except SearchTimeout:
             depth = depth - 1  # decrement 1 to report completed depth only

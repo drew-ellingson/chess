@@ -24,7 +24,7 @@ from drewbert.core.movegen import generate_legal_moves, is_in_check
 from drewbert.core.position import Color, Position
 from drewbert.core.types import PieceType
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import best_move
+from drewbert.search.negamax import best_move
 from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult
 
 DEPTH_LIMIT = 4
