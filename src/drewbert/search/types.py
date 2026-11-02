@@ -13,6 +13,13 @@ class SearchTimeout(Exception):
 
 @dataclass
 class SearchContext:
+    """Context object for tracking running call context information and for storing in-progress search
+    values.
+    deadline and depth_limit are search params passed in from a call site.
+
+    curr_best_move is used to track the current best candidate move. It isn't trustworth until and
+    unless a given depth of search is completed."""
+
     deadline: float | None = None
     nodes_computed: int = 0
     depth_limit: int | None = None

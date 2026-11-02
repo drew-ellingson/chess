@@ -15,8 +15,8 @@ def negamax(
     position_evaluator: PositionEvalFn,
     context: SearchContext,
     depth: int,
-    alpha: float = -CHECKMATE_SCORE,
-    beta: float = CHECKMATE_SCORE,
+    alpha: int = -CHECKMATE_SCORE,
+    beta: int = CHECKMATE_SCORE,
     plies_from_root: int = 0,
 ) -> int:
     """Recursively traverse move tree, assuming optimal play at each point by both sides relative to given
@@ -26,7 +26,7 @@ def negamax(
     faster checkmate.
 
     Uses alpha/beta pruning to identify branches of the search tree to skip. Values are set internally and don't
-    need to be supplied from the call site.
+    need to be supplied from the call site. (Alpha, Beta) windows are bounds rather than exact values.
 
     Writes context.curr_best_move on root nodes if score is better than the current visited max_value.
     It's a side effect but sue me.
@@ -41,12 +41,7 @@ def negamax(
     context.nodes_computed += 1
 
     # require depth > 1 so engine always returns at least the best root move.
-    if (
-        depth > 1
-        and context.deadline
-        and context.nodes_computed % NODE_CHECK_FREQUENCY == 0
-        and time.monotonic() >= context.deadline
-    ):
+    if context.deadline and context.nodes_computed % NODE_CHECK_FREQUENCY == 0 and time.monotonic() >= context.deadline:
         raise SearchTimeout("Deadline has been exceeded")
 
     legal_moves = generate_legal_moves(position)
@@ -103,8 +98,10 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
     if context.deadline is None and context.depth_limit is None:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
-    negamax(position=position, position_evaluator=position_evaluator, context=context, depth=1)
-    curr_best_move = context.curr_best_move
+    # fresh context for depth 1 case to allow depth 1 to always finish regardless of time control
+    depth_1_context = SearchContext()
+    negamax(position=position, position_evaluator=position_evaluator, context=depth_1_context, depth=1)
+    curr_best_move = depth_1_context.curr_best_move
 
     # return early for terminal positions or low-depth calls
     if curr_best_move is None or (context.depth_limit is not None and context.depth_limit <= 1):
@@ -123,4 +120,6 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
 
         depth += 1
 
-    return SearchResult(curr_best_move, context.nodes_computed, depth, time.monotonic() - start_time)
+    return SearchResult(
+        curr_best_move, context.nodes_computed + depth_1_context.nodes_computed, depth, time.monotonic() - start_time
+    )
