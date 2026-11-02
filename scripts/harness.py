@@ -26,7 +26,7 @@ REPO_ROOT = Path(__file__).parent.parent.resolve()
 WORKTREE_ROOT = Path("/tmp/drewbert-worktrees")
 DREWBERT_MODULE = "drewbert.adapters.uci"
 
-DREWBERT_ARGS = ["--eval", "materialistic", "--search", "minimax"]
+DREWBERT_ARGS = ["--eval", "materialistic", "--search", "negamax"]
 # UCI options set on external engines at init time, keyed by resolved binary
 # name. Values are stringified for cute-chess's `option.NAME=VALUE` syntax.
 # Empty dict for unlisted engines. Grow as use cases appear.

@@ -26,8 +26,8 @@ def negamax(
     faster checkmate.
 
     Uses alpha/beta pruning to identify branches of the search tree to skip. Values are set internally and don't
-    need to be supplied from the call site. (Alpha, Beta) windows are bounds rather than exact values.
-
+    need to be supplied from the call site. (Alpha, Beta) represent score-guarantee bounds. a return value is only
+    exact when it falls within in (-inf, alpha) or (beta, inf
     Writes context.curr_best_move on root nodes if score is better than the current visited max_value.
     It's a side effect but sue me.
 
@@ -40,7 +40,6 @@ def negamax(
     sign = 1 if position.side_to_move == Color.WHITE else -1
     context.nodes_computed += 1
 
-    # require depth > 1 so engine always returns at least the best root move.
     if context.deadline and context.nodes_computed % NODE_CHECK_FREQUENCY == 0 and time.monotonic() >= context.deadline:
         raise SearchTimeout("Deadline has been exceeded")
 
@@ -105,7 +104,9 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
 
     # return early for terminal positions or low-depth calls
     if curr_best_move is None or (context.depth_limit is not None and context.depth_limit <= 1):
-        return SearchResult(curr_best_move, context.nodes_computed, 1, time.monotonic() - start_time)
+        return SearchResult(
+            curr_best_move, context.nodes_computed + depth_1_context.nodes_computed, 1, time.monotonic() - start_time
+        )
 
     depth = 2
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
