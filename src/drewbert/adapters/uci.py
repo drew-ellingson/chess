@@ -94,6 +94,9 @@ UciCommand = (
 
 SEARCHES = {
     "negamax": best_move,
+    # Alias kept so scripts/harness.py can pass one --search name to every SHA, including
+    # those from before the minimax -> negamax rename. Remove once those SHAs are no longer compared.
+    "minimax": best_move,
 }
 EVALS = {
     "materialistic": materialistic_position_eval,
