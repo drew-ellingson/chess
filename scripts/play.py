@@ -24,9 +24,10 @@ from drewbert.core.movegen import generate_legal_moves, is_in_check
 from drewbert.core.position import Color, Position
 from drewbert.core.types import PieceType
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import best_move
+from drewbert.search.minimax import SearchContext, SearchResult, best_move
 from drewbert.search.types import PositionEvalFn
 
+DEPTH_LIMIT = 4
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 # Registries. Add new search/eval modules here to make them selectable from the CLI.
@@ -35,7 +36,9 @@ STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 EVALS: dict[str, PositionEvalFn] = {
     "material": materialistic_position_eval,
 }
-SearchFn = Callable[[Position, PositionEvalFn, int], Move | None]
+
+context = SearchContext(depth_limit=DEPTH_LIMIT)
+SearchFn = Callable[[Position, PositionEvalFn, SearchContext], SearchResult]
 SEARCHES: dict[str, SearchFn] = {
     "minimax": best_move,
 }
@@ -138,7 +141,7 @@ def main() -> int:
             print(f"  you played: {move!r}")
         else:
             print(f"  engine thinking (depth {args.depth})...")
-            move = search_fn(position, eval_fn, args.depth)
+            move = search_fn(position, eval_fn, args.depth).move
             assert move is not None, "search returned None despite non-empty legal_moves"
             print(f"  engine plays: {move!r}")
 

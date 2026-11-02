@@ -22,6 +22,7 @@ class SearchContext:
     deadline: float | None = None
     nodes_computed: int = 0
     depth_limit: int | None = None
+    curr_best_move: Move | None = None
 
 
 @dataclass(frozen=True)
@@ -51,7 +52,13 @@ def _score_cand_move(position: Position, move: Move, search_fn: PositionEvalFn) 
 
 
 def minimax(
-    position: Position, position_evaluator: PositionEvalFn, context: SearchContext, depth: int, plies_from_root: int = 0
+    position: Position,
+    position_evaluator: PositionEvalFn,
+    context: SearchContext,
+    depth: int,
+    alpha: float = -CHECKMATE_SCORE,
+    beta: float = CHECKMATE_SCORE,
+    plies_from_root: int = 0,
 ) -> int:
     """recursively traverse move tree, assuming optimal play at each point by both sides relative to given
     evaluation function.
@@ -85,41 +92,55 @@ def minimax(
         curr_eval = position_evaluator(position)
         return curr_eval
 
-    # recursive case - handle position state management and make the recursive call
-    search_fn = partial(
-        minimax,
-        position_evaluator=position_evaluator,
-        context=context,
-        depth=depth - 1,
-        plies_from_root=plies_from_root + 1,
-    )
-    return _optimization_fn(position)(_score_cand_move(position, move, search_fn) for move in legal_moves)
+    if position.side_to_move == Color.WHITE:
+        max_eval = -CHECKMATE_SCORE
+        for move in legal_moves:
+            # recursive case - handle position state management and make the recursive call
+            search_fn = partial(
+                minimax,
+                position_evaluator=position_evaluator,
+                context=context,
+                depth=depth - 1,
+                alpha=alpha,
+                beta=beta,
+                plies_from_root=plies_from_root + 1,
+            )
+
+            curr_eval = _score_cand_move(position, move, search_fn)
+            if curr_eval >= max_eval:
+                max_eval = curr_eval
+                if plies_from_root == 0:
+                    context.curr_best_move = move
+                alpha = max(alpha, curr_eval)
+            if beta <= alpha:
+                break
+        return max_eval
+    else:
+        min_eval = CHECKMATE_SCORE
+        for move in legal_moves:
+            # recursive case - handle position state management and make the recursive call
+            search_fn = partial(
+                minimax,
+                position_evaluator=position_evaluator,
+                context=context,
+                depth=depth - 1,
+                alpha=alpha,
+                beta=beta,
+                plies_from_root=plies_from_root + 1,
+            )
+
+            curr_eval = _score_cand_move(position, move, search_fn)
+            if curr_eval <= min_eval:
+                min_eval = curr_eval
+                if plies_from_root == 0:
+                    context.curr_best_move = move
+                beta = min(beta, curr_eval)
+            if beta <= alpha:
+                break
+        return min_eval
 
 
-def best_move(
-    position: Position, position_evaluator: PositionEvalFn, depth: int, context: SearchContext | None = None
-) -> Move | None:
-    """Given a position and a move evaluation function, return the first move in the optimal branch of
-    the minimax search at given depth. White is maximizing board eval, Black is minimizing it.
-    """
-
-    # initialize context object if not provided from uci adapter / other drivers
-    if not context:
-        context = SearchContext()
-
-    legal_moves = generate_legal_moves(position)
-    if not legal_moves:
-        return None
-
-    search_fn = partial(
-        minimax, position_evaluator=position_evaluator, context=context, depth=depth - 1, plies_from_root=1
-    )
-    return _optimization_fn(position)(legal_moves, key=lambda m: _score_cand_move(position, m, search_fn))
-
-
-def best_move_iterative_deepening(
-    position: Position, position_evaluator: PositionEvalFn, context: SearchContext
-) -> SearchResult:
+def best_move(position: Position, position_evaluator: PositionEvalFn, context: SearchContext) -> SearchResult:
     """Provide a SearchResult object containing best move in the given position, as well as metadata surrounding the
     search. Iterates through increasing depth, storing the best result from each completed depth.
 
@@ -136,22 +157,18 @@ def best_move_iterative_deepening(
     if context.deadline is None and context.depth_limit is None:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
-    depth_1_context = SearchContext()
-    # fresh context for depth=1 case so deadline isn't a concern and a move is always returned.
-    curr_best_move = best_move(
-        position=position, position_evaluator=position_evaluator, context=depth_1_context, depth=1
-    )
+    minimax(position=position, position_evaluator=position_evaluator, context=context, depth=1)
+    curr_best_move = context.curr_best_move
 
     # return early for terminal positions or low-depth calls
     if curr_best_move is None or (context.depth_limit is not None and context.depth_limit <= 1):
-        return SearchResult(curr_best_move, depth_1_context.nodes_computed, 1, time.monotonic() - start_time)
+        return SearchResult(curr_best_move, context.nodes_computed, 1, time.monotonic() - start_time)
 
     depth = 2
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
         try:
-            curr_best_move = best_move(
-                position=position, position_evaluator=position_evaluator, context=context, depth=depth
-            )
+            minimax(position=position, position_evaluator=position_evaluator, context=context, depth=depth)
+            curr_best_move = context.curr_best_move
         except SearchTimeout:
             depth = depth - 1  # decrement 1 to report completed depth only
             break
@@ -160,6 +177,4 @@ def best_move_iterative_deepening(
 
         depth += 1
 
-    return SearchResult(
-        curr_best_move, context.nodes_computed + depth_1_context.nodes_computed, depth, time.monotonic() - start_time
-    )
+    return SearchResult(curr_best_move, context.nodes_computed, depth, time.monotonic() - start_time)
