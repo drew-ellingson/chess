@@ -1,4 +1,6 @@
+import time
 from collections.abc import Callable
+from dataclasses import dataclass
 from functools import partial
 from typing import Any
 
@@ -9,6 +11,17 @@ from drewbert.search.types import PositionEvalFn
 
 CHECKMATE_SCORE = 10000000
 STALEMATE_SCORE = 0
+
+
+class SearchTimeout(Exception):
+    """Raised inside search when the deadline passes, caught by the iterative deepening driver"""
+
+
+@dataclass
+class SearchContext:
+    deadline: float | None = None
+    nodes_computed: int = 0
+    depth_limit: int | None = None
 
 
 def _optimization_fn(position: Position) -> Callable[..., Any]:
@@ -26,13 +39,23 @@ def _score_cand_move(position: Position, move: Move, search_fn: PositionEvalFn) 
     return val
 
 
-def minimax(position: Position, position_evaluator: PositionEvalFn, depth: int, plies_from_root: int = 0) -> int:
+def minimax(
+    position: Position, position_evaluator: PositionEvalFn, context: SearchContext, depth: int, plies_from_root: int = 0
+) -> int:
     """recursively traverse move tree, assuming optimal play at each point by both sides relative to given
     evaluation function.
     Returns +- CHECKMATE_SCORE sentinel in case of checkmate. Returns STALEMATE_SCORE in case of stalemate
     In case of multiple checkmates in the search tree, uses minimal plies_from_root value to prioritize
     faster checkmate.
+
+    raises SearchTimeout if time.monotonic() exceeds the deadline defined in context.
     """
+
+    node_check_frequency = 300
+    context.nodes_computed += 1
+
+    if context.deadline and context.nodes_computed % node_check_frequency == 0 and time.monotonic() >= context.deadline:
+        raise SearchTimeout("Deadline has been exceeded")
 
     legal_moves = generate_legal_moves(position)
     if not legal_moves:
@@ -53,19 +76,71 @@ def minimax(position: Position, position_evaluator: PositionEvalFn, depth: int, 
 
     # recursive case - handle position state management and make the recursive call
     search_fn = partial(
-        minimax, position_evaluator=position_evaluator, depth=depth - 1, plies_from_root=plies_from_root + 1
+        minimax,
+        position_evaluator=position_evaluator,
+        context=context,
+        depth=depth - 1,
+        plies_from_root=plies_from_root + 1,
     )
     return _optimization_fn(position)(_score_cand_move(position, move, search_fn) for move in legal_moves)
 
 
-def best_move(position: Position, position_evaluator: PositionEvalFn, depth: int) -> Move | None:
+def best_move(
+    position: Position, position_evaluator: PositionEvalFn, depth: int, context: SearchContext | None = None
+) -> Move | None:
     """Given a position and a move evaluation function, return the first move in the optimal branch of
     the minimax search at given depth. White is maximizing board eval, Black is minimizing it.
     """
+
+    # initialize context object if not provided from uci adapter / other drivers
+    if not context:
+        context = SearchContext()
 
     legal_moves = generate_legal_moves(position)
     if not legal_moves:
         return None
 
-    search_fn = partial(minimax, position_evaluator=position_evaluator, depth=depth - 1, plies_from_root=1)
+    search_fn = partial(
+        minimax, position_evaluator=position_evaluator, context=context, depth=depth - 1, plies_from_root=1
+    )
     return _optimization_fn(position)(legal_moves, key=lambda m: _score_cand_move(position, m, search_fn))
+
+
+def best_move_iterative_deepening(
+    position: Position, position_evaluator: PositionEvalFn, context: SearchContext
+) -> Move | None:
+    """Provide the best move in the given position. Iterates through increasing depth, storing the best result
+    from each completed depth.
+
+    Terminates based on signals from context.depth_limit or context.deadline that need to be passed in
+    by any driver.
+
+    Always completes depth=1 search to return a valid move, regardless of deadline passed by driver.
+
+    Raises a ValueError if neither context.depth_limit nor context.deadline are defined.
+    """
+
+    if not context.deadline and not context.depth_limit:
+        raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
+
+    # fresh context for depth=1 case so deadline isn't a concern and a move is always returned.
+    curr_best_move = best_move(position=position, position_evaluator=position_evaluator, depth=1)
+
+    # return early for terminal positions
+    if curr_best_move is None:
+        return None
+
+    depth = 2
+    while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
+        try:
+            curr_best_move = best_move(
+                position=position, position_evaluator=position_evaluator, context=context, depth=depth
+            )
+        except SearchTimeout:
+            break
+        if context.depth_limit and depth == context.depth_limit:
+            break
+
+        depth += 1
+
+    return curr_best_move

@@ -28,8 +28,6 @@ ENGINE_CMD: list[str] = [
     "materialistic",
     "--search",
     "minimax",
-    "--depth",
-    "2",  # shallow enough to keep test wall-clock low
 ]
 
 

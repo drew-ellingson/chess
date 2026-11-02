@@ -1,15 +1,18 @@
 import argparse
 import sys
+import time
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from functools import partial
-from typing import assert_never
+from typing import Protocol, assert_never
 
 from drewbert.adapters.fen import FEN_TO_POS, STARTING_FEN, alg_sq_to_int, parse_fen
 from drewbert.core.move import Move
 from drewbert.core.position import Position
+from drewbert.core.types import Color
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import best_move
+from drewbert.search.minimax import SearchContext, best_move_iterative_deepening
+from drewbert.search.time_management import budget_time
 
 
 @dataclass(frozen=True)
@@ -71,6 +74,11 @@ class UciUnrecognized:
     content: list[str]
 
 
+class ConfiguredSearch(Protocol):
+    def __call__(self, position: Position, /, *, context: SearchContext) -> Move | None:
+        pass
+
+
 UciCommand = (
     UciQuit
     | UciUci
@@ -83,10 +91,9 @@ UciCommand = (
     | UciPonderHit
     | UciUnrecognized
 )
-ConfiguredSearch = Callable[[Position], Move | None]
 
 SEARCHES = {
-    "minimax": best_move,
+    "minimax": best_move_iterative_deepening,
 }
 EVALS = {
     "materialistic": materialistic_position_eval,
@@ -228,10 +235,16 @@ def emit(line: str) -> None:
 
 def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch) -> None:
     """Run engine given UCI go command parameters and print bestmove to stdout given
-    input parameters. Currently limited functionality - returns fixed-depth best move
-    search ignoring parameters of UCI Go command.
-    """
-    move = search_fn(position)
+    input parameters. Currently limited functionality: supports {w/b}time, {w/b}inc, movestogo, movetime,
+    depth. Does not support UCI spec outside these args."""
+    start_time = time.monotonic()
+
+    time_params = (go.wtime, go.winc) if position.side_to_move == Color.WHITE else (go.btime, go.binc)
+    time_budget = budget_time(*time_params, go.movetime, go.movestogo)
+    deadline = start_time + time_budget / 1000 if time_budget is not None else None
+
+    context = SearchContext(deadline=deadline if deadline else None, depth_limit=go.depth if go.depth else None)
+    move = search_fn(position, context=context)
     if not move:
         move = "0000"  # accepted terminal position output per UCI spec.
     emit(f"bestmove {str(move)}")
@@ -291,12 +304,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("Engine Configuration")
     parser.add_argument("--eval", required=True, help="The evaluation function to be used in the engine")
     parser.add_argument("--search", required=True, help="The search function to be used in the engine")
-    parser.add_argument(
-        "--depth", type=int, default=3, help="The fixed depth setting to be used in the search function"
-    )
 
-    args = parser.parse_args()  # - --search minimax --eval material --depth 3
+    args = parser.parse_args()  # - --search minimax --eval material
     eval = EVALS[args.eval]
 
-    search: ConfiguredSearch = partial(SEARCHES[args.search], depth=args.depth, position_evaluator=eval)
+    search: ConfiguredSearch = partial(SEARCHES[args.search], position_evaluator=eval)
     main(search)

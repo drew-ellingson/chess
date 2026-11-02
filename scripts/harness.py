@@ -26,14 +26,7 @@ REPO_ROOT = Path(__file__).parent.parent.resolve()
 WORKTREE_ROOT = Path("/tmp/drewbert-worktrees")
 DREWBERT_MODULE = "drewbert.adapters.uci"
 
-# Search depth threaded into both drewbert's --depth flag and cute-chess's
-# `-each depth` tournament setting. The latter is what stops fixed-depth
-# externals (Stockfish) from thinking forever under tc=inf. Drewbert ignores
-# `go depth N` and uses its own --depth, so keeping these in sync is the
-# fairness invariant. Sunset both once drewbert honors real time controls.
-SEARCH_DEPTH = 2
-DREWBERT_ARGS = ["--eval", "materialistic", "--search", "minimax", "--depth", str(SEARCH_DEPTH)]
-
+DREWBERT_ARGS = ["--eval", "materialistic", "--search", "minimax"]
 # UCI options set on external engines at init time, keyed by resolved binary
 # name. Values are stringified for cute-chess's `option.NAME=VALUE` syntax.
 # Empty dict for unlisted engines. Grow as use cases appear.
@@ -41,9 +34,9 @@ EXTERNAL_OPTIONS: dict[str, dict[str, str]] = {
     "stockfish": {"Skill Level": "5"},
 }
 
-ROUNDS = 10
-CONCURRENCY = 4
-TIME_CONTROL = "inf"
+ROUNDS = 3
+CONCURRENCY = 8
+TIME_CONTROL = "10+0.3"
 TOURNAMENT_TYPE = "round-robin"
 PGN_OUT = "games.pgn"
 OPENINGS_FILE = Path(REPO_ROOT / "opening_books/Unique_v170623.pgn")
@@ -128,7 +121,6 @@ def build_cutechess_command(engine_blocks: list[list[str]]) -> list[str]:
             "-each",
             "proto=uci",
             f"tc={TIME_CONTROL}",
-            f"depth={SEARCH_DEPTH}",
             "-tournament",
             TOURNAMENT_TYPE,
             "-rounds",
