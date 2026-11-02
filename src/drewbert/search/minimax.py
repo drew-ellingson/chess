@@ -24,6 +24,14 @@ class SearchContext:
     depth_limit: int | None = None
 
 
+@dataclass(frozen=True)
+class SearchResult:
+    move: Move | None
+    nodes_computed: int
+    max_depth_reached: int
+    search_time: float
+
+
 def _optimization_fn(position: Position) -> Callable[..., Any]:
     """return max or min depending on side to move. white wants to maximize eval, black to minimize"""
     return max if position.side_to_move == Color.WHITE else min
@@ -108,7 +116,7 @@ def best_move(
 
 def best_move_iterative_deepening(
     position: Position, position_evaluator: PositionEvalFn, context: SearchContext
-) -> Move | None:
+) -> SearchResult:
     """Provide the best move in the given position. Iterates through increasing depth, storing the best result
     from each completed depth.
 
@@ -120,6 +128,8 @@ def best_move_iterative_deepening(
     Raises a ValueError if neither context.depth_limit nor context.deadline are defined.
     """
 
+    start_time = time.monotonic()
+
     if not context.deadline and not context.depth_limit:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
@@ -128,7 +138,7 @@ def best_move_iterative_deepening(
 
     # return early for terminal positions
     if curr_best_move is None:
-        return None
+        return SearchResult(curr_best_move, context.nodes_computed, 1, time.monotonic() - start_time)
 
     depth = 2
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
@@ -143,4 +153,4 @@ def best_move_iterative_deepening(
 
         depth += 1
 
-    return curr_best_move
+    return SearchResult(curr_best_move, context.nodes_computed, depth, time.monotonic() - start_time)
