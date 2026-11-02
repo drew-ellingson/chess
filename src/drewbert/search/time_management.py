@@ -6,7 +6,9 @@ def budget_time(
 
     If multiple contexts exist in the UCI Go for time calculation, return the smallest provided budget value"""
 
-    latency_budget_ms = 100
+    # 250ms covers all observed gaps between checks using a node_check_frequency value of 300.
+    # The worst observed gap was 212ms
+    latency_budget_ms = 250
     moves_remaining_default = 30
 
     calc_time = None

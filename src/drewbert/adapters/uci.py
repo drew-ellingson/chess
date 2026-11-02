@@ -11,7 +11,7 @@ from drewbert.core.move import Move
 from drewbert.core.position import Position
 from drewbert.core.types import Color
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import SearchContext, best_move_iterative_deepening
+from drewbert.search.minimax import SearchContext, SearchResult, best_move_iterative_deepening
 from drewbert.search.time_management import budget_time
 
 
@@ -75,8 +75,7 @@ class UciUnrecognized:
 
 
 class ConfiguredSearch(Protocol):
-    def __call__(self, position: Position, /, *, context: SearchContext) -> Move | None:
-        pass
+    def __call__(self, position: Position, /, *, context: SearchContext) -> SearchResult: ...
 
 
 UciCommand = (
@@ -98,6 +97,8 @@ SEARCHES = {
 EVALS = {
     "materialistic": materialistic_position_eval,
 }
+# used in cases where no time or depth info is passed as part of uci_go. defensive only.
+FALLBACK_DEPTH_LIMIT = 3
 
 
 def uci_to_move(move: str) -> Move:
@@ -243,10 +244,12 @@ def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch)
     time_budget = budget_time(*time_params, go.movetime, go.movestogo)
     deadline = start_time + time_budget / 1000 if time_budget is not None else None
 
-    context = SearchContext(deadline=deadline if deadline else None, depth_limit=go.depth if go.depth else None)
-    move = search_fn(position, context=context)
-    if not move:
-        move = "0000"  # accepted terminal position output per UCI spec.
+    depth_limit = go.depth if deadline is not None or go.depth is not None else FALLBACK_DEPTH_LIMIT
+    context = SearchContext(deadline=deadline if deadline else None, depth_limit=depth_limit)
+    result = search_fn(position, context=context)
+    move = result.move if result.move else "0000"  # accepted terminal position output per UCI spec.
+
+    emit(f"info depth {result.max_depth_reached} nodes {result.nodes_computed} time {int(1000 * result.search_time)}")
     emit(f"bestmove {str(move)}")
 
 
