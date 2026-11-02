@@ -31,7 +31,7 @@ DREWBERT_ARGS = ["--eval", "materialistic", "--search", "minimax"]
 # name. Values are stringified for cute-chess's `option.NAME=VALUE` syntax.
 # Empty dict for unlisted engines. Grow as use cases appear.
 EXTERNAL_OPTIONS: dict[str, dict[str, str]] = {
-    "stockfish": {"Skill Level": "5"},
+    "stockfish": {"Skill Level": "1"},
 }
 
 ROUNDS = 5

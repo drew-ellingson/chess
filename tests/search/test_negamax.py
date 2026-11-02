@@ -11,7 +11,8 @@ import pytest
 
 from drewbert.adapters.fen import parse_fen
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.negamax import SearchContext, best_move
+from drewbert.search.negamax import best_move
+from drewbert.search.types import SearchContext
 
 MATE_IN_1_PUZZLES = [
     # Back-rank: rook lift to a8, king smothered by own pawns.

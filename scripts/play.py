@@ -27,20 +27,17 @@ from drewbert.eval.materialistic import materialistic_position_eval
 from drewbert.search.negamax import best_move
 from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult
 
-DEPTH_LIMIT = 4
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
 # Registries. Add new search/eval modules here to make them selectable from the CLI.
-# Search functions must accept (position, eval_fn, depth) and return a Move (or None for
-# terminal positions).
+# Search functions must accept (position, eval_fn, depth) and return a SearchResult object
 EVALS: dict[str, PositionEvalFn] = {
     "material": materialistic_position_eval,
 }
 
-context = SearchContext(depth_limit=DEPTH_LIMIT)
 SearchFn = Callable[[Position, PositionEvalFn, SearchContext], SearchResult]
 SEARCHES: dict[str, SearchFn] = {
-    "minimax": best_move,
+    "negamax": best_move,
 }
 
 PROMOTION_LETTERS = {

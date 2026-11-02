@@ -1,23 +1,13 @@
 import time
-from functools import partial
 
 from drewbert.core.helpers import move_applied
 from drewbert.core.movegen import generate_legal_moves, is_in_check
-from drewbert.core.position import Color, Move, Position
+from drewbert.core.position import Color, Position
 from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult, SearchTimeout
 
 CHECKMATE_SCORE = 10000000
 STALEMATE_SCORE = 0
-
-
-def _score_cand_move(position: Position, move: Move, search_fn: PositionEvalFn) -> int:
-    """Return search evaluation of given move at given position.
-    search_fn here is designed to be minimax with different parameters pre-populated
-    depending on the recursion state.
-    """
-    with move_applied(position, move):
-        val = search_fn(position)
-    return val
+NODE_CHECK_FREQUENCY = 300
 
 
 def negamax(
@@ -29,20 +19,34 @@ def negamax(
     beta: float = CHECKMATE_SCORE,
     plies_from_root: int = 0,
 ) -> int:
-    """recursively traverse move tree, assuming optimal play at each point by both sides relative to given
-    evaluation function.
-    Returns +- CHECKMATE_SCORE sentinel in case of checkmate. Returns STALEMATE_SCORE in case of stalemate
+    """Recursively traverse move tree, assuming optimal play at each point by both sides relative to given
+    evaluation function, and returns score relative to the current player.
+    Returns -CHECKMATE_SCORE sentinel in case of checkmate. Returns STALEMATE_SCORE in case of stalemate
     In case of multiple checkmates in the search tree, uses minimal plies_from_root value to prioritize
     faster checkmate.
+
+    Uses alpha/beta pruning to identify branches of the search tree to skip. Values are set internally and don't
+    need to be supplied from the call site.
+
+    Writes context.curr_best_move on root nodes if score is better than the current visited max_value.
+    It's a side effect but sue me.
+
+    context.curr_best_move values in case of truncated search are not trustworth. Needs to be wrapped with
+    best_move or similar to return stable values from completed search depths.
 
     raises SearchTimeout if time.monotonic() exceeds the deadline defined in context.
     """
 
     sign = 1 if position.side_to_move == Color.WHITE else -1
-    node_check_frequency = 300
     context.nodes_computed += 1
 
-    if context.deadline and context.nodes_computed % node_check_frequency == 0 and time.monotonic() >= context.deadline:
+    # require depth > 1 so engine always returns at least the best root move.
+    if (
+        depth > 1
+        and context.deadline
+        and context.nodes_computed % NODE_CHECK_FREQUENCY == 0
+        and time.monotonic() >= context.deadline
+    ):
         raise SearchTimeout("Deadline has been exceeded")
 
     legal_moves = generate_legal_moves(position)
@@ -59,17 +63,19 @@ def negamax(
         return sign * curr_eval
 
     max_eval = -CHECKMATE_SCORE
+
     for move in legal_moves:
-        search_fn = partial(
-            negamax,
-            position_evaluator=position_evaluator,
-            context=context,
-            depth=depth - 1,
-            alpha=-beta,
-            beta=-alpha,
-            plies_from_root=plies_from_root + 1,
-        )
-        curr_eval = -1 * _score_cand_move(position, move, search_fn)
+        with move_applied(position, move):
+            move_score = negamax(
+                position=position,
+                position_evaluator=position_evaluator,
+                context=context,
+                depth=depth - 1,
+                alpha=-beta,
+                beta=-alpha,
+                plies_from_root=plies_from_root + 1,
+            )
+        curr_eval = -1 * move_score
         if curr_eval > max_eval:
             max_eval = curr_eval
             if plies_from_root == 0:
