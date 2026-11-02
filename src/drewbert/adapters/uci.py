@@ -249,8 +249,7 @@ def apply_uci_go_cmd(go: UciGo, position: Position, search_fn: ConfiguredSearch)
     result = search_fn(position, context=context)
     move = result.move if result.move else "0000"  # accepted terminal position output per UCI spec.
 
-    elapsed_time = 1000 * (time.monotonic() - start_time)
-    emit(f"info depth {result.max_depth_reached} nodes {result.nodes_computed} time {elapsed_time}")
+    emit(f"info depth {result.max_depth_reached} nodes {result.nodes_computed} time {int(1000 * result.search_time)}")
     emit(f"bestmove {str(move)}")
 
 

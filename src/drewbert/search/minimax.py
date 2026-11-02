@@ -26,6 +26,9 @@ class SearchContext:
 
 @dataclass(frozen=True)
 class SearchResult:
+    """Search result data and metadata. Max depth reached returns the largest _completed_ search depth.
+    search_time returns the total search time in seconds, ignoring any latency from the call site."""
+
     move: Move | None
     nodes_computed: int
     max_depth_reached: int
@@ -117,8 +120,8 @@ def best_move(
 def best_move_iterative_deepening(
     position: Position, position_evaluator: PositionEvalFn, context: SearchContext
 ) -> SearchResult:
-    """Provide the best move in the given position. Iterates through increasing depth, storing the best result
-    from each completed depth.
+    """Provide a SearchResult object containing best move in the given position, as well as metadata surrounding the
+    search. Iterates through increasing depth, storing the best result from each completed depth.
 
     Terminates based on signals from context.depth_limit or context.deadline that need to be passed in
     by any driver.
@@ -130,15 +133,18 @@ def best_move_iterative_deepening(
 
     start_time = time.monotonic()
 
-    if not context.deadline and not context.depth_limit:
+    if context.deadline is None and context.depth_limit is None:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
+    depth_1_context = SearchContext()
     # fresh context for depth=1 case so deadline isn't a concern and a move is always returned.
-    curr_best_move = best_move(position=position, position_evaluator=position_evaluator, depth=1)
+    curr_best_move = best_move(
+        position=position, position_evaluator=position_evaluator, context=depth_1_context, depth=1
+    )
 
-    # return early for terminal positions
-    if curr_best_move is None:
-        return SearchResult(curr_best_move, context.nodes_computed, 1, time.monotonic() - start_time)
+    # return early for terminal positions or low-depth calls
+    if curr_best_move is None or (context.depth_limit is not None and context.depth_limit <= 1):
+        return SearchResult(curr_best_move, depth_1_context.nodes_computed, 1, time.monotonic() - start_time)
 
     depth = 2
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
@@ -147,10 +153,13 @@ def best_move_iterative_deepening(
                 position=position, position_evaluator=position_evaluator, context=context, depth=depth
             )
         except SearchTimeout:
+            depth = depth - 1  # decrement 1 to report completed depth only
             break
         if context.depth_limit and depth == context.depth_limit:
             break
 
         depth += 1
 
-    return SearchResult(curr_best_move, context.nodes_computed, depth, time.monotonic() - start_time)
+    return SearchResult(
+        curr_best_move, context.nodes_computed + depth_1_context.nodes_computed, depth, time.monotonic() - start_time
+    )
