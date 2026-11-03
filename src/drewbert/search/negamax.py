@@ -27,7 +27,9 @@ def negamax(
 
     Uses alpha/beta pruning to identify branches of the search tree to skip. Values are set internally and don't
     need to be supplied from the call site. (Alpha, Beta) represent score-guarantee bounds. a return value is only
-    exact when it falls within in (-inf, alpha) or (beta, inf
+    exact when it falls within in (Alpha, Beta) window. Every other response is a bound. If value is >= beta,
+    value is a lower bound. If value <= alpha, value is an upper bound.
+
     Writes context.curr_best_move on root nodes if score is better than the current visited max_value.
     It's a side effect but sue me.
 
