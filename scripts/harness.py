@@ -6,6 +6,11 @@ Usage:
     uv run scripts/harness.py --drewbert-sha SHA [SHA ...]
     uv run scripts/harness.py --drewbert-sha HEAD main --external stockfish
     uv run scripts/harness.py --external stockfish /path/to/lc0
+    uv run scripts/harness.py --drewbert-sha HEAD=drewbert-head main --external stockfish=stockfish-level-1
+
+Any engine can take an optional `=LABEL` suffix, used as its name in cutechess output and the PGN.
+Unlabeled engines default to `drewbert-<short-sha>` or the binary's basename. Labels must be unique,
+so the same SHA can play itself under two labels (a useful 50% sanity check).
 
 Tuning parameters (rounds, concurrency, time control, drewbert engine args)
 live as constants at the top of this file. Edit in place rather than adding
@@ -13,6 +18,7 @@ flags — the two flags are for "which engines" only.
 """
 
 import argparse
+import re
 import shlex
 import shutil
 import subprocess
@@ -34,13 +40,30 @@ EXTERNAL_OPTIONS: dict[str, dict[str, str]] = {
     "stockfish": {"Skill Level": "1"},
 }
 
-ROUNDS = 10
+ROUNDS = 50
 CONCURRENCY = 8
 TIME_CONTROL = "10+0.3"
 TOURNAMENT_TYPE = "round-robin"
 PGN_OUT = "games.pgn"
 OPENINGS_FILE = Path(REPO_ROOT / "opening_books/Unique_v170623.pgn")
 GAMES = 2
+
+# Labels become cutechess engine names and PGN player headers, so keep them shell- and PGN-safe.
+LABEL_RE = re.compile(r"[A-Za-z0-9._-]+")
+
+
+def split_label(spec: str) -> tuple[str, str | None]:
+    """Split an engine spec `TARGET[=LABEL]` into (target, label), with label None when absent.
+
+    Splits on the last `=`, so a target may itself contain `=` as long as a label is given.
+    Exits with a message if the label is empty or contains characters outside LABEL_RE.
+    """
+    target, sep, label = spec.rpartition("=")
+    if not sep:
+        return spec, None
+    if not target or not LABEL_RE.fullmatch(label):
+        sys.exit(f"Bad engine spec {spec!r}: expected TARGET=LABEL with LABEL matching {LABEL_RE.pattern}")
+    return target, label
 
 
 def resolve_and_provision_sha(ref: str) -> tuple[str, Path]:
@@ -79,11 +102,11 @@ def resolve_and_provision_sha(ref: str) -> tuple[str, Path]:
     return short_sha, worktree_path
 
 
-def build_drewbert_engine_block(short_sha: str, worktree_path: Path) -> list[str]:
+def build_drewbert_engine_block(name: str, worktree_path: Path) -> list[str]:
     """cutechess-cli -engine block for a drewbert instance in a worktree."""
     parts = [
         "-engine",
-        f"name=drewbert-{short_sha}",
+        f"name={name}",
         "cmd=uv",
         "arg=run",
         "arg=python",
@@ -95,19 +118,26 @@ def build_drewbert_engine_block(short_sha: str, worktree_path: Path) -> list[str
     return parts
 
 
-def build_external_engine_block(path_or_cmd: str) -> list[str]:
-    """cutechess-cli -engine block for an external UCI binary.
+def resolve_external(path_or_cmd: str) -> str:
+    """Resolve an external engine to an executable path, or exit if it can't be found.
 
     Accepts an absolute path, a relative path, or a bare command name that
-    resolves via PATH (e.g. `stockfish` if installed by brew). Engine-specific
-    UCI options are pulled from EXTERNAL_OPTIONS keyed by binary basename.
+    resolves via PATH (e.g. `stockfish` if installed by brew).
     """
     resolved = shutil.which(path_or_cmd)
     if resolved is None:
         sys.exit(f"External engine not found: {path_or_cmd}")
-    name = Path(resolved).name
+    return resolved
+
+
+def build_external_engine_block(name: str, resolved: str) -> list[str]:
+    """cutechess-cli -engine block for an external UCI binary at `resolved`.
+
+    Engine-specific UCI options are pulled from EXTERNAL_OPTIONS keyed by binary
+    basename, not by `name`, so a label doesn't change which options apply.
+    """
     parts = ["-engine", f"name={name}", f"cmd={resolved}"]
-    for opt_name, opt_value in EXTERNAL_OPTIONS.get(name, {}).items():
+    for opt_name, opt_value in EXTERNAL_OPTIONS.get(Path(resolved).name, {}).items():
         parts.append(f"option.{opt_name}={opt_value}")
     return parts
 
@@ -150,41 +180,45 @@ def main() -> None:
         "--drewbert-sha",
         nargs="+",
         default=[],
-        metavar="REF",
-        help="commit SHAs or refs to test (e.g. HEAD, main, abc1234)",
+        metavar="REF[=LABEL]",
+        help="commit SHAs or refs to test (e.g. HEAD, main=drewbert-main, abc1234)",
     )
     parser.add_argument(
         "--external",
         nargs="+",
         default=[],
-        metavar="PATH_OR_CMD",
-        help="paths to external UCI engines, or bare command names on PATH",
+        metavar="PATH_OR_CMD[=LABEL]",
+        help="paths to external UCI engines, or bare command names on PATH (e.g. stockfish=stockfish-level-1)",
     )
     args = parser.parse_args()
 
     if len(args.drewbert_sha) + len(args.external) < 2:
         sys.exit("Need at least 2 engines total across --drewbert-sha and --external")
 
-    resolved = [resolve_and_provision_sha(ref) for ref in args.drewbert_sha]
+    # Parse labels and resolve external binaries first, so a bad spec or a missing engine exits
+    # before any worktree is built. Name collisions need the short SHAs, so they're checked after.
+    drewbert_specs = [split_label(spec) for spec in args.drewbert_sha]
+    external_specs = [split_label(spec) for spec in args.external]
+    resolved_externals = [(resolve_external(target), label) for target, label in external_specs]
 
-    # cute-chess requires unique engine names; two refs pointing at the same
-    # commit would collide. Punt on same-SHA-vs-itself for now — the user can
-    # add a `--drewbert-local` sentinel later if that becomes useful.
-    short_shas = [s for s, _ in resolved]
-    if len(set(short_shas)) != len(short_shas):
-        dupes = sorted({s for s in short_shas if short_shas.count(s) > 1})
-        sys.exit(f"Duplicate SHAs (refs resolve to same commit): {dupes}")
+    drewbert_engines: list[tuple[str, Path]] = []
+    for ref, label in drewbert_specs:
+        short_sha, worktree_path = resolve_and_provision_sha(ref)
+        drewbert_engines.append((label or f"drewbert-{short_sha}", worktree_path))
+    external_engines = [(label or Path(resolved).name, resolved) for resolved, label in resolved_externals]
 
-    external_engines = [Path(e).name for e in args.external]
-    if len(set(external_engines)) != len(external_engines):
-        dupes = sorted(e for e in external_engines if external_engines.count(e) > 1)
-        sys.exit(f"Duplicate external engines: {dupes}")
+    # cute-chess requires unique engine names. Unlabeled refs at the same commit, or the same
+    # unlabeled binary twice, collide; labels resolve that.
+    names = [name for name, _ in drewbert_engines] + [name for name, _ in external_engines]
+    dupes = sorted({n for n in names if names.count(n) > 1})
+    if dupes:
+        sys.exit(f"Duplicate engine names {dupes}: give the colliding engines distinct =LABELs")
 
     engine_blocks: list[list[str]] = []
-    for short_sha, worktree_path in resolved:
-        engine_blocks.append(build_drewbert_engine_block(short_sha, worktree_path))
-    for path_or_cmd in args.external:
-        engine_blocks.append(build_external_engine_block(path_or_cmd))
+    for name, worktree_path in drewbert_engines:
+        engine_blocks.append(build_drewbert_engine_block(name, worktree_path))
+    for name, resolved in external_engines:
+        engine_blocks.append(build_external_engine_block(name, resolved))
 
     cmd = build_cutechess_command(engine_blocks)
     print("Running:", shlex.join(cmd))

@@ -4,9 +4,9 @@ Picks search + eval components by name so new ones (alpha-beta, NNUE, etc.)
 plug in with one line in the registries below.
 
 Usage:
-    uv run python scripts/play.py                           # you play White vs minimax + material, depth 3
-    uv run python scripts/play.py --side black --depth 4
-    uv run python scripts/play.py --side none --depth 4     # engine vs engine (self-play)
+    uv run python scripts/play.py                           # you play White vs negamax + material, 2s per move
+    uv run python scripts/play.py --side black --move-time 5
+    uv run python scripts/play.py --side none --move-time 1 # engine vs engine (self-play)
     uv run python scripts/play.py --fen "<fen>"             # custom start
 
 Move input is UCI: `e2e4`, `g1f3`, promotion `e7e8q`. Type `quit` or `resign`
@@ -15,6 +15,7 @@ at the prompt to end the game.
 
 import argparse
 import sys
+import time
 from collections.abc import Callable
 
 from drewbert.adapters.ascii import render
@@ -28,6 +29,7 @@ from drewbert.search.negamax import best_move
 from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult
 
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+DEFAULT_MOVE_TIME_S = 2.0
 
 # Registries. Add new search/eval modules here to make them selectable from the CLI.
 # Search functions must accept (position, eval_fn, context) and return a SearchResult object
@@ -90,15 +92,28 @@ def announce_terminal(position: Position) -> None:
         print("\nStalemate. Draw.")
 
 
+def positive_seconds(text: str) -> float:
+    """argparse type for --move-time: a positive number of seconds."""
+    seconds = float(text)
+    if seconds <= 0:
+        raise argparse.ArgumentTypeError(f"must be positive, got {text}")
+    return seconds
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Play a game against drewbert in the terminal.")
     parser.add_argument(
         "--eval", choices=sorted(EVALS), default="material", help="evaluation function (default: material)"
     )
     parser.add_argument(
-        "--search", choices=sorted(SEARCHES), default="minimax", help="search algorithm (default: minimax)"
+        "--search", choices=sorted(SEARCHES), default="negamax", help="search algorithm (default: negamax)"
     )
-    parser.add_argument("--depth", type=int, default=3, help="search depth in ply (default: 3)")
+    parser.add_argument(
+        "--move-time",
+        type=positive_seconds,
+        default=DEFAULT_MOVE_TIME_S,
+        help=f"seconds the engine may think per move (default: {DEFAULT_MOVE_TIME_S:g})",
+    )
     parser.add_argument(
         "--side",
         choices=["white", "black", "none"],
@@ -117,7 +132,7 @@ def main() -> int:
 
     position = parse_fen(args.fen)
 
-    print(f"\n{args.search} (depth {args.depth}) / {args.eval} eval")
+    print(f"\n{args.search} ({args.move_time:g}s per move) / {args.eval} eval")
     print(render(position))
 
     while True:
@@ -128,6 +143,8 @@ def main() -> int:
 
         side_label = "White" if position.side_to_move == Color.WHITE else "Black"
         print(f"\n{side_label} to move.")
+        # Standard notation: "31." before White's move, "31..." before Black's.
+        move_number = f"{position.fullmove_number}{'.' if position.side_to_move == Color.WHITE else '...'}"
 
         if position.side_to_move == human_side:
             move = prompt_human_move(legal_moves)
@@ -135,13 +152,15 @@ def main() -> int:
                 winner = "White" if position.side_to_move == Color.BLACK else "Black"
                 print(f"\nResigned. {winner} wins.")
                 return 0
-            print(f"  you played: {move!r}")
+            print(f"  you played: {move_number} {move!r}")
         else:
-            print(f"  engine thinking (depth {args.depth})...")
-            context = SearchContext(depth_limit=args.depth)
-            move = search_fn(position, eval_fn, context).move
+            print(f"  engine thinking ({args.move_time:g}s)...")
+            context = SearchContext(deadline=time.monotonic() + args.move_time)
+            result = search_fn(position, eval_fn, context)
+            move = result.move
             assert move is not None, "search returned None despite non-empty legal_moves"
-            print(f"  engine plays: {move!r}")
+            stats = f"depth {result.max_depth_reached}, {result.search_time:.2f}s"
+            print(f"  engine plays: {move_number} {move!r} ({stats})")
 
         position.make_move(move)
         print(render(position))
