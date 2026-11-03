@@ -143,6 +143,8 @@ def main() -> int:
 
         side_label = "White" if position.side_to_move == Color.WHITE else "Black"
         print(f"\n{side_label} to move.")
+        # Standard notation: "31." before White's move, "31..." before Black's.
+        move_number = f"{position.fullmove_number}{'.' if position.side_to_move == Color.WHITE else '...'}"
 
         if position.side_to_move == human_side:
             move = prompt_human_move(legal_moves)
@@ -150,14 +152,15 @@ def main() -> int:
                 winner = "White" if position.side_to_move == Color.BLACK else "Black"
                 print(f"\nResigned. {winner} wins.")
                 return 0
-            print(f"  you played: {move!r}")
+            print(f"  you played: {move_number} {move!r}")
         else:
             print(f"  engine thinking ({args.move_time:g}s)...")
             context = SearchContext(deadline=time.monotonic() + args.move_time)
             result = search_fn(position, eval_fn, context)
             move = result.move
             assert move is not None, "search returned None despite non-empty legal_moves"
-            print(f"  engine plays: {move!r} (depth {result.max_depth_reached}, {result.search_time:.2f}s)")
+            stats = f"depth {result.max_depth_reached}, {result.search_time:.2f}s"
+            print(f"  engine plays: {move_number} {move!r} ({stats})")
 
         position.make_move(move)
         print(render(position))
