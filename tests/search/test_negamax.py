@@ -11,7 +11,8 @@ import pytest
 
 from drewbert.adapters.fen import parse_fen
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import best_move
+from drewbert.search.negamax import best_move
+from drewbert.search.types import SearchContext
 
 MATE_IN_1_PUZZLES = [
     # Back-rank: rook lift to a8, king smothered by own pawns.
@@ -46,19 +47,22 @@ MATE_DISTANCE_PUZZLES = [
 @pytest.mark.parametrize("fen,expected_uci", MATE_IN_1_PUZZLES)
 def test_finds_mate_in_1_at_depth_2(fen: str, expected_uci: str) -> None:
     position = parse_fen(fen)
-    move = best_move(position, materialistic_position_eval, depth=2)
+    context = SearchContext(depth_limit=2)
+    move = best_move(position, materialistic_position_eval, context=context).move
     assert repr(move) == expected_uci
 
 
 @pytest.mark.parametrize("fen,expected_uci", MATE_IN_2_PUZZLES)
 def test_finds_mate_in_2_at_depth_4(fen: str, expected_uci: str) -> None:
     position = parse_fen(fen)
-    move = best_move(position, materialistic_position_eval, depth=4)
+    context = SearchContext(depth_limit=4)
+    move = best_move(position, materialistic_position_eval, context=context).move
     assert repr(move) == expected_uci
 
 
 @pytest.mark.parametrize("fen,expected_uci", MATE_DISTANCE_PUZZLES)
 def test_prefers_shorter_mate(fen: str, expected_uci: str) -> None:
     position = parse_fen(fen)
-    move = best_move(position, materialistic_position_eval, depth=4)
+    context = SearchContext(depth_limit=4)
+    move = best_move(position, materialistic_position_eval, context=context).move
     assert repr(move) == expected_uci

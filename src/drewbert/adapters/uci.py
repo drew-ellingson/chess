@@ -11,8 +11,9 @@ from drewbert.core.move import Move
 from drewbert.core.position import Position
 from drewbert.core.types import Color
 from drewbert.eval.materialistic import materialistic_position_eval
-from drewbert.search.minimax import SearchContext, SearchResult, best_move_iterative_deepening
+from drewbert.search.negamax import best_move
 from drewbert.search.time_management import budget_time
+from drewbert.search.types import SearchContext, SearchResult
 
 
 @dataclass(frozen=True)
@@ -92,7 +93,10 @@ UciCommand = (
 )
 
 SEARCHES = {
-    "minimax": best_move_iterative_deepening,
+    "negamax": best_move,
+    # Alias kept so scripts/harness.py can pass one --search name to every SHA, including
+    # those from before the minimax -> negamax rename. Remove once those SHAs are no longer compared.
+    "minimax": best_move,
 }
 EVALS = {
     "materialistic": materialistic_position_eval,
@@ -308,7 +312,7 @@ if __name__ == "__main__":
     parser.add_argument("--eval", required=True, help="The evaluation function to be used in the engine")
     parser.add_argument("--search", required=True, help="The search function to be used in the engine")
 
-    args = parser.parse_args()  # - --search minimax --eval material
+    args = parser.parse_args()  # - --search negamax --eval material
     eval = EVALS[args.eval]
 
     search: ConfiguredSearch = partial(SEARCHES[args.search], position_evaluator=eval)

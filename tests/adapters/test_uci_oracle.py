@@ -27,7 +27,7 @@ ENGINE_CMD: list[str] = [
     "--eval",
     "materialistic",
     "--search",
-    "minimax",
+    "negamax",
 ]
 
 
