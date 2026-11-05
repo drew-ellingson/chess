@@ -60,6 +60,11 @@ def negamax(
 
     max_eval = -CHECKMATE_SCORE
 
+    # principal variation ordering
+    if plies_from_root == 0 and context.root_best_move is not None:
+        legal_moves.remove(context.root_best_move)
+        legal_moves.insert(0, context.root_best_move)
+
     for move in legal_moves:
         with move_applied(position, move):
             move_score = negamax(
@@ -103,6 +108,7 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
     depth_1_context = SearchContext()
     negamax(position=position, position_evaluator=position_evaluator, context=depth_1_context, depth=1)
     curr_best_move = depth_1_context.curr_best_move
+    context.root_best_move = curr_best_move
 
     # return early for terminal positions or low-depth calls
     if curr_best_move is None or (context.depth_limit is not None and context.depth_limit <= 1):
@@ -115,6 +121,7 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
         try:
             negamax(position=position, position_evaluator=position_evaluator, context=context, depth=depth)
             curr_best_move = context.curr_best_move
+            context.root_best_move = curr_best_move
         except SearchTimeout:
             depth = depth - 1  # decrement 1 to report completed depth only
             break
