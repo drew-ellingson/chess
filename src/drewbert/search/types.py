@@ -24,7 +24,7 @@ class SearchContext:
     nodes_computed: int = 0
     depth_limit: int | None = None
     curr_best_move: Move | None = None
-    root_best_move: Move | None = None
+    pv: list[Move] | None = None
 
 
 @dataclass(frozen=True)

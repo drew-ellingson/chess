@@ -29,3 +29,6 @@ test:
 	uv run pytest -m "not slow"
 
 pre-pr: fix check
+
+harness-match-vs-main:
+	uv run scripts/harness.py --drewbert HEAD=drewbert-head origin/main=drewbert-main 

@@ -1,6 +1,8 @@
 import time
+from dataclasses import dataclass, field
 
 from drewbert.core.helpers import move_applied
+from drewbert.core.move import Move
 from drewbert.core.movegen import generate_legal_moves, is_in_check
 from drewbert.core.position import Color, Position
 from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult, SearchTimeout
@@ -8,6 +10,23 @@ from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult, S
 CHECKMATE_SCORE = 10000000
 STALEMATE_SCORE = 0
 NODE_CHECK_FREQUENCY = 300
+
+
+@dataclass()
+class NegamaxReturn:
+    val: int
+    pv: list[Move] = field(default_factory=list)
+
+
+def order_moves(legal_moves: list[Move], position: Position, plies_from_root: int, context: SearchContext):
+    def mvv(move: Move, position: Position):
+        pass
+
+    def lva(move: Move, position: Position):
+        pass
+
+    moves = sorted(legal_moves, key=lambda m: (mvv(m, position), lva(m, position)), reverse=True)
+    return moves
 
 
 def negamax(
@@ -18,9 +37,14 @@ def negamax(
     alpha: int = -CHECKMATE_SCORE,
     beta: int = CHECKMATE_SCORE,
     plies_from_root: int = 0,
-) -> int:
+    on_pv: bool = True,
+) -> NegamaxReturn:
     """Recursively traverse move tree, assuming optimal play at each point by both sides relative to given
-    evaluation function, and returns score relative to the current player.
+    evaluation function.
+
+    Returns score relative to the current player, as well as the principal variation move line required
+    to reach that evaluation.
+
     Returns -CHECKMATE_SCORE sentinel in case of checkmate. Returns STALEMATE_SCORE in case of stalemate
     In case of multiple checkmates in the search tree, uses minimal plies_from_root value to prioritize
     faster checkmate.
@@ -30,11 +54,8 @@ def negamax(
     exact when it falls within in (Alpha, Beta) window. Every other response is a bound. If value is >= beta,
     value is a lower bound. If value <= alpha, value is an upper bound.
 
-    Writes context.curr_best_move on root nodes if score is better than the current visited max_value.
-    It's a side effect but sue me.
-
-    context.curr_best_move values in case of truncated search are not trustworth. Needs to be wrapped with
-    best_move or similar to return stable values from completed search depths.
+    A principal variation (PV) is tracked in context. Move ordering places the principal variation first to 
+    improve early search results and achieve better pruning.
 
     raises SearchTimeout if time.monotonic() exceeds the deadline defined in context.
     """
@@ -49,25 +70,31 @@ def negamax(
     if not legal_moves:
         # handle terminal cases
         if not is_in_check(position, position.side_to_move):
-            return STALEMATE_SCORE
+            return NegamaxReturn(STALEMATE_SCORE, [])
         else:
-            return -CHECKMATE_SCORE + plies_from_root
+            return NegamaxReturn(-CHECKMATE_SCORE + plies_from_root, [])
 
     # base case - end of recursion
     if depth == 0:
         curr_eval = position_evaluator(position)
-        return sign * curr_eval
+        return NegamaxReturn(sign * curr_eval, [])
+
+    # move the principal variation to the front of the search queue
+    if on_pv and context.pv is not None and len(context.pv) > plies_from_root:
+        legal_moves.remove(context.pv[plies_from_root])
+        legal_moves = [context.pv[plies_from_root]] + legal_moves
 
     max_eval = -CHECKMATE_SCORE
-
-    # principal variation ordering
-    if plies_from_root == 0 and context.root_best_move is not None:
-        legal_moves.remove(context.root_best_move)
-        legal_moves.insert(0, context.root_best_move)
+    pv: list[Move] = []
 
     for move in legal_moves:
+        try:
+            child_on_pv = on_pv and context.pv is not None and context.pv[plies_from_root + 1] == move
+        except IndexError:
+            child_on_pv = False
+
         with move_applied(position, move):
-            move_score = negamax(
+            move_result = negamax(
                 position=position,
                 position_evaluator=position_evaluator,
                 context=context,
@@ -75,16 +102,18 @@ def negamax(
                 alpha=-beta,
                 beta=-alpha,
                 plies_from_root=plies_from_root + 1,
+                on_pv=child_on_pv,
             )
-        curr_eval = -1 * move_score
+        curr_eval = -1 * move_result.val
         if curr_eval > max_eval:
+            pv = [move] + move_result.pv
             max_eval = curr_eval
             if plies_from_root == 0:
                 context.curr_best_move = move
         alpha = max(alpha, curr_eval)
         if alpha >= beta:
             break
-    return max_eval
+    return NegamaxReturn(max_eval, pv)
 
 
 def best_move(position: Position, position_evaluator: PositionEvalFn, context: SearchContext) -> SearchResult:
@@ -99,29 +128,25 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
     Raises a ValueError if neither context.depth_limit nor context.deadline are defined.
     """
 
+    legal_moves = generate_legal_moves(position)
+
     start_time = time.monotonic()
+
+    if not legal_moves:
+        return SearchResult(None, 1, 0, time.monotonic() - start_time)
+
+    # default legal move to use if no depth iteration finishes
+    curr_best_move = legal_moves[0]
 
     if context.deadline is None and context.depth_limit is None:
         raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
-    # fresh context for depth 1 case to allow depth 1 to always finish regardless of time control
-    depth_1_context = SearchContext()
-    negamax(position=position, position_evaluator=position_evaluator, context=depth_1_context, depth=1)
-    curr_best_move = depth_1_context.curr_best_move
-    context.root_best_move = curr_best_move
-
-    # return early for terminal positions or low-depth calls
-    if curr_best_move is None or (context.depth_limit is not None and context.depth_limit <= 1):
-        return SearchResult(
-            curr_best_move, context.nodes_computed + depth_1_context.nodes_computed, 1, time.monotonic() - start_time
-        )
-
-    depth = 2
+    depth = 1
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
         try:
-            negamax(position=position, position_evaluator=position_evaluator, context=context, depth=depth)
-            curr_best_move = context.curr_best_move
-            context.root_best_move = curr_best_move
+            result = negamax(position=position, position_evaluator=position_evaluator, context=context, depth=depth)
+            curr_best_move = result.pv[0]
+            context.pv = result.pv
         except SearchTimeout:
             depth = depth - 1  # decrement 1 to report completed depth only
             break
@@ -130,6 +155,4 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
 
         depth += 1
 
-    return SearchResult(
-        curr_best_move, context.nodes_computed + depth_1_context.nodes_computed, depth, time.monotonic() - start_time
-    )
+    return SearchResult(curr_best_move, context.nodes_computed, depth, time.monotonic() - start_time)

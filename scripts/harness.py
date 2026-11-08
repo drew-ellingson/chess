@@ -40,7 +40,7 @@ EXTERNAL_OPTIONS: dict[str, dict[str, str]] = {
     "stockfish": {"Skill Level": "1"},
 }
 
-ROUNDS = 50
+ROUNDS = 20
 CONCURRENCY = 8
 TIME_CONTROL = "10+0.3"
 TOURNAMENT_TYPE = "round-robin"
