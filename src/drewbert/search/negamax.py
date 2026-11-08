@@ -54,7 +54,7 @@ def negamax(
     exact when it falls within in (Alpha, Beta) window. Every other response is a bound. If value is >= beta,
     value is a lower bound. If value <= alpha, value is an upper bound.
 
-    A principal variation (PV) is tracked in context. Move ordering places the principal variation first to 
+    A principal variation (PV) is tracked in context. Move ordering places the principal variation first to
     improve early search results and achieve better pruning.
 
     raises SearchTimeout if time.monotonic() exceeds the deadline defined in context.
@@ -79,20 +79,19 @@ def negamax(
         curr_eval = position_evaluator(position)
         return NegamaxReturn(sign * curr_eval, [])
 
+    pv_continues = on_pv and len(context.pv) > plies_from_root
+
     # move the principal variation to the front of the search queue
-    if on_pv and context.pv is not None and len(context.pv) > plies_from_root:
+    if pv_continues:
         legal_moves.remove(context.pv[plies_from_root])
+
         legal_moves = [context.pv[plies_from_root]] + legal_moves
 
     max_eval = -CHECKMATE_SCORE
     pv: list[Move] = []
 
     for move in legal_moves:
-        try:
-            child_on_pv = on_pv and context.pv is not None and context.pv[plies_from_root + 1] == move
-        except IndexError:
-            child_on_pv = False
-
+        child_on_pv = pv_continues and context.pv[plies_from_root] == move
         with move_applied(position, move):
             move_result = negamax(
                 position=position,
@@ -108,8 +107,6 @@ def negamax(
         if curr_eval > max_eval:
             pv = [move] + move_result.pv
             max_eval = curr_eval
-            if plies_from_root == 0:
-                context.curr_best_move = move
         alpha = max(alpha, curr_eval)
         if alpha >= beta:
             break
@@ -123,23 +120,21 @@ def best_move(position: Position, position_evaluator: PositionEvalFn, context: S
     Terminates based on signals from context.depth_limit or context.deadline that need to be passed in
     by any driver.
 
-    Always completes depth=1 search to return a valid move, regardless of deadline passed by driver.
-
     Raises a ValueError if neither context.depth_limit nor context.deadline are defined.
     """
 
-    legal_moves = generate_legal_moves(position)
+    if context.deadline is None and context.depth_limit is None:
+        raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
     start_time = time.monotonic()
 
+    legal_moves = generate_legal_moves(position)
+
     if not legal_moves:
-        return SearchResult(None, 1, 0, time.monotonic() - start_time)
+        return SearchResult(None, 0, 0, time.monotonic() - start_time)
 
     # default legal move to use if no depth iteration finishes
     curr_best_move = legal_moves[0]
-
-    if context.deadline is None and context.depth_limit is None:
-        raise ValueError("Either deadline or depth limit must be set to use iterative deepening")
 
     depth = 1
     while depth >= 1 and (context.depth_limit is None or depth <= context.depth_limit):
