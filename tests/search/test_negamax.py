@@ -10,7 +10,7 @@ mating move at the stated depth, and the forcing line is clean.
 import pytest
 
 from drewbert.adapters.fen import parse_fen
-from drewbert.eval.materialistic import materialistic_position_eval
+from drewbert.eval.eval import materialistic_position_eval
 from drewbert.search.negamax import best_move
 from drewbert.search.types import SearchContext
 

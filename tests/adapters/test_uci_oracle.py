@@ -25,7 +25,7 @@ ENGINE_CMD: list[str] = [
     "-m",
     "drewbert.adapters.uci",
     "--eval",
-    "materialistic",
+    "comprehensive",
     "--search",
     "negamax",
 ]

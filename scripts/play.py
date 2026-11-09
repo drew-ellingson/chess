@@ -4,7 +4,7 @@ Picks search + eval components by name so new ones (alpha-beta, NNUE, etc.)
 plug in with one line in the registries below.
 
 Usage:
-    uv run python scripts/play.py                           # you play White vs negamax + material, 2s per move
+    uv run python scripts/play.py                           # you play White vs negamax + comprehensive, 2s per move
     uv run python scripts/play.py --side black --move-time 5
     uv run python scripts/play.py --side none --move-time 1 # engine vs engine (self-play)
     uv run python scripts/play.py --fen "<fen>"             # custom start
@@ -24,7 +24,7 @@ from drewbert.core.move import Move
 from drewbert.core.movegen import generate_legal_moves, is_in_check
 from drewbert.core.position import Color, Position
 from drewbert.core.types import PieceType
-from drewbert.eval.materialistic import materialistic_position_eval
+from drewbert.eval.eval import comprehensive_eval, materialistic_position_eval
 from drewbert.search.negamax import best_move
 from drewbert.search.types import PositionEvalFn, SearchContext, SearchResult
 
@@ -34,6 +34,7 @@ DEFAULT_MOVE_TIME_S = 2.0
 # Registries. Add new search/eval modules here to make them selectable from the CLI.
 # Search functions must accept (position, eval_fn, context) and return a SearchResult object
 EVALS: dict[str, PositionEvalFn] = {
+    "comprehensive": comprehensive_eval,
     "material": materialistic_position_eval,
 }
 
@@ -103,7 +104,7 @@ def positive_seconds(text: str) -> float:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Play a game against drewbert in the terminal.")
     parser.add_argument(
-        "--eval", choices=sorted(EVALS), default="material", help="evaluation function (default: material)"
+        "--eval", choices=sorted(EVALS), default="comprehensive", help="evaluation function (default: comprehensive)"
     )
     parser.add_argument(
         "--search", choices=sorted(SEARCHES), default="negamax", help="search algorithm (default: negamax)"

@@ -10,7 +10,7 @@ from drewbert.adapters.fen import FEN_TO_POS, STARTING_FEN, alg_sq_to_int, parse
 from drewbert.core.move import Move
 from drewbert.core.position import Position
 from drewbert.core.types import Color
-from drewbert.eval.materialistic import materialistic_position_eval
+from drewbert.eval.eval import comprehensive_eval, materialistic_position_eval
 from drewbert.search.negamax import best_move
 from drewbert.search.time_management import budget_time
 from drewbert.search.types import SearchContext, SearchResult
@@ -99,6 +99,7 @@ SEARCHES = {
     "minimax": best_move,
 }
 EVALS = {
+    "comprehensive": comprehensive_eval,
     "materialistic": materialistic_position_eval,
 }
 # used in cases where no time or depth info is passed as part of uci_go. defensive only.
