@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from drewbert.core.move import Move
 from drewbert.core.position import Position
@@ -17,13 +17,18 @@ class SearchContext:
     values.
     deadline and depth_limit are search params passed in from a call site.
 
-    curr_best_move is used to track the current best candidate move. It isn't trustworth until and
-    unless a given depth of search is completed."""
+    root_pv is used to track the current principal variation from completed root nodes. Because principal
+    variation is used. Any completed node with higher evaluation is guaranteed better than the previous
+    iterations best move, and so can be used.
+
+    prev_depth_pv is kept for stable move ordering in the subsequent depth search.
+    """
 
     deadline: float | None = None
     nodes_computed: int = 0
     depth_limit: int | None = None
-    curr_best_move: Move | None = None
+    root_pv: list[Move] = field(default_factory=list)
+    prev_depth_pv: list[Move] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
