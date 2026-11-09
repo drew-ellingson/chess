@@ -7,18 +7,20 @@ Usage:
     uv run scripts/harness.py --drewbert-sha HEAD main --external stockfish
     uv run scripts/harness.py --external stockfish /path/to/lc0
     uv run scripts/harness.py --drewbert-sha HEAD=drewbert-head main --external stockfish=stockfish-level-1
-    uv run scripts/harness.py --drewbert-sha HEAD:comprehensive=drewbert-pst main=drewbert-main
+    uv run scripts/harness.py --drewbert-sha HEAD=drewbert-head main:materialistic=drewbert-main
 
 Any engine can take an optional `=LABEL` suffix, used as its name in cutechess output and the PGN.
 Unlabeled engines default to `drewbert-<short-sha>` or the binary's basename. Labels must be unique,
 so the same SHA can play itself under two labels (a useful 50% sanity check).
 
 drewbert engines can also take a `:EVAL` suffix on the ref (before any label) naming the `--eval`
-registry entry that commit should run, so a new eval can play a commit that predates it. Without it,
-DEFAULT_EVAL is used, the one name every commit's registry has. `:` can't appear in a git ref name,
-so the split is unambiguous. Each drewbert engine is started once before the tournament to check
-its commit accepts the requested eval, so a typo or a too-old commit fails here with the engine's
-own error instead of as an opaque cutechess startup failure.
+registry entry that commit should run. Without it, DEFAULT_EVAL (the current default eval) is used,
+so commits that predate that eval need an explicit suffix, e.g. `main:materialistic`, the one name
+every commit's registry has. `:` can't appear in a git ref name, so the split is unambiguous.
+
+Each drewbert engine is started once before the tournament to check its commit accepts the requested
+eval, so a typo or a too-old commit fails here with the engine's own error instead of as an opaque
+cutechess startup failure.
 
 Tuning parameters (rounds, concurrency, time control, drewbert search arg)
 live as constants at the top of this file. Edit in place rather than adding
@@ -41,8 +43,9 @@ DREWBERT_MODULE = "drewbert.adapters.uci"
 
 # "minimax" is the one search name every SHA accepts (aliased to negamax after the rename).
 DREWBERT_SEARCH = "minimax"
-# Eval for drewbert specs without a `:EVAL` suffix. "materialistic" is the one name every SHA accepts.
-DEFAULT_EVAL = "materialistic"
+# Eval for drewbert specs without a `:EVAL` suffix: the engine's current default eval. Older commits
+# that predate it need an explicit suffix; "materialistic" is the one name every SHA accepts.
+DEFAULT_EVAL = "comprehensive"
 # Seconds to wait for a drewbert engine to answer `uci` during the preflight check.
 PREFLIGHT_TIMEOUT_S = 60
 # UCI options set on external engines at init time, keyed by resolved binary
