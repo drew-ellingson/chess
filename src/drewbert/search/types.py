@@ -17,13 +17,18 @@ class SearchContext:
     values.
     deadline and depth_limit are search params passed in from a call site.
 
-    pv is used to track the current principal variation. Because principal variation move ordering is used,
-    pv is trustworthy from partially completed depths, even if its not guaranteed best."""
+    root_pv is used to track the current principal variation from completed root nodes. Because principal
+    variation is used. Any completed node with higher evaluation is guaranteed better than the previous
+    iterations best move, and so can be used.
+
+    prev_depth_pv is kept for stable move ordering in the subsequent depth search.
+    """
 
     deadline: float | None = None
     nodes_computed: int = 0
     depth_limit: int | None = None
-    pv: list[Move] = field(default_factory=list)
+    root_pv: list[Move] = field(default_factory=list)
+    prev_depth_pv: list[Move] = field(default_factory=list)
 
 
 @dataclass(frozen=True)

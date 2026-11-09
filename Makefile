@@ -8,7 +8,7 @@
 # Targets are intentionally simple wrappers around `uv run <tool>` so that
 # the canonical invocation lives here, not scattered across docs.
 
-.PHONY: fix check pre-pr fmt lint type test
+.PHONY: fix check pre-pr fmt lint type test harness-match-vs-main
 
 fix:
 	uv run ruff format
@@ -31,4 +31,4 @@ test:
 pre-pr: fix check
 
 harness-match-vs-main:
-	uv run scripts/harness.py --drewbert HEAD=drewbert-head origin/main=drewbert-main 
+	uv run scripts/harness.py --drewbert-sha HEAD=drewbert-head origin/main=drewbert-main 
