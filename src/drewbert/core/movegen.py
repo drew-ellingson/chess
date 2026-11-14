@@ -370,6 +370,7 @@ def is_in_check(position: Position, color: Color) -> bool:
 
 
 def is_noisy(move: Move, position: Position) -> bool:
+    """Return whether a move represents a capture or a promotion. Used for quiescence search."""
     src = position.piece_at(move.from_square)
     tgt = position.piece_at(move.to_square)
     is_capture = tgt is not None

@@ -102,7 +102,8 @@ def test_stand_pat_at_or_above_beta_cuts_off_without_searching_captures() -> Non
     )
 
     assert value >= beta
-    assert context.nodes_computed == 1
+    assert context.qnodes_computed == 1
+    assert context.nodes_computed == 0
 
 
 # ---- in check (stand pat is not allowed) ----
