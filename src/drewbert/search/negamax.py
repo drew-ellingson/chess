@@ -76,6 +76,54 @@ def mvv_lva_order(legal_moves: list[Move], position: Position) -> list[Move]:
     return moves
 
 
+def quiescence(position: Position, position_evaluator, context, alpha, beta, plies_from_root) -> int:
+    sign = 1 if position.side_to_move == Color.WHITE else -1
+    context.nodes_computed += 1
+
+    if context.deadline and context.nodes_computed % NODE_CHECK_FREQUENCY == 0 and time.monotonic() >= context.deadline:
+        raise SearchTimeout("Deadline has been exceeded")
+
+    curr_eval = position_evaluator(position) * sign
+
+    # look at captures only unless in check, then look at all legal moves.
+    if is_in_check(position, position.side_to_move):
+        moves = generate_legal_moves(position)
+        max_eval = -CHECKMATE_SCORE
+        if not moves:
+            return -CHECKMATE_SCORE + plies_from_root
+    else:
+        moves = generate_legal_moves(position, noisy_moves_only=True)
+        max_eval = curr_eval
+        alpha = max(alpha, curr_eval)
+
+        if curr_eval >= beta:
+            return curr_eval
+
+    # no further noisy moves, return eval of the position
+    if not moves:
+        return curr_eval
+
+    moves = mvv_lva_order(moves, position)
+
+    for move in moves:
+        with move_applied(position, move):
+            eval = quiescence(
+                position=position,
+                position_evaluator=position_evaluator,
+                context=context,
+                alpha=-beta,
+                beta=-alpha,
+                plies_from_root=plies_from_root + 1,
+            )
+        curr_eval = -1 * eval
+        if curr_eval > max_eval:
+            max_eval = curr_eval
+        alpha = max(alpha, curr_eval)
+        if alpha >= beta:
+            break
+    return max_eval
+
+
 def negamax(
     position: Position,
     position_evaluator: PositionEvalFn,
@@ -113,7 +161,6 @@ def negamax(
 
     """
 
-    sign = 1 if position.side_to_move == Color.WHITE else -1
     context.nodes_computed += 1
 
     if context.deadline and context.nodes_computed % NODE_CHECK_FREQUENCY == 0 and time.monotonic() >= context.deadline:
@@ -129,8 +176,15 @@ def negamax(
 
     # base case - end of recursion
     if depth == 0:
-        curr_eval = position_evaluator(position)
-        return NegamaxReturn(sign * curr_eval, [])
+        curr_eval = quiescence(
+            position=position,
+            position_evaluator=position_evaluator,
+            context=context,
+            alpha=alpha,
+            beta=beta,
+            plies_from_root=plies_from_root,
+        )
+        return NegamaxReturn(curr_eval, [])
 
     legal_moves = mvv_lva_order(legal_moves, position)
     pv_continues = on_pv and len(context.prev_depth_pv) > plies_from_root
