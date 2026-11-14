@@ -11,7 +11,7 @@ import pytest
 
 from drewbert.adapters.fen import parse_fen
 from drewbert.core.movegen import generate_legal_moves
-from drewbert.eval.materialistic import materialistic_position_eval
+from drewbert.eval.eval import materialistic_position_eval
 from drewbert.search import negamax as negamax_module
 from drewbert.search.negamax import best_move
 from drewbert.search.types import SearchContext

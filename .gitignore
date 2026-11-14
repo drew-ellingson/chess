@@ -39,4 +39,4 @@ htmlcov/
 *.prof
 
 # Tournament artifacts
-games.pgn
+*.pgn
