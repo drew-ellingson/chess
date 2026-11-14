@@ -55,9 +55,9 @@ EXTERNAL_OPTIONS: dict[str, dict[str, str]] = {
     "stockfish": {"Skill Level": "1"},
 }
 
-ROUNDS = 50
-CONCURRENCY = 8
-TIME_CONTROL = "10+0.3"
+ROUNDS = 20
+CONCURRENCY = 3
+TIME_CONTROL = "120+1"
 TOURNAMENT_TYPE = "round-robin"
 PGN_OUT = "games.pgn"
 OPENINGS_FILE = Path(REPO_ROOT / "opening_books/Unique_v170623.pgn")
@@ -229,6 +229,27 @@ def build_cutechess_command(engine_blocks: list[list[str]]) -> list[str]:
     return cmd
 
 
+def keep_awake(cmd: list[str]) -> list[str]:
+    """Wrap `cmd` in macOS `caffeinate` so the machine doesn't sleep mid-tournament.
+
+    A sleeping machine stops the engines but not cutechess's clocks: whoever is to move when it
+    sleeps loses on time after it wakes, which silently corrupts the results. `-i` blocks idle
+    sleep and `-m` disk sleep; `-s` blocks system sleep but only on AC power. Nothing blocks the
+    sleep from closing the lid, so on battery this also prints a warning. Returns `cmd`
+    unchanged where `caffeinate` doesn't exist (non-macOS).
+    """
+    if shutil.which("caffeinate") is None:
+        return cmd
+    power = subprocess.run(["pmset", "-g", "batt"], capture_output=True, text=True).stdout
+    if "Battery Power" in power:
+        print(
+            "Warning: running on battery. caffeinate can't block system sleep without AC power, and "
+            "closing the lid will sleep the machine and turn in-progress games into time losses.",
+            file=sys.stderr,
+        )
+    return ["caffeinate", "-ims", *cmd]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=__doc__,
@@ -283,7 +304,7 @@ def main() -> None:
     for name, resolved in external_engines:
         engine_blocks.append(build_external_engine_block(name, resolved))
 
-    cmd = build_cutechess_command(engine_blocks)
+    cmd = keep_awake(build_cutechess_command(engine_blocks))
     print("Running:", shlex.join(cmd))
     subprocess.run(cmd, check=True)
 
