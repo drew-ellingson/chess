@@ -8,6 +8,15 @@ Usage:
     uv run scripts/harness.py --external stockfish /path/to/lc0
     uv run scripts/harness.py --drewbert-sha HEAD=drewbert-head main --external stockfish=stockfish-level-1
     uv run scripts/harness.py --drewbert-sha HEAD=drewbert-head main:materialistic=drewbert-main
+    uv run scripts/harness.py --gauntlet --drewbert-sha HEAD --external stockfish-level-0 stockfish-level-1
+
+`--external` also accepts preset names from EXTERNAL_PRESETS (`stockfish-level-0` .. `stockfish-level-20`),
+each a binary plus its own UCI options, so one tournament can include the same binary at several strengths.
+A preset's name is its default engine name.
+
+`--gauntlet` switches from a round robin to a gauntlet: the first engine listed (the first `--drewbert-sha`,
+or the first `--external` if there are none) plays every other engine, and the others never play each other.
+It runs GAUNTLET_ROUNDS rounds, each of GAMES games against every opponent.
 
 Any engine can take an optional `=LABEL` suffix, used as its name in cutechess output and the PGN.
 Unlabeled engines default to `drewbert-<short-sha>` or the binary's basename. Labels must be unique,
@@ -24,7 +33,7 @@ cutechess startup failure.
 
 Tuning parameters (rounds, concurrency, time control, drewbert search arg)
 live as constants at the top of this file. Edit in place rather than adding
-flags — the two flags are for "which engines" only.
+flags — the flags are for "which engines" and "who plays whom" only.
 """
 
 import argparse
@@ -54,11 +63,18 @@ PREFLIGHT_TIMEOUT_S = 60
 EXTERNAL_OPTIONS: dict[str, dict[str, str]] = {
     "stockfish": {"Skill Level": "1"},
 }
+# Named external engines: preset name -> (binary name or path, UCI options). Unlike EXTERNAL_OPTIONS,
+# options are per preset, so the same binary can appear at several settings in one tournament.
+EXTERNAL_PRESETS: dict[str, tuple[str, dict[str, str]]] = {
+    f"stockfish-level-{level}": ("stockfish", {"Skill Level": str(level)}) for level in range(21)
+}
 
 ROUNDS = 20
 CONCURRENCY = 3
 TIME_CONTROL = "120+1"
 TOURNAMENT_TYPE = "round-robin"
+# Gauntlet total games = GAUNTLET_ROUNDS * GAMES * number of opponents.
+GAUNTLET_ROUNDS = 20
 PGN_OUT = "games.pgn"
 OPENINGS_FILE = Path(REPO_ROOT / "opening_books/Unique_v170623.pgn")
 GAMES = 2
@@ -176,31 +192,39 @@ def build_drewbert_engine_block(name: str, worktree_path: Path, eval_name: str) 
     return parts
 
 
-def resolve_external(path_or_cmd: str) -> str:
-    """Resolve an external engine to an executable path, or exit if it can't be found.
+def resolve_external(target: str) -> tuple[str, dict[str, str], str]:
+    """Resolve an external engine spec to (executable path, UCI options, default engine name).
 
-    Accepts an absolute path, a relative path, or a bare command name that
-    resolves via PATH (e.g. `stockfish` if installed by brew).
+    `target` is either a preset name from EXTERNAL_PRESETS, which supplies the binary and options and is
+    itself the default name, or an absolute path, relative path, or bare command name on PATH (e.g.
+    `stockfish` if installed by brew), whose options come from EXTERNAL_OPTIONS keyed by binary basename
+    and whose default name is that basename. Exits with a message if the binary can't be found.
     """
-    resolved = shutil.which(path_or_cmd)
+    binary, options, default_name = target, None, None
+    if target in EXTERNAL_PRESETS:
+        binary, options = EXTERNAL_PRESETS[target]
+        default_name = target
+    resolved = shutil.which(binary)
     if resolved is None:
-        sys.exit(f"External engine not found: {path_or_cmd}")
-    return resolved
+        sys.exit(f"External engine not found: {binary}" + (f" (preset {target})" if default_name else ""))
+    basename = Path(resolved).name
+    return resolved, options if options is not None else EXTERNAL_OPTIONS.get(basename, {}), default_name or basename
 
 
-def build_external_engine_block(name: str, resolved: str) -> list[str]:
-    """cutechess-cli -engine block for an external UCI binary at `resolved`.
-
-    Engine-specific UCI options are pulled from EXTERNAL_OPTIONS keyed by binary
-    basename, not by `name`, so a label doesn't change which options apply.
-    """
+def build_external_engine_block(name: str, resolved: str, options: dict[str, str]) -> list[str]:
+    """cutechess-cli -engine block for an external UCI binary at `resolved`, set up with `options`."""
     parts = ["-engine", f"name={name}", f"cmd={resolved}"]
-    for opt_name, opt_value in EXTERNAL_OPTIONS.get(Path(resolved).name, {}).items():
+    for opt_name, opt_value in options.items():
         parts.append(f"option.{opt_name}={opt_value}")
     return parts
 
 
-def build_cutechess_command(engine_blocks: list[list[str]]) -> list[str]:
+def build_cutechess_command(engine_blocks: list[list[str]], gauntlet: bool) -> list[str]:
+    """Full cutechess-cli command for the given engines.
+
+    With `gauntlet`, the first engine block plays every other engine for GAUNTLET_ROUNDS rounds;
+    otherwise all engines play a TOURNAMENT_TYPE tournament for ROUNDS rounds.
+    """
     cmd = ["cutechess-cli"]
     for block in engine_blocks:
         cmd.extend(block)
@@ -210,9 +234,9 @@ def build_cutechess_command(engine_blocks: list[list[str]]) -> list[str]:
             "proto=uci",
             f"tc={TIME_CONTROL}",
             "-tournament",
-            TOURNAMENT_TYPE,
+            "gauntlet" if gauntlet else TOURNAMENT_TYPE,
             "-rounds",
-            str(ROUNDS),
+            str(GAUNTLET_ROUNDS if gauntlet else ROUNDS),
             "-repeat",
             "-concurrency",
             str(CONCURRENCY),
@@ -266,8 +290,13 @@ def main() -> None:
         "--external",
         nargs="+",
         default=[],
-        metavar="PATH_OR_CMD[=LABEL]",
-        help="paths to external UCI engines, or bare command names on PATH (e.g. stockfish=stockfish-level-1)",
+        metavar="PRESET_OR_PATH_OR_CMD[=LABEL]",
+        help="EXTERNAL_PRESETS names (e.g. stockfish-level-0), paths to UCI engines, or bare command names on PATH",
+    )
+    parser.add_argument(
+        "--gauntlet",
+        action="store_true",
+        help="first engine listed plays every other engine; the others don't play each other",
     )
     args = parser.parse_args()
 
@@ -278,7 +307,7 @@ def main() -> None:
     # before any worktree is built. Name collisions need the short SHAs, so they're checked after.
     drewbert_specs = [(*split_eval(target), label) for target, label in map(split_label, args.drewbert_sha)]
     external_specs = [split_label(spec) for spec in args.external]
-    resolved_externals = [(resolve_external(target), label) for target, label in external_specs]
+    resolved_externals = [(*resolve_external(target), label) for target, label in external_specs]
 
     drewbert_engines: list[tuple[str, Path, str]] = []
     for ref, eval_name, label in drewbert_specs:
@@ -286,11 +315,13 @@ def main() -> None:
         # Non-default evals go in the default name, so `HEAD HEAD:comprehensive` needs no labels.
         default_name = f"drewbert-{short_sha}" + ("" if eval_name == DEFAULT_EVAL else f"-{eval_name}")
         drewbert_engines.append((label or default_name, worktree_path, eval_name))
-    external_engines = [(label or Path(resolved).name, resolved) for resolved, label in resolved_externals]
+    external_engines = [
+        (label or default_name, resolved, options) for resolved, options, default_name, label in resolved_externals
+    ]
 
     # cute-chess requires unique engine names. Unlabeled refs at the same commit, or the same
     # unlabeled binary twice, collide; labels resolve that.
-    names = [name for name, _, _ in drewbert_engines] + [name for name, _ in external_engines]
+    names = [name for name, _, _ in drewbert_engines] + [name for name, _, _ in external_engines]
     dupes = sorted({n for n in names if names.count(n) > 1})
     if dupes:
         sys.exit(f"Duplicate engine names {dupes}: give the colliding engines distinct =LABELs")
@@ -301,10 +332,14 @@ def main() -> None:
     engine_blocks: list[list[str]] = []
     for name, worktree_path, eval_name in drewbert_engines:
         engine_blocks.append(build_drewbert_engine_block(name, worktree_path, eval_name))
-    for name, resolved in external_engines:
-        engine_blocks.append(build_external_engine_block(name, resolved))
+    for name, resolved, options in external_engines:
+        engine_blocks.append(build_external_engine_block(name, resolved, options))
 
-    cmd = keep_awake(build_cutechess_command(engine_blocks))
+    if args.gauntlet:
+        total_games = GAUNTLET_ROUNDS * GAMES * (len(engine_blocks) - 1)
+        print(f"Gauntlet: {names[0]} vs {len(engine_blocks) - 1} opponents, {total_games} games at {TIME_CONTROL}")
+
+    cmd = keep_awake(build_cutechess_command(engine_blocks, gauntlet=args.gauntlet))
     print("Running:", shlex.join(cmd))
     subprocess.run(cmd, check=True)
 

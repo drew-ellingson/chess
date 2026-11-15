@@ -22,19 +22,29 @@ class SearchContext:
     iterations best move, and so can be used.
 
     prev_depth_pv is kept for stable move ordering in the subsequent depth search.
+
+    qnodes_computed counts quiescence nodes computed in search
     """
 
     deadline: float | None = None
     nodes_computed: int = 0
+    qnodes_computed: int = 0
     depth_limit: int | None = None
     root_pv: list[Move] = field(default_factory=list)
     prev_depth_pv: list[Move] = field(default_factory=list)
+
+    @property
+    def total_nodes_computed(self) -> int:
+        """Return total node computed count across regular search nodes and quiescence nodes"""
+        return self.nodes_computed + self.qnodes_computed
 
 
 @dataclass(frozen=True)
 class SearchResult:
     """Search result data and metadata. Max depth reached returns the largest _completed_ search depth.
-    search_time returns the total search time in seconds, ignoring any latency from the call site."""
+    search_time returns the total search time in seconds, ignoring any latency from the call site.
+
+    nodes_computed returns the total nodes traversed including both regular search and quiescence nodes"""
 
     move: Move | None
     nodes_computed: int

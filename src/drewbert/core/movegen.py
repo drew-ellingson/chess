@@ -369,17 +369,35 @@ def is_in_check(position: Position, color: Color) -> bool:
     return is_square_attacked(position, position.king_square(color), color.opposite)
 
 
-def generate_legal_moves(position: Position) -> list[Move]:
+def is_noisy(move: Move, position: Position) -> bool:
+    """Return whether a move represents a capture or a promotion. Used for quiescence search."""
+    src = position.piece_at(move.from_square)
+    tgt = position.piece_at(move.to_square)
+    is_capture = tgt is not None
+    is_promotion = move.promotion is not None
+    is_ep = position.en_passant_target == move.to_square and src is not None and src.type == PieceType.PAWN
+    return is_capture or is_promotion or is_ep
+
+
+def generate_legal_moves(position: Position, noisy_moves_only: bool = False) -> list[Move]:
     """All legal moves for the side to move.
 
     A move is legal iff it is pseudo-legal AND does not leave the moving
     side's king in check.
+
+    noisy_moves_only returns a truncated list containing only legal captures and promotions. Used
+    for quiescence search.
     """
+
     candidate_moves = generate_pseudo_legal_moves(position)
+    if noisy_moves_only:
+        candidate_moves = [m for m in candidate_moves if is_noisy(m, position)]
+
     moves = []
 
     for move in candidate_moves:
         piece = position.piece_at(move.from_square)
+
         with move_applied(position, move):
             # check if we castled through check, skip move if so.
             if piece and piece.type == PT_KING and abs(move.from_square - move.to_square) == 2:
